@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from tag.modes import Tag
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
+    kind = None
 
 
 class Post(models.Model):

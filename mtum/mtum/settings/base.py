@@ -193,7 +193,6 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'account',
     'post',
-    'tag',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

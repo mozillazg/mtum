@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+# from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import login as log_in
 from django.contrib.auth import logout as log_out
@@ -25,7 +25,7 @@ def register(request):
             password = form.cleaned_data['password']
             user = User.objects.create_user(username, email=email,
                                             password=password)
-            return HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse_lazy('login'))
 
     else:
         form = RegisterForm()
@@ -43,7 +43,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user and user.is_active:
                 log_in(request, user)
-                return HttpResponseRedirect(reverse('deshboard'))
+                return HttpResponseRedirect(reverse_lazy('deshboard'))
     else:
         form = LoginForm()
     return render_to_response('account/login.html', {'form': form},
@@ -55,11 +55,9 @@ def logout(request):
     return HttpResponseRedirect(reverse_lazy('index'))
 
 
-@login_required(login_url=reverse_lazy('login'))
-def deshboard(request):
-    pass
-
-
+# @login_required(login_url=reverse_lazy('login'))
+# def deshboard(request):
+    # pass
 @login_required(login_url=reverse_lazy('login'))
 def settings(request):
     pass

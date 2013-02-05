@@ -5,7 +5,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # url(r'^$', TemplateView.as_view(template_name='base.html')),
 
     # Examples:
@@ -19,13 +20,21 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',
     # url(r'^$', 'app.views.index', name='index'),
     url(r'^register$', 'account.views.register', name='register'),
     url(r'^login$', 'account.views.login', name='login'),
     url(r'^logout$', 'account.views.logout', name='logout'),
-    # url(r'^deshboard$', 'account.views.deshboard', name='deshboard'),
+    url(r'^deshboard$', 'post.views.deshboard', name='deshboard'),
+    url(r'^new$', 'post.views.new_post', name='new_post'),
     # url(r'^settings$', 'account.views.settings', name='settings'),
-    # url(r'^taged/(?P<tag_name>\w+)', '', name='tag'),
-    # url(r'^(?P<user_slug>\w+)/, '', ''),
+    # url(r'^taged/(?P<tag_name>[-\w]+)', '', name='tag'),
+    # url(r'^blog/(?P<user_slug>[-\w]+), '', name='usr_index'),
+    # url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+), '',
+                                                # name='usr_tag'),
+    # url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+),
+    # 'post.views.detail', name='post_detail'),
+    # url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/(?P<post_slug>[-\w]+),
+    # 'post.views.detail', name='post_detail'),
 )

@@ -77,3 +77,11 @@ class Reblog(models.Model):
 
     def __unicode__(self):
         return self.post.title
+
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, related_name='follower')
+    following = models.ForeignKey(User, related_name='following')
+
+    def __unicode__(self):
+        return self.follower.username

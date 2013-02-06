@@ -33,6 +33,8 @@ urlpatterns += patterns(
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
     url(r'^like/(?P<post_id>\d+)$', 'post.views.like', name='like'),
     url(r'^reblog/(?P<post_id>\d+)$', 'post.views.reblog', name='reblog'),
+    # url(r'^follow/(?P<user_slug>[-\w+]+)$', 'post.views.follow',
+        # name='follow'),
     # url(r'^settings$', 'account.views.settings', name='settings'),
     # url(r'^taged/(?P<tag_name>[-\w]+)', '', name='tag'),
     # url(r'^blog/(?P<user_slug>[-\w]+), '', name='usr_index'),

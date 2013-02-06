@@ -7,12 +7,15 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from .forms import TextForm
 from .forms import PhotoForm
 from .forms import VideoForm
 from .helper import create_tags
 from .models import Post
+from .models import Like
+from .models import Reblog
 from account.models import UserProfile
 
 
@@ -119,3 +122,22 @@ def detail(request, user_slug, post_id, post_slug=None):
         }
         return render_to_response('post/detail.html', context,
                                   context_instance=RequestContext(request))
+
+@login_required(login_url=reverse_lazy('login'))
+def like(request, post_id):
+    referer = request.META.get('HTTP_REFERER')
+    post = Post.objects.get(id=post_id)
+    user = request.user
+    Like.objects.create(user=user, post=post)
+    return HttpResponseRedirect(referer or '/')
+
+
+@login_required(login_url=reverse_lazy('login'))
+def reblog(request, post_id):
+    referer = request.META.get('HTTP_REFERER')
+    username = request.GET.get('from')
+    from_blog = User.objects.get(username=username)
+    post = Post.objects.get(id=post_id)
+    user = request.user
+    Reblog.objects.create(user=user, post=post, from_blog=from_blog)
+    return HttpResponseRedirect(referer or '/')

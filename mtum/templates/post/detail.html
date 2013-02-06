@@ -2,10 +2,15 @@
 
 
 {% block content %}
+
+{% load url from future %}
+
 by {{ author.username }} at {{ post.created_at }}
 
 {{ post.title }}
 {{ post.content }}
 {{ post.photo }}
 
+<a href="{% url 'like' post.id %}">Like</a>
+<a href="{% url 'reblog' post.id %}?from={{ author.username }}">Reblog</a>
 {% endblock %}

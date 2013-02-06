@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+by {{ author.username }} at {{ post.created_at }}
+
+{{ post.title }}
+{{ post.content }}
+{{ post.photo }}
+
+{% endblock %}

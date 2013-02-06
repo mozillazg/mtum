@@ -11,8 +11,9 @@ class TextForm(forms.Form):
 
 
 class PhotoForm(forms.Form):
+    title = forms.CharField(required=False)
     url = forms.URLField()
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea, required=False)
     tags = forms.CharField(required=False)
 
 
@@ -23,7 +24,7 @@ class QuoteForm(forms.Form):
 class LinkForm(forms.Form):
     title = forms.CharField(required=False)
     url = forms.URLField()
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea, required=False)
     tags = forms.CharField(required=False)
 
 
@@ -36,6 +37,7 @@ class AudioForm(forms.Form):
 
 
 class VideoForm(forms.Form):
+    title = forms.CharField(required=False)
     code = forms.CharField(widget=forms.Textarea)
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea, required=False)
     tags = forms.CharField(required=False)

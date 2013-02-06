@@ -33,8 +33,8 @@ urlpatterns += patterns(
     # url(r'^blog/(?P<user_slug>[-\w]+), '', name='usr_index'),
     # url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+), '',
                                                 # name='usr_tag'),
-    # url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+),
-    # 'post.views.detail', name='post_detail'),
-    # url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/(?P<post_slug>[-\w]+),
-    # 'post.views.detail', name='post_detail'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)',
+        'post.views.detail', name='post_detail'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/(?P<post_slug>[-\w]+)',
+        'post.views.detail', name='post_detail_slug'),
 )

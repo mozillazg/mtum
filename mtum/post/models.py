@@ -55,9 +55,9 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if (not self.slug) and self.title :
+        if (not self.slug) and self.title:
             self.slug = slugify(unidecode(self.title))
-        super(Tag, self).save(*args, **kwargs)
+        super(Post, self).save(*args, **kwargs)
 
 
 class Like(models.Model):

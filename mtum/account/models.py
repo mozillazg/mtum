@@ -16,10 +16,10 @@ class UserProfile(models.Model):
         if not self.slug:
             # self.slug = slugify(unidecode(self.user.username))
             self.slug = self.user.username
-        super(Tag, self).save(*args, **kwargs)
+        super(UserProfile, self).save(*args, **kwargs)
 
 
-def create_user_profile(sender, instance, **kwargs):
+def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 

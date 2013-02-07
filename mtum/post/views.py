@@ -140,22 +140,10 @@ def like(request, post_id):
 @login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
-    # username = request.GET.get('from')
-    # from_blog = User.objects.get(username=username)
     post = Post.objects.get(id=post_id)
     src_post = deepcopy(post)
 
     user = request.user
-    # src_post.author = user
-    # del src_post.created_at
-    # kwargs = src_post.__dict__.copy()
-    # kwargs.pop('id')
-    # kwargs.pop('created_at')
-    # kwargs.pop('_state')
-    # kwargs.pop('_author_cache')
-    # kwargs.pop('author_id')
-    # kwargs['author'] = user
-    # Post.objects.create(reblog=src_post, **kwargs)
     post.reblog = src_post
     post.id = None
     post.author = user
@@ -170,7 +158,18 @@ def follow(request, user_slug):
     referer = request.META.get('HTTP_REFERER')
     follower = request.user
     following = UserProfile.objects.get(slug=user_slug).user
-    Follow.objects.create(follower=follower, following=following)
+    Follow.objects.get_or_create(follower=follower, following=following)
+
+    return HttpResponseRedirect(referer or '/')
+
+
+@login_required(login_url=reverse_lazy('login'))
+def unfollow(request, user_slug):
+    referer = request.META.get('HTTP_REFERER')
+    follower = request.user
+    following = UserProfile.objects.get(slug=user_slug).user
+    follow = Follow.objects.get(follower=follower, following=following)
+    follow.delete()
 
     return HttpResponseRedirect(referer or '/')
 

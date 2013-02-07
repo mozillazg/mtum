@@ -1,22 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from copy import deepcopy
+
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 from .forms import TextForm
 from .forms import PhotoForm
 # from .forms import VideoForm
 from .helper import create_tags
 from .models import Post
-from .models import Tag
+# from .models import Tag
 from .models import Like
-from .models import Reblog
 from .models import Follow
 from account.models import UserProfile
 
@@ -141,22 +142,24 @@ def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     # username = request.GET.get('from')
     # from_blog = User.objects.get(username=username)
-    src_post = Post.objects.get(id=post_id)
-    src_author = src_post.author
+    post = Post.objects.get(id=post_id)
+    src_post = deepcopy(post)
 
     user = request.user
     # src_post.author = user
     # del src_post.created_at
-    kwargs = src_post.__dict__.copy()
-    kwargs.pop('id')
-    kwargs.pop('created_at')
-    kwargs.pop('_state')
-    kwargs.pop('_author_cache')
-    kwargs.pop('author_id')
-    kwargs['author'] = user
-    post = Post.objects.create(**kwargs)
-    reblog_info = Reblog.objects.create(author=src_author, post_pk=src_post.id)
-    post.reblog_pk = reblog_info.id
+    # kwargs = src_post.__dict__.copy()
+    # kwargs.pop('id')
+    # kwargs.pop('created_at')
+    # kwargs.pop('_state')
+    # kwargs.pop('_author_cache')
+    # kwargs.pop('author_id')
+    # kwargs['author'] = user
+    # Post.objects.create(reblog=src_post, **kwargs)
+    post.reblog = src_post
+    post.id = None
+    post.author = user
+    post.created_at = None
     post.save()
 
     return HttpResponseRedirect(referer or '/')
@@ -173,7 +176,7 @@ def follow(request, user_slug):
 
 
 def user_index(request, user_slug, tag_slug=None):
-    page = request.GET.get('p')
+    # page = request.GET.get('p')
     user = UserProfile.objects.get(slug=user_slug).user
     posts = Post.objects.filter(author=user)
     follows = Follow.objects.filter(follower=user)

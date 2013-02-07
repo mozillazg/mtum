@@ -27,18 +27,6 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
 
 
-class Reblog(models.Model):
-    # author = models.ForeignKey(User, related_name='user')
-    # post = models.ForeignKey(Post)
-    post_pk = models.IntegerField(default=0)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, related_name='from')
-    # from_post = 
-
-    def __unicode__(self):
-        return Post.objects.get(id=post_pk).title
-
-
 class Post(models.Model):
     KIND_CHOICES = (
         ('T', 'text'),
@@ -50,19 +38,20 @@ class Post(models.Model):
         ('V', 'video'),
     )
     author = models.ForeignKey(User)
-    slug = models.SlugField(max_length=300, null=False, blank=False)
+    slug = models.SlugField(max_length=300, null=True, blank=True)
 
-    title = models.CharField(max_length=300, null=False, blank=False)
-    link = models.URLField(null=False, blank=False)
-    quote = models.TextField(null=False, blank=False)
-    photo = models.URLField(null=False, blank=False)
-    video = models.CharField(max_length=500, null=False, blank=False)
-    content = models.TextField(null=False, blank=False)
+    source = models.URLField(null=True, blank=True)
+    title = models.CharField(max_length=300, null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+    quote = models.TextField(null=True, blank=True)
+    photo = models.URLField(null=True, blank=True)
+    video = models.CharField(max_length=500, null=True, blank=True)
+    content = models.TextField(null=True, blank=True)
 
     kind = models.CharField(max_length=1, choices=KIND_CHOICES)
     tags = models.ManyToManyField(Tag, related_name='tags')
     created_at = models.DateTimeField(auto_now_add=True)
-    reblog_pk = models.IntegerField(default=0)
+    reblog = models.ForeignKey('self', null=True, blank=True)
 
     def __unicode__(self):
         return self.title

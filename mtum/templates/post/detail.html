@@ -12,5 +12,5 @@ by {{ author.username }} at {{ post.created_at }}
 {{ post.photo }}
 
 <a href="{% url 'like' post.id %}">Like</a>
-<a href="{% url 'reblog' post.id %}?from={{ author.username }}">Reblog</a>
+<a href="{% url 'reblog' post.id %}">Reblog</a>
 {% endblock %}

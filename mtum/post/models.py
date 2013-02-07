@@ -27,6 +27,18 @@ class Tag(models.Model):
         super(Tag, self).save(*args, **kwargs)
 
 
+class Reblog(models.Model):
+    # author = models.ForeignKey(User, related_name='user')
+    # post = models.ForeignKey(Post)
+    post_pk = models.IntegerField(default=0)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, related_name='from')
+    # from_post = 
+
+    def __unicode__(self):
+        return Post.objects.get(id=post_pk).title
+
+
 class Post(models.Model):
     KIND_CHOICES = (
         ('T', 'text'),
@@ -37,7 +49,7 @@ class Post(models.Model):
         ('A', 'audio'),
         ('V', 'video'),
     )
-    user = models.ForeignKey(User)
+    author = models.ForeignKey(User)
     slug = models.SlugField(max_length=300, null=False, blank=False)
 
     title = models.CharField(max_length=300, null=False, blank=False)
@@ -50,6 +62,7 @@ class Post(models.Model):
     kind = models.CharField(max_length=1, choices=KIND_CHOICES)
     tags = models.ManyToManyField(Tag, related_name='tags')
     created_at = models.DateTimeField(auto_now_add=True)
+    reblog_pk = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.title
@@ -61,19 +74,9 @@ class Post(models.Model):
 
 
 class Like(models.Model):
-    user = models.ForeignKey(User)
+    author = models.ForeignKey(User)
     post = models.ForeignKey(Post)
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return self.post.title
-
-
-class Reblog(models.Model):
-    user = models.ForeignKey(User, related_name='user')
-    post = models.ForeignKey(Post)
-    created_at = models.DateTimeField(auto_now_add=True)
-    from_blog = models.ForeignKey(User, related_name='from')
 
     def __unicode__(self):
         return self.post.title
@@ -82,6 +85,7 @@ class Reblog(models.Model):
 class Follow(models.Model):
     follower = models.ForeignKey(User, related_name='follower')
     following = models.ForeignKey(User, related_name='following')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.follower.username

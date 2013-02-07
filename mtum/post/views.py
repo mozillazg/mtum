@@ -11,11 +11,13 @@ from django.contrib.auth.models import User
 
 from .forms import TextForm
 from .forms import PhotoForm
-from .forms import VideoForm
+# from .forms import VideoForm
 from .helper import create_tags
 from .models import Post
+from .models import Tag
 from .models import Like
 from .models import Reblog
+from .models import Follow
 from account.models import UserProfile
 
 
@@ -52,7 +54,7 @@ def new_post_text(request):
             content = form.cleaned_data['content']
             tags = form.cleaned_data['tags']
             tags = create_tags(tags)
-            post = Post.objects.create(user=user, title=title,
+            post = Post.objects.create(author=user, title=title,
                                        content=content, kind='T')
             post.tags.add(*tags)
 
@@ -86,7 +88,7 @@ def new_post_photo(request):
             content = form.cleaned_data['content']
             tags = form.cleaned_data['tags']
             tags = create_tags(tags)
-            post = Post.objects.create(user=user, title=title, photo=url,
+            post = Post.objects.create(author=user, title=title, photo=url,
                                        content=content, kind='P')
             post.tags.add(*tags)
 
@@ -123,21 +125,64 @@ def detail(request, user_slug, post_id, post_slug=None):
         return render_to_response('post/detail.html', context,
                                   context_instance=RequestContext(request))
 
+
 @login_required(login_url=reverse_lazy('login'))
 def like(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     user = request.user
-    Like.objects.create(user=user, post=post)
+    Like.objects.create(author=user, post=post)
+
     return HttpResponseRedirect(referer or '/')
 
 
 @login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
-    username = request.GET.get('from')
-    from_blog = User.objects.get(username=username)
-    post = Post.objects.get(id=post_id)
+    # username = request.GET.get('from')
+    # from_blog = User.objects.get(username=username)
+    src_post = Post.objects.get(id=post_id)
+    src_author = src_post.author
+
     user = request.user
-    Reblog.objects.create(user=user, post=post, from_blog=from_blog)
+    # src_post.author = user
+    # del src_post.created_at
+    kwargs = src_post.__dict__.copy()
+    kwargs.pop('id')
+    kwargs.pop('created_at')
+    kwargs.pop('_state')
+    kwargs.pop('_author_cache')
+    kwargs.pop('author_id')
+    kwargs['author'] = user
+    post = Post.objects.create(**kwargs)
+    reblog_info = Reblog.objects.create(author=src_author, post_pk=src_post.id)
+    post.reblog_pk = reblog_info.id
+    post.save()
+
     return HttpResponseRedirect(referer or '/')
+
+
+@login_required(login_url=reverse_lazy('login'))
+def follow(request, user_slug):
+    referer = request.META.get('HTTP_REFERER')
+    follower = request.user
+    following = UserProfile.objects.get(slug=user_slug).user
+    Follow.objects.create(follower=follower, following=following)
+
+    return HttpResponseRedirect(referer or '/')
+
+
+def user_index(request, user_slug, tag_slug=None):
+    page = request.GET.get('p')
+    user = UserProfile.objects.get(slug=user_slug).user
+    posts = Post.objects.filter(author=user)
+    follows = Follow.objects.filter(follower=user)
+    if tag_slug:
+        posts = posts.filter(tags__slug__iexact=tag_slug)
+    context = {
+        'posts': posts,
+        'follows': follows,
+    }
+
+    return render_to_response('post/index.html', context,
+                              context_instance=RequestContext(request))

@@ -112,21 +112,6 @@ def new_post_photo(request):
         return HttpResponseRedirect(reverse_lazy('deshboard'))
 
 
-def detail(request, user_slug, post_id, post_slug=None):
-    userprofile = UserProfile.objects.get(slug=user_slug)
-    author = userprofile.user
-    post = Post.objects.get(id=post_id)
-    if post_slug and post_slug != post.slug:
-        return HttpResponseNotFound()
-    else:
-        context = {
-            'author': author,
-            'post': post,
-        }
-        return render_to_response('post/detail.html', context,
-                                  context_instance=RequestContext(request))
-
-
 @login_required(login_url=reverse_lazy('login'))
 def like(request, post_id):
     referer = request.META.get('HTTP_REFERER')
@@ -188,3 +173,26 @@ def user_index(request, user_slug, tag_slug=None):
 
     return render_to_response('post/index.html', context,
                               context_instance=RequestContext(request))
+
+
+def detail(request, user_slug, post_id, post_slug=None):
+    userprofile = UserProfile.objects.get(slug=user_slug)
+    author = userprofile.user
+    post = Post.objects.get(id=post_id)
+    likes = Like.objects.filter(post=post)
+    reblogs = Post.objects.filter(reblog=post)
+    from operator import attrgetter
+    from itertools import chain
+    notes = sorted(chain(likes, reblogs), key=attrgetter('created_at'),
+                   reverse=True)
+
+    if post_slug and post_slug != post.slug:
+        return HttpResponseNotFound()
+    else:
+        context = {
+            'author': author,
+            'post': post,
+            'notes': notes,
+        }
+        return render_to_response('post/detail.html', context,
+                                  context_instance=RequestContext(request))

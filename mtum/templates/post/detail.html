@@ -1,62 +1,11 @@
 {% extends "post/base.html" %}
 
 {% load url from future %}
+{% load account_extras %}
 
 {% block middle %}
   <ol id="posts">
-    <li class="post
-      {% if post.reblog %}
-        reblog
-      {% else %}
-        {% ifequal post.kind "T" %}
-          text
-        {% endifequal %}
-        {% ifequal post.kind "P" %}
-          photo
-        {% endifequal %}
-        {% ifequal post.kind "V" %}
-          video
-        {% endifequal %}
-      {% endif %}
-      photo">
-
-      {% if post.reblog %}
-      <a class="reblog_icon" style="background-image: url('avatar_f1e1a43bcf39_64.png');" href="{% url 'post_detail' post.reblog.author.get_profile.slug post.reblog.id %}">
-      <span></span>
-      </a>
-      {% endif %}
-      <a class="icon" href="{% url 'post_detail' post.author.get_profile.slug post.id %}"></a>
-
-      <div class="posted">
-        Notes: <b>{{ notes|length }}</b> / {{ post.created_at|timesince|truncatewords:2|cut:","|cut:"." }} ago
-        {% if post.reblog %}from {{ post.reblog.author.get_profile.slug }}{% endif %}
-      </div>
-
-      {% ifequal post.kind "T" %}
-        {% if post.title %}
-          <h3 class="title">{{ post.title }}</h3>
-        {% endif %}
-      {% endifequal %}
-
-      {% ifequal post.kind "P" %}
-        {% if post.source %}
-          <a href="{{ post.source }}">
-        {% else %}
-          <a href="{{ post.photo }}">
-        {% endif %}
-          <img src="{{ post.photo }}" />
-        </a>
-      {% endifequal %}
-
-      {% ifequal post.kind "V" %}
-        
-      {% endifequal %}
-
-      <div class="caption">
-        {{ post.content }}
-      </div>
-      <div class="clear"></div>
-    </li>
+    {% include "post/post_info.html" %}
 
     <li class="post notes">
       <h3 class="title">Notes</h3>
@@ -64,21 +13,21 @@
       {% for note in notes %}
       {% if note.kind %}
         <li class="note reblog tumblelog_{{ note.author.get_profile.slug }} without_commentary">
-          <a title="J!J!" href="http://jin55.tumblr.com/" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="avatar_ba5d9962c998_16.png" ></a>
-          <span data-post-url="http://jin55.tumblr.com/post/42419324987" class="action">
-            <a title="J!J!" class="tumblelog" href="http://jin55.tumblr.com/" rel="nofollow">{{ note.author.get_profile.slug }}</a>
+          <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" ></a>
+          <span data-post-url="{% url 'post_detail' note.author.get_profile.slug post.id %}" class="action">
+            <a title="{{ note.author.get_profile.title }}" class="tumblelog" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a>
             reblogged this from
-            <a title="agebo ero部" class="source_tumblelog" href="http://er0.tumblr.com/" rel="nofollow">{{ note.reblog.author.get_profile.slug }}</a>
+            <a title="{{ note.reblog.author.get_profile.title }}" class="source_tumblelog" href="{% url 'user_index' note.reblog.author.get_profile.slug %}" rel="nofollow">{{ note.reblog.author.get_profile.slug }}</a>
           </span>
           <div class="clear"></div>
         </li>
       {% else %}
-        <li class="note like tumblelog_simprelax without_commentary">
-          <a title="simprelax " href="http://simprelax.tumblr.com/" target="_top" class="avatar_frame" rel="nofollow">
-            <img alt="" class="avatar " src="avatar_41f8a71ff0d2_16.png" />
+      <li class="note like tumblelog_{{ note.author.get_profile.slug }} without_commentary">
+          <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow">
+            <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" />
           </a>
           <span class="action">
-            <a title="simprelax" href="http://simprelax.tumblr.com/" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
+            <a title="simprelax" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
           </span>
           <div class="clear"></div>
         </li>
@@ -89,19 +38,7 @@
           <span style="display: none;" id="notes_loading_42415974534" class="notes_loading">Loading...</span>
         </li>
 
-
-
       </ol>
     </li>
-
-
-
-<!-- by {{ author.username }} at {{ post.created_at }} -->
-
-<!-- {{ post.title }} -->
-<!-- {{ post.content }} -->
-<!-- {{ post.photo }} -->
-
-<!-- <a href="{% url 'like' post.id %}">Like</a> -->
-<!-- <a href="{% url 'reblog' post.id %}">Reblog</a> -->
+  </ol>
 {% endblock %}

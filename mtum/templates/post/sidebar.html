@@ -1,4 +1,6 @@
-<a href=""><img width="128" height="128" alt="avatar_128" src="avatar_186e6d2a56cb_128.png" id="avatar"></a>
+{% load account_extras %}
+
+<a href=""><img width="128" height="128" alt="avatar_128" src="{{ blog_author|get_avatar:128 }}" id="avatar"></a>
 
 <!--((SEARCH))(X)-->
 <div class="clear"></div>
@@ -11,6 +13,7 @@
 <div class="clear"></div>
 
 <!--((YOUR HTML))-->
+{{ blog_author.get_profile.description }}
 <!--<a href="http://nomarai.iraira.info/tumbview/er0">agebo ero部 - たんぶらびゅーあー </a><p></p>-->
 
 <!--<p>お気に入りポストにスターをクリック！！</p>-->

@@ -177,7 +177,7 @@ def user_index(request, user_slug, tag_slug=None):
 
 def detail(request, user_slug, post_id, post_slug=None):
     userprofile = UserProfile.objects.get(slug=user_slug)
-    author = userprofile.user
+    blog_author = userprofile.user
     post = Post.objects.get(id=post_id)
     likes = Like.objects.filter(post=post)
     reblogs = Post.objects.filter(reblog=post)
@@ -190,7 +190,7 @@ def detail(request, user_slug, post_id, post_slug=None):
         return HttpResponseNotFound()
     else:
         context = {
-            'author': author,
+            'blog_author': blog_author,
             'post': post,
             'notes': notes,
         }

@@ -826,3 +826,135 @@ a img {
 #pagination .button.right {
     background-image: url("../img/btn_right.png");
 }
+
+
+
+
+.controls {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 3px 0px 0px;
+  color: #d6d;
+}
+.controls a {
+  color: #fff;
+}
+
+.hidden {
+    display: none;
+}
+.btn {
+    -moz-box-sizing: border-box;
+    -moz-user-select: none;
+    cursor: pointer;
+    font: 600 12px/18px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;
+    height: 20px;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0 5px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition-duration: 0.1s;
+    transition-property: padding;
+    transition-timing-function: ease;
+    white-space: nowrap;
+}
+.btn:after {
+    border-radius: inherit;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.btn:hover:after, .btn:focus:after {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.09);
+}
+.btn:active:after {
+    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.18);
+}
+.iframe_controls {
+    margin: 3px 0 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.iframe_controls .btn {
+    margin: 0 3px 0 0;
+}
+/*.controls {*/
+    /*display: none;*/
+/*}*/
+.version_old .controls_old, .version_pill .controls_pill, .version_flag .controls_flag {
+    display: block;
+}
+.version_pill .btn {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.38);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 2px 2px 2px 2px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.08);
+}
+.version_flag.logged_in .btn, .version_pill.logged_in .btn {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.38);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.08);
+}
+.btn.icon {
+    padding-left: 20px;
+}
+.btn.icon.no_label {
+    padding-right: 0;
+    text-indent: -999em;
+}
+.btn.icon:before {
+    background: url("../img/iframe_sprite.png") no-repeat scroll 0 0 transparent;
+    border-radius: inherit;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 20px;
+}
+.btn.reblog:before {
+    background-position: -80px 0;
+}
+.btn.unlike:before {
+    background-position: 0 -20px;
+}
+.btn.like:before {
+    background-position: 0 0;
+}
+.btn.unfollow:before {
+    background-position: -60px 0;
+}
+.btn.follow:before {
+    background-position: -40px 0;
+}
+.btn.dashboard:before {
+    background-position: -160px 0;
+}
+.btn.icon:before {
+    background-image: url("../img/iframe_sprite2x.png");
+    background-size: 400px 60px;
+}
+.btn.icon.like {
+    padding-left: 19px;
+    width: 0;
+}
+.btn.icon.unlike {
+    padding-left: 19px;
+    width: 0;
+}
+.btn.join {
+  float: right;
+  color: rgb(255, 255, 255);
+  /*background-color: rgb(92, 162, 207);*/
+}

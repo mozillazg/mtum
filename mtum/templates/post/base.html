@@ -1,64 +1,71 @@
 {% load url from future %}
+{% load account_extras %}
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}{{ author.get_profile.title }}{% endblock %}</title>
+  <title>{% block title %}{{ blog_author.get_profile.title }}{% endblock %}</title>
     <meta charset="utf-8" />
+    <link href="{{ blog_author|get_avatar:16 }}" rel="shortcut icon" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/blog.css" type="text/css" media="screen" />
 </head>
 <body>
-    <header id="logo">
-      {{ author.get_profile.title }}
-    </header>
 
-    <div id="wrap">
-      <div id="col_left">
-        {% block left %}
-        {% endblock %}
-      </div>
+  {% block pagination %}
+    
+  {% endblock %}
 
-      <div id="col_middle">
-        {% block middle %}
-        {% endblock %}
-      </div>
+  <header id="logo">
+    {{ author.get_profile.title }}
+  </header>
 
-      <div id="col_right">
-        {% block right %}
-          {% include "post/sidebar.html" %}
-        {% endblock %}
-      </div>
-
-      <div class="clear"></div>
+  <div id="wrap">
+    <div id="col_left">
+      {% block left %}
+      {% endblock %}
     </div>
 
+    <div id="col_middle">
+      {% block middle %}
+      {% endblock %}
+    </div>
 
-<!-- <div width="330" scrolling="no" height="25" frameborder="0" id="tumblr_controls" style="position: absolute; z-index: 1337; top: 0px; right: 0px; border: 0px none; background-color: transparent; overflow: hidden;"> -->
-  <div class="controls iframe_controls controls_pill">
-  {% if is_login %}
-    <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="#like" class="btn icon no_label like ">Like</a>
+    <div id="col_right">
+      {% block right %}
+      {% include "post/sidebar.html" %}
+      {% endblock %}
+    </div>
 
-    <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="#unlike" class="btn icon no_label unlike  hidden">Unlike</a>
+    <div class="clear"></div>
+  </div>
 
-    <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="http://www.tumblr.com/reblog/42415974534/Z7EBEgjm?redirect_to=http%3A%2F%2Fer0.tumblr.com%2Fpost%2F42415974534" title="Reblog" class="btn icon reblog">Reblog</a>
 
-    <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
+  <!-- <div width="330" scrolling="no" height="25" frameborder="0" id="tumblr_controls" style="position: absolute; z-index: 1337; top: 0px; right: 0px; border: 0px none; background-color: transparent; overflow: hidden;"> -->
+    <div class="controls iframe_controls controls_pill">
+      {% if is_login %}
+      <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="#like" class="btn icon no_label like ">Like</a>
 
-    <a href="http://www.tumblr.com/unfollow/er0" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
+      <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="#unlike" class="btn icon no_label unlike  hidden">Unlike</a>
 
-    <a target="_top" href="http://www.tumblr.com/dashboard" title="Dashboard" class="btn icon dashboard">Dashboard</a>
+      <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="http://www.tumblr.com/reblog/42415974534/Z7EBEgjm?redirect_to=http%3A%2F%2Fer0.tumblr.com%2Fpost%2F42415974534" title="Reblog" class="btn icon reblog">Reblog</a>
 
-    {% else %}
-    <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
+      <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
+
+      <a href="http://www.tumblr.com/unfollow/er0" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
+
+      <a target="_top" href="http://www.tumblr.com/dashboard" title="Dashboard" class="btn icon dashboard">Dashboard</a>
+
+      {% else %}
+      <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
 
       <a title="Join Tumblr" target="_top" id="btn_join" class="btn join" href="https://www.tumblr.com/register/join_tumblr?referring_blog=er0">
         <span data-translation="join_tumblr" class="btn_label show">Join Tumblr</span>
       </a>
-    {% endif %}
+      {% endif %}
     </div>
-<!-- </div> -->
+    <!-- </div> -->
 
-    <footer>
-    </footer>
+  <footer>
+  </footer>
 </body>
 </html>

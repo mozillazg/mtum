@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from copy import deepcopy
+from operator import attrgetter
+from itertools import chain
 
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
@@ -10,6 +12,9 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 from .forms import TextForm
 from .forms import PhotoForm
@@ -127,6 +132,7 @@ def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     src_post = deepcopy(post)
+    tags = src_post.tags.all()
 
     user = request.user
     post.reblog = src_post
@@ -134,6 +140,7 @@ def reblog(request, post_id):
     post.author = user
     post.created_at = None
     post.save()
+    post.tags.add(*tags)
 
     return HttpResponseRedirect(referer or '/')
 
@@ -160,13 +167,25 @@ def unfollow(request, user_slug):
 
 
 def user_index(request, user_slug, tag_slug=None):
-    # page = request.GET.get('p')
-    user = UserProfile.objects.get(slug=user_slug).user
-    posts = Post.objects.filter(author=user)
+    page_number = request.GET.get('p', 1)
+    userprofile = UserProfile.objects.get(slug=user_slug)
+    user = userprofile.user
+    blog_author = userprofile.user
+    posts = Post.objects.filter(author=user).order_by('-created_at')
     follows = Follow.objects.filter(follower=user)
     if tag_slug:
         posts = posts.filter(tags__slug__iexact=tag_slug)
+
+    # Pagination
+    limit = 3
+    paginator = Paginator(posts, limit)
+    try:
+        posts = paginator.page(page_number)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     context = {
+        'blog_author': blog_author,
         'posts': posts,
         'follows': follows,
     }
@@ -181,8 +200,6 @@ def detail(request, user_slug, post_id, post_slug=None):
     post = Post.objects.get(id=post_id)
     likes = Like.objects.filter(post=post)
     reblogs = Post.objects.filter(reblog=post)
-    from operator import attrgetter
-    from itertools import chain
     notes = sorted(chain(likes, reblogs), key=attrgetter('created_at'),
                    reverse=True)
 

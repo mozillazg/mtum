@@ -53,12 +53,16 @@
       {{ post.content }}
     </div>
 
+    {% with post.tags.all as tags %}
+    {% if tags %}
     <ul class="tags">
       <li>Tagged:</li>
-      {% for tag in post.tags.all %}
+      {% for tag in tags %}
         {{ tag.name }}
       {% endfor %}
     </ul>
+    {% endif %}
+    {% endwith %}
     <div class="clear"></div>
   </li>
 

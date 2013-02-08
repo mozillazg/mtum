@@ -42,17 +42,9 @@
 
   <!-- <div width="330" scrolling="no" height="25" frameborder="0" id="tumblr_controls" style="position: absolute; z-index: 1337; top: 0px; right: 0px; border: 0px none; background-color: transparent; overflow: hidden;"> -->
     <div class="controls iframe_controls controls_pill">
-      {% if is_login %}
-      <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="#like" class="btn icon no_label like ">Like</a>
-
-      <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="#unlike" class="btn icon no_label unlike  hidden">Unlike</a>
-
-      <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="http://www.tumblr.com/reblog/42415974534/Z7EBEgjm?redirect_to=http%3A%2F%2Fer0.tumblr.com%2Fpost%2F42415974534" title="Reblog" class="btn icon reblog">Reblog</a>
-
-      <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
-
-      <a href="http://www.tumblr.com/unfollow/er0" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
-
+    {% if is_login %}
+      {% block post_social %}
+      {% endblock %}
       <a target="_top" href="http://www.tumblr.com/dashboard" title="Dashboard" class="btn icon dashboard">Dashboard</a>
 
       {% else %}

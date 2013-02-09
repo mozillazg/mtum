@@ -4,6 +4,7 @@
 from copy import deepcopy
 from operator import attrgetter
 from itertools import chain
+from urllib import unquote
 
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
@@ -15,13 +16,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.db.models import Q
 
 from .forms import TextForm
 from .forms import PhotoForm
 # from .forms import VideoForm
 from .helper import create_tags
 from .models import Post
-# from .models import Tag
+from .models import Tag
 from .models import Like
 from .models import Follow
 from account.models import UserProfile
@@ -169,12 +171,13 @@ def unfollow(request, user_slug):
 def user_index(request, user_slug, tag_slug=None):
     page_number = request.GET.get('p', 1)
     userprofile = UserProfile.objects.get(slug=user_slug)
-    user = userprofile.user
-    blog_author = userprofile.user
+    user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user).order_by('-created_at')
-    follows = Follow.objects.filter(follower=user)
     if tag_slug:
         posts = posts.filter(tags__slug__iexact=tag_slug)
+        tag_name = Tag.objects.get(slug=tag_slug)
+    else:
+        tag_name = None
 
     # Pagination
     limit = 3
@@ -186,11 +189,43 @@ def user_index(request, user_slug, tag_slug=None):
 
     context = {
         'blog_author': blog_author,
+        'tag_name': tag_name,
         'posts': posts,
-        'follows': follows,
     }
-
     return render_to_response('post/index.html', context,
+                              context_instance=RequestContext(request))
+
+
+def user_search(request, user_slug):
+    referer = request.META.get('HTTP_REFERER',
+                               reverse_lazy('user_index', user_slug))
+    keyword = request.GET.get('q')
+    if not keyword:
+        return HttpResponseRedirect(referer)
+    else:
+        return HttpResponseRedirect(reverse_lazy('user_search_result',
+                                                 kwargs={
+                                                     'user_slug': user_slug,
+                                                     'keyword': keyword,
+                                                 }))
+
+
+def user_search_result(request, user_slug, keyword):
+    keyword = unquote(keyword)
+    if not keyword:
+        return HttpResponseRedirect(reverse_lazy('user_index', user_slug))
+
+    userprofile = UserProfile.objects.get(slug=user_slug)
+    user = blog_author = userprofile.user
+    posts = Post.objects.filter(Q(author=user) & Q(tags__name__iexact=keyword))
+    posts = posts.order_by('-created_at')
+
+    context = {
+        'blog_author': blog_author,
+        'posts': posts,
+        'keyword': keyword,
+    }
+    return render_to_response('post/search.html', context,
                               context_instance=RequestContext(request))
 
 

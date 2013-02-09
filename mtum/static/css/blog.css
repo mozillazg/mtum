@@ -958,3 +958,13 @@ a img {
   color: rgb(255, 255, 255);
   /*background-color: rgb(92, 162, 207);*/
 }
+
+.overthetop {
+  background-image: url("../img/trans_black_50.png");
+  display: block;
+  font-size: 20px;
+  line-height: 1.3em;
+  margin-bottom: 40px;
+  padding: 20px;
+  text-shadow: 0 1px 1px #000000;
+}

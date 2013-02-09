@@ -58,7 +58,7 @@
     <ul class="tags">
       <li>Tagged:</li>
       {% for tag in tags %}
-        {{ tag.name }}
+      <li><a href="{% url 'user_tag' blog_author.get_profile.slug tag.slug %}">{{ tag.name }}</a></li>
       {% endfor %}
     </ul>
     {% endif %}

@@ -45,12 +45,13 @@
     {% if is_login %}
       {% block post_social %}
       {% endblock %}
+      <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
+      <a href="http://www.tumblr.com/unfollow/er0" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
       <a target="_top" href="http://www.tumblr.com/dashboard" title="Dashboard" class="btn icon dashboard">Dashboard</a>
 
       {% else %}
       <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
-
-      <a title="Join Tumblr" target="_top" id="btn_join" class="btn join" href="https://www.tumblr.com/register/join_tumblr?referring_blog=er0">
+      <a title="Join Tumblr" target="_top" id="btn_join" class="btn join" href="{% url 'register' %}">
         <span data-translation="join_tumblr" class="btn_label show">Join Tumblr</span>
       </a>
       {% endif %}

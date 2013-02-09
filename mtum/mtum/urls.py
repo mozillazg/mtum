@@ -44,6 +44,10 @@ urlpatterns += patterns(
 
     url(r'^blog/(?P<user_slug>[-\w]+)$', 'post.views.user_index',
         name='user_index'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'post.views.user_search',
+        name='user_search'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[ -\+\w]+)$',
+        'post.views.user_search_result', name='user_search_result'),
     url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+)$',
         'post.views.user_index', name='user_tag'),
     url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)$',

@@ -16,8 +16,9 @@
 
 {% block middle %}
 
-  {% if tag_name %}
-  <div class="overthetop" id="">Posts tagged "{{ tag_name }}"</div>
+  <div class="overthetop" id="searchresults">{{ posts|length }} results for <strong>"{{ keyword }}"</strong></div>
+  {% if not posts %}
+  <div id="searchresults">No results for <strong>"{{ keyword }}"</strong></div>
   {% endif %}
 
   <ol id="posts">
@@ -25,4 +26,5 @@
     {% include "post/post_info.html" %}
   {% endfor %}
   </ol>
+
 {% endblock %}

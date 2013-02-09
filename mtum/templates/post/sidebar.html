@@ -6,8 +6,9 @@
 <!--((SEARCH))(X)-->
 <div class="clear"></div>
 <div id="searchfield">
-  <form method="get" action="http://er0.tumblr.com/search" form="" id="searchbox">
-    <input type="text" value="" name="q" id="keywords" class="text">
+  <form method="get" action="{% url 'user_search' blog_author.get_profile.slug %}" form="" id="searchbox">
+    <input type="text" value="{{ keyword }}" name="q" id="keywords" class="text">
+    <!-- placeholder="Search tags"> -->
     <input type="submit" class="search" value="">
   </form>
 </div>
@@ -54,4 +55,4 @@
 </div>
 
 <div class="clear"></div>
-<div id="footer">&copy; 2008&ndash;2013 agebo ero部.... design by <a href="http://for-screen.tumblr.com/">for-screen.com</a> for tumblr.</div>
+<div id="footer">&copy; 2013 {{ blog_author.get_profile.title }}.... design by <a href="http://for-screen.tumblr.com/">for-screen.com</a> for tumblr.</div>

@@ -19,15 +19,15 @@
         <div id="signup_account" class="signup_view account login">
           <div class="form_row form_row_email">
             <label for="signup_email">Email</label>
-            <input type="email" data-required="required" id="signup_email" placeholder="Email" name="user[email]">
+            {{ form.email }}
           </div>
           <div class="form_row form_row_password">
             <label for="signup_password">Password</label>
-            <input type="password" data-required="required" id="signup_password" placeholder="Password" name="user[password]">
+            {{ form.password }}
           </div>
           <div class="form_row username">
             <label for="signup_username">Username</label>
-            <input type="text" autocapitalize="off" autocorrect="off" maxlength="32" id="signup_username" placeholder="Username" name="tumblelog[name]" value="">
+            {{ form.username }}
           </div>
         </div>
       </div>
@@ -35,7 +35,6 @@
     <ul id="signup_form_errors" class="signup_forms_errors"></ul>
     <button type="submit" id="signup_forms_submit" class="chrome big on_dark signup_forms_submit touchy blue">
       <span class="account_btn">Start</span>
-      <span class="login_btn">Log in</span>
     </button>
   </form>
 </div>

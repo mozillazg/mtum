@@ -1327,4 +1327,8 @@ img#content_top, img#content_bottom {
 }
 
 
-
+.forgot_password_link {
+    margin: 20px 0 0;
+    max-height: none;
+    opacity: 1;
+}

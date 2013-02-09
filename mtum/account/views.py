@@ -55,6 +55,10 @@ def logout(request):
     return HttpResponseRedirect(reverse_lazy('index'))
 
 
+def forgot_password(request):
+    pass
+
+
 # @login_required(login_url=reverse_lazy('login'))
 # def deshboard(request):
     # pass

@@ -20,13 +20,19 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 )
 
+
 urlpatterns += patterns(
     '',
-    # url(r'^$', 'app.views.index', name='index'),
     url(r'^register$', 'account.views.register', name='register'),
     url(r'^login$', 'account.views.login', name='login'),
     url(r'^logout$', 'account.views.logout', name='logout'),
+    url(r'^forgot_password$', 'account.views.forgot_password',
+        name='forgot_password')
+)
 
+urlpatterns += patterns(
+    '',
+    # url(r'^$', 'app.views.index', name='index'),
     url(r'^deshboard$', 'post.views.deshboard', name='deshboard'),
     url(r'^new-text$', 'post.views.new_post_text', name='new_post_text'),
     url(r'^new-photo$', 'post.views.new_post_photo', name='new_post_photo'),

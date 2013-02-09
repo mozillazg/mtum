@@ -56,7 +56,8 @@ def logout(request):
 
 
 def forgot_password(request):
-    pass
+    return render_to_response('account/forgot_password.html',
+                              context_instance=RequestContext(request))
 
 
 # @login_required(login_url=reverse_lazy('login'))

@@ -1,5 +1,6 @@
-@import "onboarding.css";
-@import "global.css";
+/*@import "onboarding.css";*/
+/*@import "global.css";*/
+/*@import "index.css";*/
 
 
 
@@ -1331,4 +1332,70 @@ img#content_top, img#content_bottom {
     margin: 20px 0 0;
     max-height: none;
     opacity: 1;
+}
+
+
+
+#content .form-buttons .chrome {
+  -moz-box-sizing: border-box;
+  border-radius: 6px 6px 6px 6px;
+  float: left;
+  height: 40px;
+  line-height: 28px;
+  margin: 0;
+  padding: 5px 12px;
+  text-align: center;
+}
+.chrome.shallow {
+  background: none repeat scroll 0 0 rgba(177, 211, 255, 0.11);
+  border: 1px solid rgba(0, 0, 0, 0.29);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.25) inset;
+}
+a.chrome {
+  display: inline-block;
+  text-decoration: none !important;
+}
+.chrome {
+  -moz-user-select: -moz-none;
+  background: -moz-linear-gradient(center top , #ACB3BB 0px, #898F98 100%) repeat scroll 0 0 transparent;
+  border-color: #656B73;
+  border-radius: 3px 3px 3px 3px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 14px;
+  padding: 4px 7px 5px;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.32);
+}
+#content .form-buttons {
+  margin-top: 10px;
+}
+
+
+#forgot_password_buttons {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+#forgot_password_buttons .chrome {
+  margin: 0 !important;
+  padding: 5px 12px !important;
+  text-align: center !important;
+  -moz-box-sizing: border-box;
+  border-radius: 6px 6px 6px 6px;
+  float: left !important;
+  height: 40px !important;
+  line-height: 28px !important;
+  min-width: 103px;
+  font-size: 14px;
+}
+#forgot_password_buttons .blue {
+  /*width: 77px !important;*/
+  margin-left: 2px !important;
 }

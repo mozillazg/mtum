@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html class="no_js logged_out tab_switcher_safari">
   <head>
     <title>{% block title %}Tumblr{% endblock %}</title>
     <meta charset="utf-8" />
+    {% block css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
+    {% endblock %}
   </head>
-<body class="account_login_and_register logged_out without_auto_paginate hello_dash layout_onboarding logged_out show_form signup_account" id="account_login_and_register">
+  <body {% block body_info %}class="account_login_and_register logged_out without_auto_paginate hello_dash layout_onboarding logged_out show_form signup_account" id="account_login_and_register"{% endblock %}>
 
-<header>
+<header id="header_container">
 
   {% block header %}
   <div id="header" class="logged_out_header">
     <h1 class="logo " id="logo"><a class="logo_anchor" href="/">Tumblr</a></h1>
 
+    {% if form.password %}
     <div class="signup_buttons">
       {% block header_link %}
       <a class="login_signup_button chrome shallow cancel" id="signup_button_cancel" href="/">Cancel</a>
       {% endblock %}
     </div>
+    {% endif %}
   </div>
   {% endblock %}
 

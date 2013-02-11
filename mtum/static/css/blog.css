@@ -968,3 +968,28 @@ a img {
   padding: 20px;
   text-shadow: 0 1px 1px #000000;
 }
+
+
+/*.avatar {*/
+  /*content: url("../img/default_avatar_128.gif");*/
+/*}*/
+/*#avatar:before {*/
+  /*background-image: url("../img/default_avatar_128.gif");*/
+  /*[>background-size: 128px 128px;<]*/
+  /*width: 128px;*/
+  /*height: 128px;*/
+/*}*/
+/*.reblog_icon span:before {*/
+  /*background-image: url("../img/default_avatar_64.gif") !important;*/
+  /*content: "";*/
+/*}*/
+img#avatar:-moz-broken {
+  -moz-force-broken-image-icon: 1 !important;
+  width: 128px;
+  height: 128px;
+}
+img.avatar:-moz-broken {
+  -moz-force-broken-image-icon: 1 !important;
+  width: 16px;
+  height: 16px;
+}

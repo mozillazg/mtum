@@ -168,8 +168,7 @@ def unfollow(request, user_slug):
     return HttpResponseRedirect(referer or '/')
 
 
-def user_index(request, user_slug, tag_slug=None):
-    page_number = request.GET.get('p', 1)
+def user_index(request, user_slug, page_number=1, tag_slug=None):
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user).order_by('-created_at')

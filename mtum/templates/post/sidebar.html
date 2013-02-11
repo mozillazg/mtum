@@ -1,7 +1,7 @@
 {% load url from future %}
 {% load account_extras %}
 
-<a href="{% url 'user_index' blog_author.get_profile.slug %}"><img width="128" height="128" alt="avatar_128" src="{{ blog_author|get_avatar:128 }}" id="avatar"></a>
+<a href="{% url 'user_index' blog_author.get_profile.slug %}"><img width="128" height="128" alt="avatar_128" src="{{ blog_author|get_avatar:128 }}" id="avatar" onerror="this.src='{{ STATIC_URL }}img/default_avatar_128.gif';"></a>
 
 <!--((SEARCH))(X)-->
 <div class="clear"></div>

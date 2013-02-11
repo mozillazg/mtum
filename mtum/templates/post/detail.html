@@ -12,7 +12,7 @@
       {% for note in notes %}
       {% if note.kind %}
         <li class="note reblog tumblelog_{{ note.author.get_profile.slug }} without_commentary">
-          <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" ></a>
+          <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"></a>
           <span data-post-url="{% url 'post_detail' note.author.get_profile.slug post.id %}" class="action">
             <a title="{{ note.author.get_profile.title }}" class="tumblelog" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a>
             reblogged this from
@@ -23,7 +23,7 @@
       {% else %}
       <li class="note like tumblelog_{{ note.author.get_profile.slug }} without_commentary">
           <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow">
-            <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" />
+            <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}"  onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"/>
           </a>
           <span class="action">
             <a title="simprelax" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this

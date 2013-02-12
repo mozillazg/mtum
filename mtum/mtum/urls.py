@@ -31,13 +31,17 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
+    'dashboard.views',
+    url(r'^dashboard$', 'dashboard', name='dashboard'),
+    url(r'^new-text$', 'new_post_text', name='new_post_text'),
+    url(r'^new-photo$', 'new_post_photo', name='new_post_photo'),
+    # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
+    # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
+)
+u
+urlpatterns += patterns(
     '',
     # url(r'^$', 'app.views.index', name='index'),
-    url(r'^deshboard$', 'post.views.deshboard', name='deshboard'),
-    url(r'^new-text$', 'post.views.new_post_text', name='new_post_text'),
-    url(r'^new-photo$', 'post.views.new_post_photo', name='new_post_photo'),
-    # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
-    # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
 
     url(r'^like/(?P<post_id>\d+)$', 'post.views.like', name='like'),
     url(r'^reblog/(?P<post_id>\d+)$', 'post.views.reblog', name='reblog'),
@@ -50,16 +54,14 @@ urlpatterns += patterns(
 
     url(r'^blog/(?P<user_slug>[-\w]+)$', 'post.views.user_index',
         name='user_index'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/page/(?P<page_number>\d+)$',
-        'post.views.user_index', name='user_index_page'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'post.views.user_search',
-        name='user_search'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[ -\+\w]+)/page/(?P<page_number>\d+)$',
-        'post.views.user_search_result', name='user_search_result'),
     url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+)$',
         'post.views.user_index', name='user_tag'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+)/paged/(?P<page_number>\d+)$',
-        'post.views.user_index', name='user_tag_page'),
+
+    url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'post.views.user_search',
+        name='user_search'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[ -\+\w]+)$',
+        'post.views.user_search_result', name='user_search_result'),
+
     url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)$',
         'post.views.detail', name='post_detail'),
     url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/(?P<post_slug>[-\w]+)$',

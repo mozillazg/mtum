@@ -6,13 +6,13 @@
 {% block pagination %}
   <div id="pagination">
   {% if posts.has_previous %}
-  <a class="button left" title="Previous" href="{% url 'user_index_page' blog_author.get_profile.slug  posts.previous_page_number %}"></a>
+  <a class="button left" title="Previous" href="?p={{ posts.previous_page_number }}"></a>
   {% endif %}
   {% if posts.has_next %}
-  <a class="button right" title="Next" href="{% url 'user_index_page' blog_author.get_profile.slug posts.next_page_number %}"></a>
+    <a class="button right" title="Next" href="?p={{ posts.next_page_number }}"></a>
   {% endif %}
   </div>
-  <script type="text/javascript" src="{{ STATIC_URL}}js/tumblrautopager.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/tumblrautopager.js"></script>
 {% endblock %}
 
 {% block middle %}

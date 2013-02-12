@@ -18,105 +18,11 @@ from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 
-from .forms import TextForm
-from .forms import PhotoForm
-# from .forms import VideoForm
-from .helper import create_tags
 from .models import Post
 from .models import Tag
 from .models import Like
 from .models import Follow
 from account.models import UserProfile
-
-
-@login_required(login_url=reverse_lazy('login'))
-def deshboard(request):
-    kind = request.GET.get('new', 'text')
-    if kind in ('text', 'photo', 'quote', 'link', 'chat', 'audio', 'video'):
-        if kind == 'text':
-            context = {
-                'form': TextForm(),
-                # 'user': request.user,
-                'action': reverse_lazy('new_post_text'),
-            }
-        elif kind == 'photo':
-            context = {
-                'form': PhotoForm(),
-                # 'user': request.user,
-                'action': reverse_lazy('new_post_photo'),
-            }
-
-        return render_to_response('post/new.html', context,
-                                  context_instance=RequestContext(request))
-    else:
-        return HttpResponseRedirect(reverse_lazy('deshboard'))
-
-
-@login_required(login_url=reverse_lazy('login'))
-def new_post_text(request):
-    if request.method == 'POST':
-        user = request.user
-        form = TextForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            content = form.cleaned_data['content']
-            tags = form.cleaned_data['tags']
-            tags = create_tags(tags)
-            post = Post.objects.create(author=user, title=title,
-                                       content=content, kind='T')
-            post.tags.add(*tags)
-
-            user_slug = user.get_profile().slug
-            if post.slug:
-                redirect_link = reverse_lazy('post_detail_slug',
-                                             kwargs={
-                                                 'user_slug': user_slug,
-                                                 'post_id': post.id,
-                                                 'post_slug': post.slug,
-                                             })
-            else:
-                redirect_link = reverse_lazy('post_detail',
-                                             kwargs={
-                                                 'user_slug': user_slug,
-                                                 'post_id': post.id,
-                                             })
-            return HttpResponseRedirect(redirect_link)
-    else:
-        return HttpResponseRedirect(reverse_lazy('deshboard'))
-
-
-@login_required(login_url=reverse_lazy('login'))
-def new_post_photo(request):
-    if request.method == 'POST':
-        user = request.user
-        form = PhotoForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            url = form.cleaned_data['url']
-            content = form.cleaned_data['content']
-            tags = form.cleaned_data['tags']
-            tags = create_tags(tags)
-            post = Post.objects.create(author=user, title=title, photo=url,
-                                       content=content, kind='P')
-            post.tags.add(*tags)
-
-            user_slug = user.get_profile().slug
-            if post.slug:
-                redirect_link = reverse_lazy('post_detail_slug',
-                                             kwargs={
-                                                 'user_slug': user_slug,
-                                                 'post_id': post.id,
-                                                 'post_slug': post.slug,
-                                             })
-            else:
-                redirect_link = reverse_lazy('post_detail',
-                                             kwargs={
-                                                 'user_slug': user_slug,
-                                                 'post_id': post.id,
-                                             })
-            return HttpResponseRedirect(redirect_link)
-    else:
-        return HttpResponseRedirect(reverse_lazy('deshboard'))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -168,7 +74,8 @@ def unfollow(request, user_slug):
     return HttpResponseRedirect(referer or '/')
 
 
-def user_index(request, user_slug, page_number=1, tag_slug=None):
+def user_index(request, user_slug, tag_slug=None):
+    page_number = request.GET.get('p', 1)
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user).order_by('-created_at')
@@ -179,10 +86,12 @@ def user_index(request, user_slug, page_number=1, tag_slug=None):
         tag_name = None
 
     # Pagination
-    limit = 3
+    limit = 2
     paginator = Paginator(posts, limit)
     try:
         posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 

@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 from django.db.models import Q
 
+from endless_pagination.decorators import page_template
+
 from .models import Post
 from .models import Tag
 from .models import Like
@@ -71,7 +73,9 @@ def unfollow(request, user_slug):
     return HttpResponseRedirect(referer or '/')
 
 
-def user_index(request, user_slug, tag_slug=None):
+@page_template('post/index_page.html')
+def user_index(request, user_slug, tag_slug=None,
+               template='post/index.html', extra_context=None):
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user).order_by('-created_at')
@@ -86,7 +90,9 @@ def user_index(request, user_slug, tag_slug=None):
         'tag_name': tag_name,
         'posts': posts,
     }
-    return render_to_response('post/index.html', context,
+    if extra_context:
+        context.update(extra_context)
+    return render_to_response(template, context,
                               context_instance=RequestContext(request))
 
 

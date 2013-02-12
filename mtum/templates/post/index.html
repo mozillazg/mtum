@@ -16,6 +16,9 @@
       <a class="button right" title="Next" href="{{ pages.next.path }}"></a>
     {% endif %}
   </div>
+  <script>
+    document.getElementById("pagination").style.display = "none";
+  </script>
 {% endblock %}
 
 {% block middle %}
@@ -24,10 +27,23 @@
   <div class="overthetop" id="">Posts tagged "{{ tag_name }}"</div>
   {% endif %}
 
-  <ol id="posts">
-  {% paginate posts %}
-  {% for post in posts %}
-    {% include "post/post_info.html" %}
-  {% endfor %}
-  </ol>
+  <div class="endless_page_template">
+    {% include "post/index_page.html" %}
+  </div>
+
+{% endblock %}
+
+
+{% block js %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+  <script>
+      $.endlessPaginate({
+          paginateOnScroll: true,
+          paginateOnScrollMargin: 20
+          // paginateOnScrollChunkSize: 1
+      });
+  </script>
 {% endblock %}

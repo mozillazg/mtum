@@ -1,0 +1,9 @@
+{% load endless %}
+
+<ol id="posts">
+{% paginate posts %}
+{% for post in posts %}
+  {% include "post/post_info.html" %}
+{% endfor %}
+{% show_more %}
+</ol>

@@ -1,0 +1,352 @@
+{% extends "dashboard/base.html" %}
+{% load url from future %}
+
+
+{% block header %}
+    <div id="container">
+      <div id="header_container">
+        <div id="header">
+          <h1 id="logo" class="logo "><a href="http://www.tumblr.com/dashboard" class="logo_anchor">Tumblr</a></h1>
+          <div id="tabs_outter_container">
+            <div class="tab_bar" id="user_tools">
+              <div class="tab iconic  selected" id="home_button">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <span class="tab_notice new_post_notice_container" id="new_post_notice_container" style="display: none;"><span class="tab_notice_value"></span><span class="tab_notice_nipple"></span></span>
+                <div class="selection_nipple"></div>
+              </div>
+              <div class="tab iconic " id="inbox_button">
+                <a href="http://www.tumblr.com/inbox">Inbox</a>
+                <div class="selection_nipple"></div>
+              </div>
+              <div class="tab iconic" id="help_button">
+                <a href="http://www.tumblr.com/help">Help</a>
+                <div class="selection_nipple white"></div>
+              </div>
+              <div class="tab iconic" id="preferences_button">
+                <a href="http://www.tumblr.com/settings">Preferences</a>
+                <div class="selection_nipple white"></div>
+              </div>
+              <div class="tab iconic" id="logout_button">
+                <a href="http://www.tumblr.com/logout" onclick="return confirm('Are you sure you want to log out?');">Log out</a>
+              </div>
+
+              <div class="tab iconic " id="search_field">
+                <form method="get" action="http://www.tumblr.com/search" id="search_form" class="search_form " data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-tag-slug="">
+                  <input name="t" value="mozillazg" type="hidden">
+                  <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
+                  <input id="search_query_submit" value="Search tags" type="submit">
+                  <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
+                </form>
+                <div class="selection_nipple"></div>
+              </div>
+
+
+              <div id="popover_tracked_tags" class="popover popover_menu popover_gradient tracked_tags_popover" style="display: none;">
+                <div class="popover_inner">
+                  <div class="autocomplete_results"></div>
+                  <div class="tracked_tags">
+                  </div>
+                  <div class="related_tags"></div>
+                  <div class="popover_menu_item ender">
+                    <a href="http://www.tumblr.com/explore" tabindex="1">Explore more tags</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block main %}
+      <div id="sidebar_footer_nav" class="pinned_sidebar_footer">
+        <ul class="sidebar_nav clearfix">
+
+          <li class="sidebar_nav_item">
+            <a class="sidebar_link" href="http://www.tumblr.com/themes" target="_new">Themes</a>
+          </li>
+          <li class="sidebar_nav_item">
+            <a class="sidebar_link" href="http://www.tumblr.com/about">About</a>
+          </li>
+          <li class="sidebar_nav_item" id="popover_legal">
+            <a class="sidebar_link popover_legal_link" href="http://www.tumblr.com/policy/en/terms_of_service" target="_new">Legal</a>
+            <div style="margin-left: -60px;" class="popover popover_menu popover_gradient nipple_on_bottom popover_legal">
+              <ul class="popover_inner">
+                <li class="popover_menu_item"><a href="http://www.tumblr.com/policy/en/terms_of_service" target="_new">Terms</a></li>
+                <li class="popover_menu_item"><a href="http://www.tumblr.com/policy/en/terms_of_service#dmca" target="_new">Copyright</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="sidebar_nav_item">
+            <a class="sidebar_link" href="http://www.tumblr.com/policy/en/privacy" target="_new">Privacy</a>
+          </li>
+      </ul>
+    </div>
+
+      <img ilo-ph-fix="tofix" src="content_top.png" alt="" class="content_cap" id="content_top"><div id="content" class="clearfix">
+
+        <div id="toast_float">
+          <div id="toast_container">
+            <div id="toast_position">
+              <ul id="toaster"></ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="sidebar_notifications"></div>
+
+        <!-- Dashboard controls -->
+        <div id="right_column" class="">
+          <ul class="controls_section" id="dashboard_controls_open_blog">
+            <!-- Open blog -->
+            <li class="no_push popover_button" id="popover_button_blogs">
+              <div class="open_blog with_subtitle">
+                <a class="currently_selected_blog hide_overflow">Untitled</a><span class="sub_control link_arrow"></span>
+                <small>
+                  <div class="hide_overflow">
+                    <a id="open_blog_link" href="http://mozillazg.tumblr.com/" target="_top">mozillazg.tumblr.com</a>&nbsp;<small id="blog_url_arrow"></small>
+                  </div>
+                </small>
+              </div>
+            </li>
+
+            <div id="popover_blogs" class="popover popover_menu popover_gradient" style="display: none;">
+              <div class="popover_inner">
+                <div draggable="true" class=" popover_menu_item item" id="menuitem-mozillazg">
+                  <div class="blog_icon" style="background-image: url('default_avatar_40.gif');"></div>
+                  <a draggable="false" href="http://www.tumblr.com/blog/mozillazg">
+                    Untitled
+                  </a>
+                  <small>
+                    <div class="hide_overflow">
+                      mozillazg.tumblr.com                                        </div>
+                  </small>
+                </div>
+                <div class="popover_menu_item ender" id="button_new_blog"><a href="http://www.tumblr.com/new/blog">Create a new blog<div class="recession_shadow"></div></a></div>
+              </div>
+              <div class="menu_nipple"></div>
+            </div>
+
+
+            <!-- Subnav -->
+            <!-- Posts -->
+            <li id="posts_control" class="">
+              <a href="http://www.tumblr.com/blog/mozillazg" class="posts">
+                <div class="hide_overflow">Posts</div>
+                <span class="count">2</span>
+              </a>
+            </li>
+
+
+            <!-- Drafts -->
+            <li class="dashboard_drafts count_0">
+              <a href="http://www.tumblr.com/blog/mozillazg/drafts" class="drafts">
+                <div class="hide_overflow">Drafts</div>
+                <span class="count">0</span>
+              </a>    
+            </li>
+
+            <!-- Processing video -->
+            <li class="dashboard_transcoding count_0">
+              <a href="http://www.tumblr.com/blog/mozillazg/processing" class="processing">
+                <div class="hide_overflow">Processing</div>
+                <span class="count">0</span>
+              </a>
+            </li>
+
+            <!-- Queue -->
+            <li class="dashboard_queued_post count_0">
+              <a href="http://www.tumblr.com/blog/mozillazg/queue" class="queue">
+                <div class="hide_overflow">Queue</div>
+                <span class="count">0</span>
+              </a>
+            </li>
+          </ul>
+
+
+          <ul class="controls_section">
+
+
+            <!-- Liked posts -->
+
+            <li class="">
+              <a href="http://www.tumblr.com/likes" class="likes">
+                <div class="hide_overflow">Liked posts</div>
+              </a>
+            </li>
+
+            <!-- Following -->
+            <li class="no_push ">
+              <a href="http://www.tumblr.com/following" class="following">
+                <div class="hide_overflow">
+                  Following 1 blog                        <span class="sub_control link_arrow">►</span>
+                </div>
+              </a>
+            </li>
+
+            <!-- Find Blogs -->
+            <li class="no_push">
+              <a href="http://www.tumblr.com/spotlight" class="spotlight">
+                <div class="hide_overflow">Find blogs<span class="sub_control link_arrow">►</span></div>
+              </a>
+            </li>
+
+          </ul>
+
+
+          <!-- Radar -->
+
+          <div id="tumblr_radar" class="radar radar_type_photo is_media" data-post-id="27340924906" data-tumblelog="uffyflup" data-direct-follow-url="/directfollow/3f8l1GWxOU7Ep2A/4/0/1/uffyflup">
+            <div class="radar_post">
+              <div class="radar_content">
+
+                <div class="post photo_post">
+                  <a href="http://uffyflup.tumblr.com/post/27340924906/shiba-inu-pool-party-photographs-c-takyua-baby" onclick="this.href = '/goto/3f8l1GWxOU7Ep2A/4/0/1/uffyflup?path=%2Fpost%2F27340924906%2Fshiba-inu-pool-party-photographs-c-takyua-baby'" style="background-image: url('tumblr_m79kqzvumr1qjhd8wo1_250.jpg');" class="thumbnail_anchor">
+                    <img title="http://25.media.tumblr.com/tumblr_m79kqzVUMr1qjhd8wo1_250.jpg  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/tumblr_m79kqzvumr1qjhd8wo1_250.jpg" ilo-ph-fix="fixed" ilo-full-src="http://25.media.tumblr.com/tumblr_m79kqzVUMr1qjhd8wo1_250.jpg" class="photo_thumbnail" alt="Radar Photo" src="tumblr_m79kqzvumr1qjhd8wo1_250.jpg" height="144" width="215">
+
+                  </a>        
+                </div>
+              </div>
+              <div class="radar_controls">
+                <div class="radar_controls_buttons">
+                  <a href="http://www.tumblr.com/follow/uffyflup" class="radar_button first follow" title="Follow"><i>Follow</i></a>
+                  <a href="http://www.tumblr.com/reblog/27340924906/nInt3qOf?redirect_to=%2Fdashboard" class="radar_button middle reblog reblog_button " data-post-type="photo" data-reblog-key="nInt3qOf" data-reblog-id="27340924906" data-user-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" title="Reblog"><i>Reblog</i></a>
+                  <a href="#like" class="radar_button last like" title="Like" data-reblog-key="nInt3qOf"><i>Like</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="radar_footer">
+              <a href="http://uffyflup.tumblr.com/post/27340924906/shiba-inu-pool-party-photographs-c-takyua-baby" class="radar_avatar" onclick="this.href = '/goto/3f8l1GWxOU7Ep2A/4/0/1/uffyflup?path=%2Fpost%2F27340924906%2Fshiba-inu-pool-party-photographs-c-takyua-baby';">
+                <span class="radar_tumblelog_avatar" style="background-image: url('avatar_e4aa0fc1a01d_30.png');"><img title="http://25.media.tumblr.com/avatar_e4aa0fc1a01d_30.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/avatar_e4aa0fc1a01d_30.png" ilo-ph-fix="fixed" alt="[Image]" ilo-full-src="http://25.media.tumblr.com/avatar_e4aa0fc1a01d_30.png" src="avatar_e4aa0fc1a01d_30.png" height="30" width="30"></span>
+                <span class="radar_tumblelog_label">
+                  <span class="name">uffyflup</span>
+                  <span class="subheading">Tumblr Radar</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Language beta prompt -->
+          <div class="clear"></div>
+        </div>
+
+        <!-- Left column -->
+        <div id="left_column">
+          <!-- Top pagination -->
+
+          <!-- Posts -->
+          <ol id="posts" class="  ">
+
+            <li class="post is_mine with_avatar new_post" id="new_post">
+              <nav id="post_buttons" class="clearfix">
+                <a href="http://www.tumblr.com/new/text" class="new_post_label" id="new_post_label_text" data-post-type="regular" data-post-endpoint="text">Text<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/photo" class="new_post_label" id="new_post_label_photo" data-post-type="photo">Photo<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/quote" class="new_post_label" id="new_post_label_quote" data-post-type="quote">Quote<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/link" class="new_post_label" id="new_post_label_link" data-post-type="link">Link<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/chat" class="new_post_label" id="new_post_label_chat" data-post-type="conversation" data-post-endpoint="chat">Chat<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/audio" class="new_post_label" id="new_post_label_audio" data-post-type="audio">Audio<span class="new_post_label_icon"></span></a>
+                <a href="http://www.tumblr.com/new/video" class="new_post_label" id="new_post_label_video" data-post-type="video">Video<span class="new_post_label_icon"></span></a>
+              </nav>
+              <span class="arrow"></span>
+
+              <div class="avatar_and_i">
+                <a href="http://mozillazg.tumblr.com/" title="Untitled" class="post_avatar" id="post_controls_avatar" style="background: url('default_avatar_64.gif') no-repeat scroll right top rgb(10, 41, 57);" data-user-avatar-url="http://assets.tumblr.com/images/default_avatar_64.gif" data-avatar-url="http://assets.tumblr.com/images/default_avatar_64.gif" data-blog-url="http://mozillazg.tumblr.com/"></a>
+
+                <a href="http://mozillazg.tumblr.com/" title="Untitled" class="sub_avatar" id="post_controls_sub_avatar" style="background: url('default_avatar_30.gif') no-repeat scroll right top rgb(10, 41, 57);"></a>
+              </div>
+
+              <a href="http://www.tumblr.com/blog/mozillazg/settings" id="set_avatar_link" style="text-decoration: none;">+ Pick avatar</a>
+
+
+            </li>
+
+            <li id="flash_notifications">
+              <div data-view-exists="true" id="dashboard_explore_notice" data-cookie="hide_dashboard_explore|1|7" class="notification flash_notification informational no_click has_button">
+                <div class="notification_inner">
+                  <span class="notification_text underline_links">Your Dashboard now includes posts from popular blogs.<br>Update your <a href="http://www.tumblr.com/preferences">Preferences</a> to disable this feature or <a href="http://www.tumblr.com/spotlight">follow blogs we recommend</a> in our Spotlight.</span>
+                </div>
+                <div class="notification_dismiss"><span class="icon">Dismiss</span></div>
+              </div>
+            </li>
+
+
+            <li id="flash_notifications"></li>
+
+
+            <!-- START POSTS -->
+            {% include "dashboard/post_info.html" %}
+
+            <!-- END POSTS -->
+          </ol>
+
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="pagination" style="display: none;">
+
+          <a id="next_page_link" href="http://www.tumblr.com/dashboard/2/42025312779">Next page →</a>
+        </div>
+
+
+
+        <!-- New posts notice -->
+
+      </div><img title="http://assets.tumblr.com/images/content_bottom.png?alpha  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/content_bottom.png" ilo-ph-fix="tofix" ilo-full-src="http://assets.tumblr.com/images/content_bottom.png?alpha" src="content_bottom.png" alt="" class="content_cap" id="content_bottom">
+{% endblock %}
+
+
+
+  {% block others %}
+    <div id="auto_pagination_loader">
+      <span id="auto_pagination_loader_loading">
+        <div class="spinner"></div>
+        Loading more posts...    </span>
+
+      <span id="auto_pagination_loader_failure" style="display: none;">
+        Sorry, we couldn't load the next page!&nbsp; <a href="#" onclick="Tumblr.AutoPaginator.start(); return false;">Try again</a>.    </span>
+
+      <span id="auto_pagination_loader_no_posts" style="display: none;">
+        Sorry, we couldn't find any more posts!    </span>
+    </div>
+
+
+
+    <div id="report_tumblelog_bar" style="display: none;">
+      <span id="report_tumblelog_with_name" style="display: none;">
+        Report <span id="report_tumblelog_name"></span>?                </span>
+      <span id="report_tumblelog_without_name" style="display: none;">Report this person?</span>
+      <button class="chrome spam"><div class="chrome_button"><div class="chrome_button_left"></div>Spam<div class="chrome_button_right"></div></div></button>
+      <button class="chrome harassment"><div class="chrome_button"><div class="chrome_button_left"></div>Harassment<div class="chrome_button_right"></div></div></button>
+      <button class="chrome dismiss"><div class="chrome_button"><div class="chrome_button_left"></div>No thanks<div class="chrome_button_right"></div></div></button>
+    </div>
+
+
+    <a class="invisible" href="#" style="display: block; opacity: 0;" id="return_to_top"><div class="return_to_top_icon"></div></a>
+
+
+    <div id="tab_switching" class="tab_switching inactive">
+      <div class="tab_blogs count_2">
+        <div class="tab_blog item tab_dashboard">
+          <div class="blog_icon dashboard">
+            <i class="blog_icon_resting"><img title="http://assets.tumblr.com/images/tab_switching_dashboard_resting.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/tab_switching_dashboard_resting.png" ilo-ph-fix="tofix" alt="[Image]" ilo-full-src="http://assets.tumblr.com/images/tab_switching_dashboard_resting.png" class="blog_icon_img" src="tab_switching_dashboard_resting.png"></i>
+            <i class="blog_icon_active"><img title="http://assets.tumblr.com/images/tab_switching_dashboard_active.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/tab_switching_dashboard_active.png" ilo-ph-fix="tofix" alt="[Image]" ilo-full-src="http://assets.tumblr.com/images/tab_switching_dashboard_active.png" class="blog_icon_img" src="tab_switching_dashboard_active.png"></i>
+          </div>
+          <a class="blog_name" href="http://www.tumblr.com/dashboard">
+            <span class="blog_name_span">Dashboard</span>
+          </a>
+          <div class="tab_notice new_post_notice_container"><div class="tab_notice_value"></div></div>
+        </div>
+        <div class="tab_blog item" id="tab_blog_mozillazg">
+          <div class="blog_icon " style="background-image: url('default_avatar_128.gif');">
+            <i class="blog_icon_overlay"></i>
+          </div>
+          <a class="blog_name" href="http://www.tumblr.com/blog/mozillazg">
+            <span class="blog_name_span">Untitled</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endblock %}

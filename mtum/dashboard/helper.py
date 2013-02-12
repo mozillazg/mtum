@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .models import Tag
+from post.models import Tag
 
 
 def create_tags(tags):

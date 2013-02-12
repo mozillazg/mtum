@@ -7,6 +7,8 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
+from endless_pagination.decorators import page_template
+
 from .forms import TextForm
 from .forms import PhotoForm
 # from .forms import VideoForm
@@ -15,8 +17,23 @@ from post.models import Post
 
 
 @login_required(login_url=reverse_lazy('login'))
-def deshboard(request):
-    kind = request.GET.get('new', 'text')
+@page_template('dashboard/index_page.html')
+def dashboard(request, template='dashboard/index.html', extra_context=None):
+    user = request.user
+    posts = Post.objects.filter(author=user).order_by('-created_at')
+
+    context = {
+        'user': user,
+        'posts': posts,
+    }
+    if extra_context:
+        context.update(extra_context)
+    return render_to_response(template, context,
+                              context_instance=RequestContext(request))
+
+
+def new_post(request):
+    kind = request.GET.get('new')
     if kind in ('text', 'photo', 'quote', 'link', 'chat', 'audio', 'video'):
         if kind == 'text':
             context = {
@@ -34,7 +51,9 @@ def deshboard(request):
         return render_to_response('dashboard/new.html', context,
                                   context_instance=RequestContext(request))
     else:
-        return HttpResponseRedirect(reverse_lazy('dashboard'))
+        # return HttpResponseRedirect(reverse_lazy('dashboard'))
+        return render_to_response('dashboard/index.html',
+                                  context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))

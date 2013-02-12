@@ -35,6 +35,7 @@ def register(request):
 
 def login(request):
     # TODO use email login
+    next = request.GET.get('next')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -43,7 +44,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user and user.is_active:
                 log_in(request, user)
-                return HttpResponseRedirect(reverse_lazy('deshboard'))
+                return HttpResponseRedirect(next or reverse_lazy('dashboard'))
     else:
         form = LoginForm()
     return render_to_response('account/login.html', {'form': form},

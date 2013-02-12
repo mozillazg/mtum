@@ -12,6 +12,8 @@ def get_avatar(user, size, default=None):
             default = 'http://assets.tumblr.com/images/default_avatar_64.gif'
         elif size == 30:
             default = 'http://assets.tumblr.com/images/default_avatar_30.gif'
+        elif size == 40:
+            default = 'http://assets.tumblr.com/images/default_avatar_40.gif'
         elif size == 16:
             default = 'http://assets.tumblr.com/images/default_avatar_16.gif'
 

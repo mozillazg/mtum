@@ -1,18 +1,21 @@
 {% extends "post/base.html" %}
 {% load url from future %}
 {% load account_extras %}
+{% load endless %}
+
 
 
 {% block pagination %}
+  {% paginate posts %}
+  {% get_pages %}
   <div id="pagination">
-  {% if posts.has_previous %}
-  <a class="button left" title="Previous" href="?p={{ posts.previous_page_number }}"></a>
-  {% endif %}
-  {% if posts.has_next %}
-    <a class="button right" title="Next" href="?p={{ posts.next_page_number }}"></a>
-  {% endif %}
+    {% if pages.previous %}
+    <a class="button left" title="Previous" href="{{ pages.previous.path }}"></a>
+    {% endif %}
+    {% if pages.next %}
+      <a class="button right" title="Next" href="{{ pages.next.path }}"></a>
+    {% endif %}
   </div>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/tumblrautopager.js"></script>
 {% endblock %}
 
 {% block middle %}
@@ -22,6 +25,7 @@
   {% endif %}
 
   <ol id="posts">
+  {% paginate posts %}
   {% for post in posts %}
     {% include "post/post_info.html" %}
   {% endfor %}

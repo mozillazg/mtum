@@ -38,7 +38,7 @@ urlpatterns += patterns(
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
 )
-u
+
 urlpatterns += patterns(
     '',
     # url(r'^$', 'app.views.index', name='index'),

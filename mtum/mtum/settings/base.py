@@ -186,8 +186,8 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    # Database migration helpers:
-    'south',
+    'south',  # Database migration helpers:
+    'endless_pagination',
 )
 
 # Apps specific for this project go here.
@@ -240,3 +240,8 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'wsgi.application'
 ########## END WSGI CONFIGURATION
+
+
+#### endless_pagination settings
+ENDLESS_PAGINATION_PER_PAGE = 3
+### end endless_pagination settings

@@ -13,9 +13,6 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
-from django.core.paginator import Paginator
-from django.core.paginator import EmptyPage
-from django.core.paginator import PageNotAnInteger
 from django.db.models import Q
 
 from .models import Post
@@ -75,7 +72,6 @@ def unfollow(request, user_slug):
 
 
 def user_index(request, user_slug, tag_slug=None):
-    page_number = request.GET.get('p', 1)
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user).order_by('-created_at')
@@ -84,16 +80,6 @@ def user_index(request, user_slug, tag_slug=None):
         tag_name = Tag.objects.get(slug=tag_slug)
     else:
         tag_name = None
-
-    # Pagination
-    limit = 2
-    paginator = Paginator(posts, limit)
-    try:
-        posts = paginator.page(page_number)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
 
     context = {
         'blog_author': blog_author,

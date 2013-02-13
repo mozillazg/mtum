@@ -10,7 +10,7 @@
       <h3 class="title">Notes</h3>
       <ol class="notes">
       {% for note in notes %}
-      {% if note.kind %}
+      {% if note.reblog %}
         <li class="note reblog tumblelog_{{ note.author.get_profile.slug }} without_commentary">
           <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"></a>
           <span data-post-url="{% url 'post_detail' note.author.get_profile.slug post.id %}" class="action">
@@ -20,7 +20,8 @@
           </span>
           <div class="clear"></div>
         </li>
-      {% else %}
+      {% endif %}
+      {% if note.post %}
       <li class="note like tumblelog_{{ note.author.get_profile.slug }} without_commentary">
           <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow">
             <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}"  onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"/>

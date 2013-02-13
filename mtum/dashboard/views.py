@@ -65,7 +65,7 @@ def new_post(request):
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_post_text(request):
+def new_text(request):
     if request.method == 'POST':
         user = request.user
         form = TextForm(request.POST)
@@ -94,7 +94,14 @@ def new_post_text(request):
                                              })
             return HttpResponseRedirect(redirect_link)
     else:
-        return HttpResponseRedirect(reverse_lazy('deshboard'))
+        context = {
+            'form': TextForm(),
+            # 'user': request.user,
+            'action': reverse_lazy('new_text'),
+        }
+        # return HttpResponseRedirect(reverse_lazy('deshboard'))
+        return render_to_response('dashboard/new.html', context,
+                                  context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))

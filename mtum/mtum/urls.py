@@ -33,8 +33,8 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'dashboard.views',
     url(r'^dashboard$', 'dashboard', name='dashboard'),
-    url(r'^new-text$', 'new_post_text', name='new_post_text'),
-    url(r'^new-photo$', 'new_post_photo', name='new_post_photo'),
+    url(r'^new/text$', 'new_text', name='new_text'),
+    # url(r'^new/photo$', 'new_photo', name='new_photo'),
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
 )

@@ -14,6 +14,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 from endless_pagination.decorators import page_template
 
@@ -39,20 +40,20 @@ def like(request, post_id):
 @login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
-    # post = 
+    post = Post.objects.get(id=post_id)
     user = request.user
     src_post = deepcopy(Post.objects.get(id=post_id))
     tags = src_post.tags.all()
 
     if user != src_post.author:
-        post, created = Post.objects.get_or_create(author=user, reblog=src_post)
-
-    # post.reblog = src_post
-    # post.id = None
-    # post.author = user
-    # post.created_at = None
-    # post.save()
-        if created:
+        try:
+            Post.objects.get(author=user, reblog=src_post)
+        except ObjectDoesNotExist:
+            post.reblog = src_post
+            post.id = None
+            post.author = user
+            post.created_at = None
+            post.save()
             post.tags.add(*tags)
 
     return HttpResponseRedirect(referer or '/')

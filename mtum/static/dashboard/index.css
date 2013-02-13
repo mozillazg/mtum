@@ -368,7 +368,7 @@ img#content_top, img#content_bottom { display: none; }
 #auto_pagination_loader { font-size: 34px; font-weight: bold; background: url('images/auto_pagination_loader_bg.png') repeat-x scroll center top rgb(32, 54, 76); color: rgb(255, 255, 255); text-align: center; text-decoration: none; text-shadow: 2px 2px 3px rgb(19, 43, 66); padding: 25px 0px; border-top: 1px solid rgba(255, 255, 255, 0.13); display: block; }
 #auto_pagination_loader a { color: rgb(255, 255, 255); text-decoration: none; border-bottom: 2px solid rgb(255, 255, 255); padding-bottom: 5px; }
 #auto_pagination_loader .spinner { width: 32px; height: 32px; background: url('images/auto_pagination_loader.gif') repeat scroll 0% 0% transparent; margin-right: 10px; vertical-align: -5px; display: inline-block; }
-#return_to_top { position: fixed; top: 20px; right: 20px; z-index: 10; min-width: 0px; }
+/*#return_to_top { position: fixed; top: 20px; right: 20px; z-index: 10; min-width: 0px; }*/
 #return_to_top .return_to_top_icon { cursor: pointer; height: 50px; width: 50px; background: url('images/dashboard_master_sprite.png') no-repeat scroll -600px -190px transparent; opacity: 0.27; }
 #return_to_top:hover .return_to_top_icon { opacity: 0.45; }
 @media screen and (max-width: 760px) {
@@ -520,3 +520,4 @@ img#content_top, img#content_bottom { display: none; }
 .sub_avatar:before {
   background-image: url("images/default_avatar_30.gif");
 }
+#return_to_top { position: fixed; bottom: 20px; right: 20px; z-index: 10; min-width: 0px; }

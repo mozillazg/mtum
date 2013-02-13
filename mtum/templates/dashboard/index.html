@@ -1,5 +1,6 @@
 {% extends "dashboard/base.html" %}
 {% load url from future %}
+{% load account_extras %}
 
 
 {% block header %}
@@ -103,10 +104,10 @@
             <!-- Open blog -->
             <li class="no_push popover_button" id="popover_button_blogs">
               <div class="open_blog with_subtitle">
-                <a class="currently_selected_blog hide_overflow">Untitled</a><span class="sub_control link_arrow"></span>
+                <a class="currently_selected_blog hide_overflow">{{ user.get_profile.title }}</a><span class="sub_control link_arrow"></span>
                 <small>
                   <div class="hide_overflow">
-                    <a id="open_blog_link" href="http://mozillazg.tumblr.com/" target="_top">mozillazg.tumblr.com</a>&nbsp;<small id="blog_url_arrow"></small>
+                    <a id="open_blog_link" href="{% url 'user_index' user.get_profile.slug %}" target="_top">{% url 'user_index' user.get_profile.slug %}</a>&nbsp;<small id="blog_url_arrow"></small>
                   </div>
                 </small>
               </div>
@@ -115,13 +116,14 @@
             <div id="popover_blogs" class="popover popover_menu popover_gradient" style="display: none;">
               <div class="popover_inner">
                 <div draggable="true" class=" popover_menu_item item" id="menuitem-mozillazg">
-                  <div class="blog_icon" style="background-image: url('default_avatar_40.gif');"></div>
-                  <a draggable="false" href="http://www.tumblr.com/blog/mozillazg">
-                    Untitled
+                  <div class="blog_icon" style="background-image: url('{{ user|get_avatar:40 }}');"></div>
+                  <a draggable="false" href="{% url 'user_index' user.get_profile.slug %}">
+                    {{ user.get_profile.title }}
                   </a>
                   <small>
                     <div class="hide_overflow">
-                      mozillazg.tumblr.com                                        </div>
+                      {% url 'user_index' user.get_profile.slug %}
+                    </div>
                   </small>
                 </div>
                 <div class="popover_menu_item ender" id="button_new_blog"><a href="http://www.tumblr.com/new/blog">Create a new blog<div class="recession_shadow"></div></a></div>
@@ -324,8 +326,8 @@
     </div>
 
 
-    <a class="invisible" href="#" style="display: block; opacity: 0;" id="return_to_top"><div class="return_to_top_icon"></div></a>
-
+    <!-- <a class="invisible" href="#" style="display: block; opacity: 0;" id="return_to_top"><div class="return_to_top_icon"></div></a> -->
+<a id="return_to_top" style="display: block; opacity: 1;" href="#" class=""><div class="return_to_top_icon"></div></a>
 
     <div id="tab_switching" class="tab_switching inactive">
       <div class="tab_blogs count_2">
@@ -343,8 +345,8 @@
           <div class="blog_icon " style="background-image: url('default_avatar_128.gif');">
             <i class="blog_icon_overlay"></i>
           </div>
-          <a class="blog_name" href="http://www.tumblr.com/blog/mozillazg">
-            <span class="blog_name_span">Untitled</span>
+          <a class="blog_name" href="{% url 'user_index' user %}">
+            <span class="blog_name_span">{{ user.get_profile.title }}</span>
           </a>
         </div>
       </div>

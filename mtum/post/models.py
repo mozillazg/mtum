@@ -54,7 +54,7 @@ class Post(models.Model):
     reblog = models.ForeignKey('self', null=True, blank=True)
 
     def __unicode__(self):
-        return self.title
+        return self.title or ''
 
     def save(self, *args, **kwargs):
         if (not self.slug) and self.title:
@@ -68,7 +68,7 @@ class Like(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return self.post.title
+        return self.post.title or ''
 
 
 class Follow(models.Model):

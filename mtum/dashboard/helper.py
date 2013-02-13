@@ -13,7 +13,6 @@ def create_tags(tags):
     tags = (tag.strip() for tag in tags.split(',') if tag.strip())
     related_tags = []
     for tag in tags:
-        if not Tag.objects.filter(name=tag):
-            Tag.objects.create(name=tag)
-        related_tags += Tag.objects.filter(name=tag)
+        obj, created = Tag.objects.get_or_create(name=tag)
+        related_tags += [obj]
     return tuple(related_tags)

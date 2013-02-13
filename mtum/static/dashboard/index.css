@@ -514,3 +514,9 @@ img#content_top, img#content_bottom { display: none; }
 .post_content {
   overflow: hidden;
 }
+.post_avatar:before {
+  background-image: url("images/default_avatar_64.gif");
+}
+.sub_avatar:before {
+  background-image: url("images/default_avatar_30.gif");
+}

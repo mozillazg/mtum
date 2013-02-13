@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from operator import attrgetter
+from itertools import chain
+
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from endless_pagination.decorators import page_template
 
@@ -14,13 +18,17 @@ from .forms import PhotoForm
 # from .forms import VideoForm
 from .helper import create_tags
 from post.models import Post
+from post.models import Follow
 
 
 @login_required(login_url=reverse_lazy('login'))
 @page_template('dashboard/index_page.html')
 def dashboard(request, template='dashboard/index.html', extra_context=None):
     user = request.user
-    posts = Post.objects.filter(author=user).order_by('-created_at')
+    follows = Follow.objects.filter(follower=user)
+    followings = (follow.following for follow in follows)
+    posts = Post.objects.filter(Q(author=user) | Q(author__in=followings))
+    posts = posts.order_by('-created_at')
 
     context = {
         'user': user,

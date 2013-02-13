@@ -14,9 +14,9 @@ from django.template.defaultfilters import slugify
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     slug = models.SlugField()
-    # title = models.CharField(max_length=200, default='Untitled', null=True,
-                             # blank=True)
-    # description = models.TextField()
+    title = models.CharField(max_length=200, default='Untitled', null=True,
+                             blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -28,7 +28,6 @@ class UserProfile(models.Model):
         # gravatar_base_url = 'https://secure.gravatar.com/'
         gravatar_base_url = 'http://www.gravatar.com/avatar/'
         email = self.user.email
-        # default = "http://www.example.com/default.jpg"
         default = default or 'mm'
         size = size
         md5email = hashlib.md5(email.lower()).hexdigest()

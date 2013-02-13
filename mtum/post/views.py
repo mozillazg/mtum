@@ -29,7 +29,9 @@ def like(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     user = request.user
-    Like.objects.create(author=user, post=post)
+
+    if user != post.author:
+        Like.objects.get_or_create(author=user, post=post)
 
     return HttpResponseRedirect(referer or '/')
 
@@ -37,17 +39,21 @@ def like(request, post_id):
 @login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
-    post = Post.objects.get(id=post_id)
-    src_post = deepcopy(post)
+    # post = 
+    user = request.user
+    src_post = deepcopy(Post.objects.get(id=post_id))
     tags = src_post.tags.all()
 
-    user = request.user
-    post.reblog = src_post
-    post.id = None
-    post.author = user
-    post.created_at = None
-    post.save()
-    post.tags.add(*tags)
+    if user != src_post.author:
+        post, created = Post.objects.get_or_create(author=user, reblog=src_post)
+
+    # post.reblog = src_post
+    # post.id = None
+    # post.author = user
+    # post.created_at = None
+    # post.save()
+        if created:
+            post.tags.add(*tags)
 
     return HttpResponseRedirect(referer or '/')
 
@@ -57,7 +63,8 @@ def follow(request, user_slug):
     referer = request.META.get('HTTP_REFERER')
     follower = request.user
     following = UserProfile.objects.get(slug=user_slug).user
-    Follow.objects.get_or_create(follower=follower, following=following)
+    if follower != following:
+        Follow.objects.get_or_create(follower=follower, following=following)
 
     return HttpResponseRedirect(referer or '/')
 
@@ -135,8 +142,15 @@ def detail(request, user_slug, post_id, post_slug=None):
     post = Post.objects.get(id=post_id)
     likes = Like.objects.filter(post=post)
     reblogs = Post.objects.filter(reblog=post)
+    # if likes and (not reblogs):
+        # notes = likes
+    # elif reblogs and (not likes):
+        # notes = reblogs
+    # elif likes and reblogs:
     notes = sorted(chain(likes, reblogs), key=attrgetter('created_at'),
                    reverse=True)
+    # else:
+        # notes = None
 
     if post_slug and post_slug != post.slug:
         return HttpResponseNotFound()

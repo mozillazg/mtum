@@ -1,0 +1,138 @@
+{% load url from future %}
+{% load account_extras %}
+
+
+{% for post in posts %}
+{% with type=post.get_kind_display id=post.id author=post.author author_slug=post.author.get_profile.slug reblog=post.reblog reblog_author=post.reblog.author reblog_slug=post.reblog.author.get_profile.slug blog_title=post.author.get_profile.title reblog_title=post.reblog.author.get_profile.title %}
+<li id="post_{{ id }}" class="post photo post_tumblelog_{{ id }}
+  {% if author != user %}not_mine{% else %}is_mine{% endif %}
+  with_permalink" data-post-id="{{ id }}" data-tumblelog-key="Yb4zJBopk" data-type="{{ type }}">
+  <div class="post_wrapper">
+
+    <div class="corner_mask"></div>
+
+    <div class="post_controls">
+      <a class="post_control reblog_count" href="#" id="show_notes_link_{{ id }}">
+        <span id="note_link_less_{{ id }}" style="display: none;" title="19,733 notes">19,733</span><span id="note_link_current_{{ id }}" title="19,734 notes">19,734</span><span id="note_link_more_{{ id }}" style="display: none;" title="19,733 notes">19,735</span>
+      </a>
+
+      {% if author != user %}
+      <a class="post_control post_control_icon reblog_button" data-post-type="type" title="Reblog" data-reblog-key="5hRoi58g" data-reblog-id="{{ id }}" data-user-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" href="{% url 'reblog' id %}?next={% url 'dashboard' %}">Reblog</a>
+
+      <a class="post_control post_control_icon like_button  like_root_{{ id }}" href="{% url 'like' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="submit_like('{{ id }}');return false;" title="Like">Like</a>
+    </div>
+
+    <form action="http://www.tumblr.com/like/5hRoi58g" method="post" id="like_form_42456205716" class="hidden">
+      <input name="id" value="42456205716" type="hidden">
+      <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden">
+    </form>
+
+    {% else %}
+      <a class="post_control post_control_icon delete_button" onclick="if (confirm('Delete this post?')) document.getElementById('delete_post_42267046695').submit(); return false;" href="#" title="Delete">Delete</a>
+
+      <a class="post_control post_control_icon edit_post" data-post-type="regular" data-post-id="42267046695" data-channel-id="mozillazg" href="http://www.tumblr.com/edit/42267046695?redirect_to=%2Fdashboard" title="Edit">Edit</a>
+    </div>
+
+    <form class="hidden" action="http://www.tumblr.com/delete" method="post" id="delete_post_42267046695" onsubmit="return confirm('Are you sure you want to delete this post?');">
+      <input name="id" value="42267046695" type="hidden">
+      <input name="redirect_to" value="/dashboard" type="hidden">
+      <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden">
+    </form>
+    {% endif %}
+
+
+    <div class="post_info">
+    {% if reblog %}
+      <a href="{% url 'user_index' reblog_slug %}">{{ reblog_author.username }}</a>
+    {% else %}
+      <a href="{% url 'user_index' author_slug %}">{{ author.username }}</a>
+    {% endif %}
+    </div>
+    <div class="post_content clearfix" id="post_content_{{ id }}">
+    {% if type == "text" %}
+      <div class="post_text_wrapper">
+      {% if post.title %}
+        <div class="post_title">{{ post.title }}</div>
+      {% endif %}
+        {{ post.content }}
+      </div>
+    {% else %}
+
+      {% if type == "photo" %}
+      <img ilo-ph-fix="fixed" class="image_thumbnail" alt="" id="thumbnail_photo_{{ id }}" onclick="
+      " style="cursor: pointer; background-color: rgb(243, 243, 243);" src="{{ post.photo }}">
+    <!-- height="96" width="150"> -->
+      <div id="photo_info_{{ id }}" style="display: none; clear: both; height: 15px;">&nbsp;</div>
+      {% endif %}
+
+      {% if type == "video" %}
+      {% endif %}
+
+      {% if post.content %}
+      <div class="caption" style="margin-top: 0px;">
+        {{ post.content }}
+      </div>
+      {% endif %}
+
+    {% endif %}
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="post_footer_links with_tags ">
+      <span id="post_tags_wrapper_{{ id }}" class="post_tags_wrapper">
+        <span id="post_tags_{{ id }}" class="tags with_blingy_tag">
+          {% for tag in post.tags.all %}
+          {% if tag.feature %}
+          <a class="blingy blue" href="http://www.tumblr.com/tagged/design">#{{ tag.name }}<span class="left"></span><span class="right"></span></a>
+          {% else %}
+          <a class="tag" href="http://www.tumblr.com/tagged/features">#{{ tag.name }}</a>
+          {% endif %}
+          {% endfor %}
+        </span>
+      </span>
+    </div>
+
+    <div id="notes_outer_container_{{ id }}" class="notes_outer_container">
+      <div>
+        <div class="notes_container">
+          <ol class="notes"></ol>
+        </div>
+        <div class="notes_control">
+          <div class="notes_loader">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="http://staff.tumblr.com/post/42456205716/check-this-out-were-testing-real-time" title="View post - Wednesday, 5:33pm" class="permalink" id="permalink_42456205716"></a>
+  </div>
+
+  <div class="avatar_and_i">
+  {% if reblog %}
+    <a href="{% url 'user_index' reblog_slug %}" title="{{ reblog_title }}" class="post_avatar" id="post_avatar_{{ id }}" style="background-image: url('{{ reblog_author|get_avatar:64 }}');" data-user-avatar-url="{{ reblog_author|get_avatar:64 }}" data-avatar-url="{{ reblog_author|get_avatar:64 }}" data-blog-url="{% url 'user_index' reblog_slug %}" data-use-channel-avatar="1" data-use-sub-avatar="1"></a>
+    <a style="background-image: url('{{ author|get_avatar:30 }}');" href="{% url 'user_index' author_slug %}" title="{{ blog_title }}" class="sub_avatar" id="sub_avatar_{{ id }}"></a>
+  {% else %}
+
+    <a href="{% url 'user_index' author_slug %}" title="{{ blog_title }}" class="post_avatar" id="post_avatar_{{ id }}" style="background-image: url('{{ author|get_avatar:64 }}');" data-user-avatar-url="{{ author|get_avatar:64 }}" data-avatar-url="{{ author|get_avatar:64 }}" data-blog-url="http://staff.tumblr.com/" data-use-channel-avatar="1" data-use-sub-avatar="1"></a>
+  {% endif %}
+
+    <div class="user_menu_info_button">
+      <div class="user_menu_info"></div>
+      <div class="user_menu popover" id="user_menu_42456205716" style="display: none;">
+        <div class="user_menu_nipple"></div>
+        <div class="user_menu_list">
+          <a href="http://www.tumblr.com/send/staff" onclick="if (typeof show_fan_mail_lightbox == 'function') { show_fan_mail_lightbox(this); return false; }"><div class="user_menu_list_item"><span class="user_menu_icon fan_mail"></span> Fan Mail</div></a>
+          <a href="http://www.tumblr.com/follow/staff" following="true" class="user_menu_item_toggle_following_9f9e53ef22111cfb550aadd9db09fd76" onclick="user_menu_toggle_following('9f9e53ef22111cfb550aadd9db09fd76', 'fdx8oYTujh4LqC7u3sz98ZmuoQw', 'staff'); return false;">
+            <div class="user_menu_list_item user_menu_list_item_follow_9f9e53ef22111cfb550aadd9db09fd76" style="display: none;"><span class="user_menu_icon follow"></span> Follow</div>
+            <div class="user_menu_list_item user_menu_list_item_unfollow_9f9e53ef22111cfb550aadd9db09fd76" style="display: block;"><span class="user_menu_icon unfollow"></span> Unfollow</div>
+          </a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="arrow"></span>
+</li>
+{% endwith %}
+{% endfor %}

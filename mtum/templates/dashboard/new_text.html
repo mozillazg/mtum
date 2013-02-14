@@ -1,0 +1,25 @@
+<h1> Add a Text Post
+  <img style="display: none;" title="Post is private  http://assets.tumblr.com/images/protected_blog_padlock.png" id="privacy_lock" alt="Private" src="protected_blog_padlock.png" >
+</h1>
+
+
+<!-- editor.js: render_editor() overrides these -->
+<input type="hidden" value="0" name="is_rich_text[one]" id="post_one_is_rich_text">
+<input type="hidden" value="0" name="is_rich_text[two]" id="post_two_is_rich_text">
+<input type="hidden" value="0" name="is_rich_text[three]" id="post_three_is_rich_text">
+<input type="hidden" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" name="form_key" id="form_key">
+
+<h2 class="first">Title <span class="optional">(optional)</span></h2>
+<div class="text_field_container">
+  {{ form.title }}
+</div>
+
+<div style="height: 30px;"></div>
+<h2 style="float: left; margin-top: 0px;">Post</h2>
+<div style="float: right; padding-top: 3px;">
+</div>
+<div class="clear"></div>
+
+<div>{{ form.content }}</div>
+
+<input type="hidden" value="regular" name="post[type]" id="post_type">    

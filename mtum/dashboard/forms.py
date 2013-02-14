@@ -5,8 +5,16 @@ from django import forms
 
 
 class TextForm(forms.Form):
-    title = forms.CharField(required=False)
-    content = forms.CharField(widget=forms.Textarea)
+    attrs_title = {
+        'class': 'text_field big wide',
+    }
+    attrs_content = {
+        'class': 'wide post_two',
+    }
+
+    title = forms.CharField(required=False,
+                            widget=forms.TextInput(attrs=attrs_title))
+    content = forms.CharField(widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False)
 
 

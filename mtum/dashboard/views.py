@@ -97,7 +97,8 @@ def new_text(request):
         context = {
             'form': TextForm(),
             # 'user': request.user,
-            'action': reverse_lazy('new_text'),
+            'kind': 'text',
+            'action_url': reverse_lazy('new_text'),
         }
         # return HttpResponseRedirect(reverse_lazy('deshboard'))
         return render_to_response('dashboard/new.html', context,

@@ -36,13 +36,13 @@
   {% endifequal %}
 
   {% ifequal post.kind "P" %}
-  {% if post.source %}
-  <a href="{{ post.source }}">
+    {% if post.link %}
+  <a href="{{ post.link }}">
     {% else %}
-    <a href="{{ post.photo }}">
-      {% endif %}
-      <img src="{{ post.photo }}" />
-    </a>
+  <a href="{{ post.photo }}">
+    {% endif %}
+    <img src="{{ post.photo }}" />
+  </a>
     {% endifequal %}
 
     {% ifequal post.kind "V" %}

@@ -106,17 +106,17 @@ def new_text(request):
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_post_photo(request):
+def new_photo(request):
     if request.method == 'POST':
         user = request.user
         form = PhotoForm(request.POST)
         if form.is_valid():
-            title = form.cleaned_data['title']
-            url = form.cleaned_data['url']
+            photo = form.cleaned_data['photo']
             content = form.cleaned_data['content']
+            url = form.cleaned_data['url']
             tags = form.cleaned_data['tags']
             tags = create_tags(tags)
-            post = Post.objects.create(author=user, title=title, photo=url,
+            post = Post.objects.create(author=user, photo=photo, link=url,
                                        content=content, kind='P')
             post.tags.add(*tags)
 
@@ -136,4 +136,12 @@ def new_post_photo(request):
                                              })
             return HttpResponseRedirect(redirect_link)
     else:
-        return HttpResponseRedirect(reverse_lazy('dashboard'))
+        context = {
+            'form': PhotoForm(),
+            # 'user': request.user,
+            'kind': 'photo',
+            'action_url': reverse_lazy('new_photo'),
+        }
+        # return HttpResponseRedirect(reverse_lazy('deshboard'))
+        return render_to_response('dashboard/new.html', context,
+                                  context_instance=RequestContext(request))

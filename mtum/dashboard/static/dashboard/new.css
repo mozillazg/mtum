@@ -265,3 +265,6 @@ a.chrome { display: inline-block; -moz-box-sizing: border-box; }
 form.regular_post .post_two {
   height: 300px;
 }
+form.photo_post .post_caption {
+  height: 150px;
+}

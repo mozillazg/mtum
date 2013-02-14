@@ -19,9 +19,19 @@ class TextForm(forms.Form):
 
 
 class PhotoForm(forms.Form):
+    attrs_photo = {
+        'class': 'text_field wide',
+    }
+    attrs_content = {
+        'class': 'wide post_caption',
+    }
+
     title = forms.CharField(required=False)
-    url = forms.URLField()
-    content = forms.CharField(widget=forms.Textarea, required=False)
+    photo = forms.URLField(widget=forms.TextInput(attrs=attrs_photo))
+    url = forms.URLField(required=False,
+                         widget=forms.TextInput(attrs=attrs_photo))
+    content = forms.CharField(required=False,
+                              widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False)
 
 

@@ -1,0 +1,39 @@
+<h1> Upload a Photo
+  <img style="display: none;" title="Post is private  http://assets.tumblr.com/images/protected_blog_padlock.png" id="privacy_lock" alt="Private" src="protected_blog_padlock.png" >
+</h1>
+
+
+<!-- editor.js: render_editor() overrides these -->
+<input type="hidden" value="0" name="is_rich_text[one]" id="post_one_is_rich_text">
+<input type="hidden" value="0" name="is_rich_text[two]" id="post_two_is_rich_text">
+<input type="hidden" value="0" name="is_rich_text[three]" id="post_three_is_rich_text">
+
+<input type="hidden" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" name="form_key" id="form_key">
+
+
+<!-- Photo booth stuff -->
+<input type="hidden" id="photo_raw" name="photo_raw">
+
+
+
+<div id="booth"></div>
+<div style="" id="set_avatar_container"><div style="display: none; font: 10px 'Lucida Grande',Verdana,sans-serif; margin-top: 5px; color: rgb(119, 119, 119); text-align: right; float: right; width: 300px;" id="set_avatar_option"><input type="checkbox" name="set_avatar" id="set_avatar" style="margin-right: 6px; margin-left: 0px;"><label id="set_avatar_label" for="set_avatar">Make this my avatar</label></div></div>
+
+<div style="" id="photo_url">
+  <h2>Photo URL</h2>
+  <div class="text_field_container">{{ form.photo }}</div>
+</div>
+
+<input type="hidden" value="10485760" name="MAX_FILE_SIZE">
+
+<h2>Caption <span class="optional">(optional)</span></h2>
+<div>{{ form.content }}</div>
+
+
+
+<div style="" id="photo_link">
+  <h2>Clicking this photo links to the URL:</h2>
+  <div class="text_field_container">{{ form.url }}</div>
+</div>
+
+

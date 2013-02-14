@@ -15,7 +15,7 @@ from endless_pagination.decorators import page_template
 
 from .forms import TextForm
 from .forms import PhotoForm
-# from .forms import VideoForm
+from .forms import VideoForm
 from .helper import create_tags
 from post.models import Post
 from post.models import Follow
@@ -143,5 +143,45 @@ def new_photo(request):
             'action_url': reverse_lazy('new_photo'),
         }
         # return HttpResponseRedirect(reverse_lazy('deshboard'))
+        return render_to_response('dashboard/new.html', context,
+                                  context_instance=RequestContext(request))
+
+
+@login_required(login_url=reverse_lazy('login'))
+def new_video(request):
+    if request.method == 'POST':
+        user = request.user
+        form = VideoForm(request.POST)
+        if form.is_valid():
+            video = form.cleaned_data['video']
+            content = form.cleaned_data['content']
+            tags = form.cleaned_data['tags']
+            tags = create_tags(tags)
+            post = Post.objects.create(author=user, video=video,
+                                       content=content, kind='V')
+            post.tags.add(*tags)
+
+            user_slug = user.get_profile().slug
+            if post.slug:
+                redirect_link = reverse_lazy('post_detail_slug',
+                                             kwargs={
+                                                 'user_slug': user_slug,
+                                                 'post_id': post.id,
+                                                 'post_slug': post.slug,
+                                             })
+            else:
+                redirect_link = reverse_lazy('post_detail',
+                                             kwargs={
+                                                 'user_slug': user_slug,
+                                                 'post_id': post.id,
+                                             })
+            return HttpResponseRedirect(redirect_link)
+    else:
+        context = {
+            'form': VideoForm(),
+            # 'user': request.user,
+            'kind': 'video',
+            'action_url': reverse_lazy('new_video'),
+        }
         return render_to_response('dashboard/new.html', context,
                                   context_instance=RequestContext(request))

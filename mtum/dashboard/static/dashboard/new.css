@@ -268,3 +268,6 @@ form.regular_post .post_two {
 form.photo_post .post_caption {
   height: 150px;
 }
+input.text_field {
+  width: 188px;
+}

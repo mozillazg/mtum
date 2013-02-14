@@ -11,11 +11,15 @@ class TextForm(forms.Form):
     attrs_content = {
         'class': 'wide post_two',
     }
+    attrs_tags = {
+        'class': 'text_field',
+    }
 
     title = forms.CharField(required=False,
                             widget=forms.TextInput(attrs=attrs_title))
     content = forms.CharField(widget=forms.Textarea(attrs=attrs_content))
-    tags = forms.CharField(required=False)
+    tags = forms.CharField(required=False,
+                           widget=forms.TextInput(attrs=attrs_tags))
 
 
 class PhotoForm(forms.Form):
@@ -25,6 +29,9 @@ class PhotoForm(forms.Form):
     attrs_content = {
         'class': 'wide post_caption',
     }
+    attrs_tags = {
+        'class': 'text_field',
+    }
 
     title = forms.CharField(required=False)
     photo = forms.URLField(widget=forms.TextInput(attrs=attrs_photo))
@@ -32,7 +39,8 @@ class PhotoForm(forms.Form):
                          widget=forms.TextInput(attrs=attrs_photo))
     content = forms.CharField(required=False,
                               widget=forms.Textarea(attrs=attrs_content))
-    tags = forms.CharField(required=False)
+    tags = forms.CharField(required=False,
+                           widget=forms.TextInput(attrs=attrs_tags))
 
 
 class QuoteForm(forms.Form):
@@ -55,7 +63,19 @@ class AudioForm(forms.Form):
 
 
 class VideoForm(forms.Form):
+    attrs_video = {
+        'class': 'text_field wide',
+    }
+    attrs_content = {
+        'class': 'wide post_caption',
+    }
+    attrs_tags = {
+        'class': 'text_field',
+    }
+
     title = forms.CharField(required=False)
-    code = forms.CharField(widget=forms.Textarea)
-    content = forms.CharField(widget=forms.Textarea, required=False)
-    tags = forms.CharField(required=False)
+    video = forms.URLField(widget=forms.TextInput(attrs=attrs_video))
+    content = forms.CharField(required=False,
+                              widget=forms.Textarea(attrs=attrs_content))
+    tags = forms.CharField(required=False,
+                           widget=forms.TextInput(attrs=attrs_tags))

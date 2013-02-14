@@ -1,4 +1,4 @@
-<h1> Add a Photo Post
+<h1> Add a Video Post
   <img style="display: none;" title="Post is private  http://assets.tumblr.com/images/protected_blog_padlock.png" id="privacy_lock" alt="Private" src="protected_blog_padlock.png" >
 </h1>
 
@@ -20,20 +20,11 @@
 <div style="" id="set_avatar_container"><div style="display: none; font: 10px 'Lucida Grande',Verdana,sans-serif; margin-top: 5px; color: rgb(119, 119, 119); text-align: right; float: right; width: 300px;" id="set_avatar_option"><input type="checkbox" name="set_avatar" id="set_avatar" style="margin-right: 6px; margin-left: 0px;"><label id="set_avatar_label" for="set_avatar">Make this my avatar</label></div></div>
 
 <div style="" id="photo_url">
-  <h2>Photo URL</h2>
-  <div class="text_field_container">{{ form.photo }}</div>
+  <h2>Video URL</h2>
+  <div class="text_field_container">{{ form.video }}</div>
 </div>
 
 <input type="hidden" value="10485760" name="MAX_FILE_SIZE">
 
 <h2>Caption <span class="optional">(optional)</span></h2>
 <div>{{ form.content }}</div>
-
-
-
-<div style="" id="photo_link">
-  <h2>Clicking this photo links to the URL:</h2>
-  <div class="text_field_container">{{ form.url }}</div>
-</div>
-
-

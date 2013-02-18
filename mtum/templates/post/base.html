@@ -46,8 +46,8 @@
       {% block post_social %}
       {% endblock %}
       <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>
-      <a href="http://www.tumblr.com/unfollow/er0" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
-      <a target="_top" href="http://www.tumblr.com/dashboard" title="Dashboard" class="btn icon dashboard">Dashboard</a>
+      <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
+      <a target="_top" href="{% url 'dashboard' %}" title="Dashboard" class="btn icon dashboard">Dashboard</a>
 
       {% else %}
       <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="er0" title="Follow" class="btn icon follow ">Follow</a>

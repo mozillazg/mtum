@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from operator import attrgetter
-from itertools import chain
-
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 from endless_pagination.decorators import page_template
 
@@ -19,49 +17,39 @@ from .forms import VideoForm
 from .helper import create_tags
 from post.models import Post
 from post.models import Follow
+from post.models import Like
 
 
 @login_required(login_url=reverse_lazy('login'))
 @page_template('dashboard/index_page.html')
-def dashboard(request, template='dashboard/index.html', extra_context=None):
+def dashboard(request, posts_filter=None, template='dashboard/index.html',
+              extra_context=None):
     user = request.user
-    follows = Follow.objects.filter(follower=user)
-    followings = (follow.following for follow in follows)
-    posts = Post.objects.filter(Q(author=user) | Q(author__in=followings))
-    posts = posts.order_by('-created_at')
+    if posts_filter == 'mine':
+        posts = Post.objects.filter(author=user)
+    elif posts_filter == 'likes':
+        posts = Post.objects.filter(author=user).filter(like__author=user)
+    elif posts_filter == 'following':
+        follows = Follow.objects.filter(follower=user)
+        followings = (follow.following for follow in follows)
+        posts = Post.objects.filter(author__in=followings)
+    else:
+        follows = Follow.objects.filter(follower=user)
+        followings = (follow.following for follow in follows)
+        posts = Post.objects.filter(Q(author=user) | Q(author__in=followings))
+
+    if posts:
+        posts = posts.order_by('-created_at')
 
     context = {
         'user': user,
         'posts': posts,
+        'filter': posts_filter,
     }
     if extra_context:
         context.update(extra_context)
     return render_to_response(template, context,
                               context_instance=RequestContext(request))
-
-
-def new_post(request):
-    kind = request.GET.get('new')
-    if kind in ('text', 'photo', 'quote', 'link', 'chat', 'audio', 'video'):
-        if kind == 'text':
-            context = {
-                'form': TextForm(),
-                # 'user': request.user,
-                'action': reverse_lazy('new_post_text'),
-            }
-        elif kind == 'photo':
-            context = {
-                'form': PhotoForm(),
-                # 'user': request.user,
-                'action': reverse_lazy('new_post_photo'),
-            }
-
-        return render_to_response('dashboard/new.html', context,
-                                  context_instance=RequestContext(request))
-    else:
-        # return HttpResponseRedirect(reverse_lazy('dashboard'))
-        return render_to_response('dashboard/index.html',
-                                  context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -185,3 +173,15 @@ def new_video(request):
         }
         return render_to_response('dashboard/new.html', context,
                                   context_instance=RequestContext(request))
+
+
+@login_required(login_url=reverse_lazy('login'))
+def delete_post(request, post_id):
+    referer = request.META.get('HTTP_REFERER')
+    try:
+        post = Post.objects.get(id=post_id)
+        post.delete()
+    except ObjectDoesNotExist:
+        pass
+    finally:
+        return HttpResponseRedirect(referer or '/')

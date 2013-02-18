@@ -14,7 +14,7 @@
 
     <div class="post_controls">
       <a class="post_control reblog_count" href="#" id="show_notes_link_{{ id }}">
-        <span id="note_link_less_{{ id }}" style="display: none;" title="19,733 notes">19,733</span><span id="note_link_current_{{ id }}" title="19,734 notes">19,734</span><span id="note_link_more_{{ id }}" style="display: none;" title="19,733 notes">19,735</span>
+        <span id="note_link_less_{{ id }}" style="display: none;" title="19,733 notes">19,733</span><span id="note_link_current_{{ id }}" title="19,734 notes">{{ post|get_notes_numbers }}</span><span id="note_link_more_{{ id }}" style="display: none;" title="19,733 notes">19,735</span>
       </a>
 
       {% if author != user %}
@@ -29,16 +29,16 @@
     </form>
 
     {% else %}
-      <a class="post_control post_control_icon delete_button" onclick="if (confirm('Delete this post?')) document.getElementById('delete_post_42267046695').submit(); return false;" href="#" title="Delete">Delete</a>
+    <a class="post_control post_control_icon delete_button" onclick="if (confirm('Delete this post?')) document.getElementById('delete_post_{{ id }}').submit(); return false;" href="{% url 'delete_post' id %}" title="Delete">Delete</a>
 
       <a class="post_control post_control_icon edit_post" data-post-type="regular" data-post-id="42267046695" data-channel-id="mozillazg" href="http://www.tumblr.com/edit/42267046695?redirect_to=%2Fdashboard" title="Edit">Edit</a>
     </div>
 
-    <form class="hidden" action="http://www.tumblr.com/delete" method="post" id="delete_post_42267046695" onsubmit="return confirm('Are you sure you want to delete this post?');">
-      <input name="id" value="42267046695" type="hidden">
-      <input name="redirect_to" value="/dashboard" type="hidden">
-      <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden">
-    </form>
+    <!-- <form class="hidden" action="{% url 'delete_post' id %}" method="get" id="delete_post_{{ id }}" onsubmit="return confirm('Are you sure you want to delete this post?');"> -->
+      <!-- <input name="id" value="{{ id }}" type="hidden"> -->
+      <!-- <input name="redirect_to" value="/dashboard" type="hidden"> -->
+      <!-- <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden"> -->
+    <!-- </form> -->
     {% endif %}
 
 
@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <a href="{% url 'post_detail' author_slug id %}" title="View post - Wednesday, 5:33pm" class="permalink" id="permalink_{{ id }}"></a>
+    <a href="{% url 'post_detail' author_slug id %}" title="View post - {{ post.created_at|timesince|truncatewords:2|cut:","|cut:"." }} ago" class="permalink" id="permalink_{{ id }}"></a>
   </div>
 
   <div class="avatar_and_i">

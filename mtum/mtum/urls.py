@@ -33,11 +33,16 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'dashboard.views',
     url(r'^dashboard$', 'dashboard', name='dashboard'),
+    url(r'^mine$', 'dashboard', {'posts_filter': 'mine'}, name='mine'),
+    url(r'^likes$', 'dashboard', {'posts_filter': 'likes'}, name='likes'),
+    url(r'^following$', 'dashboard', {'posts_filter': 'following'},
+        name='following'),
     url(r'^new/text$', 'new_text', name='new_text'),
     url(r'^new/photo$', 'new_photo', name='new_photo'),
     url(r'^new/video$', 'new_video', name='new_video'),
     # url(r'^settings$', 'settings', name='settings'),
     # url(r'^new-text$', 'post.views.new_post', name='new_post_text'),
+    url(r'^delete/(?P<post_id>\d+)$', 'delete_post', name='delete_post'),
 )
 
 urlpatterns += patterns(

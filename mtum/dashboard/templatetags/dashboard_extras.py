@@ -6,6 +6,7 @@ from django import template
 
 from post.models import Like
 from post.models import Post
+from post.models import Follow
 
 register = template.Library()
 
@@ -31,3 +32,18 @@ def get_notes_numbers(post):
 @register.filter
 def is_liked(user, post):
     return Like.objects.filter(author=user, post=post).exists()
+
+
+@register.filter
+def posts_numbers(user):
+    return Post.objects.filter(author=user).count()
+
+
+@register.filter
+def liked_numbers(user):
+    return Like.objects.filter(author=user).count()
+
+
+@register.filter
+def following_numbers(user):
+    return Follow.objects.filter(follower=user).count()

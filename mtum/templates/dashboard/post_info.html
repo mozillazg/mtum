@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load markup %}
 {% load account_extras %}
 {% load dashboard_extras %}
 
@@ -68,7 +69,7 @@
       {% if post.title %}
         <div class="post_title">{{ post.title }}</div>
       {% endif %}
-        {{ post.content }}
+        {{ post.content|markdown:"safe" }}
       </div>
     {% else %}
 
@@ -88,7 +89,7 @@
 
       {% if post.content %}
       <div class="caption" style="margin-top: 0px;">
-        {{ post.content }}
+        {{ post.content|markdown:"safe" }}
       </div>
       {% endif %}
 

@@ -271,3 +271,15 @@ form.photo_post .post_caption {
 input.text_field {
   width: 188px;
 }
+
+.markItUp#markItUpId_content {
+  width: 584px;
+}
+.markItUpEditor#id_content {
+  width: 528px;
+  min-width: 528px;
+  max-width: 528px;
+}
+.markItUpHeader .preview {
+  display: none;
+}

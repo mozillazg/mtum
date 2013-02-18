@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load markup %}
 {% load account_extras %}
 {% load dashboard_extras %}
 
@@ -56,7 +57,7 @@
     {% endifequal %}
 
     <div class="caption">
-      {{ post.content }}
+      {{ post.content|markdown:"safe" }}
     </div>
 
     {% with post.tags.all as tags %}
@@ -71,4 +72,3 @@
     {% endwith %}
     <div class="clear"></div>
   </li>
-

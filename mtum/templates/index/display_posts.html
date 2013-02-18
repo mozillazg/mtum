@@ -1,3 +1,5 @@
+{% load url from future %}
+
 <div data-animated-gif="false" data-tumblelog="hyperform" data-id="{{ post.id }}" data-grow-height="403" data-grow-width="323" data-effect="grow" data-lightbox="true" data-type="photo" class="ht_post photo not_expanded
   {% if post.tags.all %}has_tags {% endif %}" id="ht_post_{{ post.id }}">
 
@@ -5,7 +7,8 @@
     <div class="bg-image-fallback">
       <img src="{{ post.photo }}">
     </div>
-    <a target="_top" href="{{ third.link|default:'#' }}" class="go"></a>
+    <!-- <a target="_top" href="{{ third.link|default:'#' }}" class="go"></a> -->
+    <a target="_top" href="{% url 'post_detail' post.author.get_profile.slug post.id %}" class="go"></a>
   </div>
 </div>
 

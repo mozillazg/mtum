@@ -2,7 +2,10 @@
 {% load url from future %}
 
 {% block css %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global.css" media="all">
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/new.css" media="all">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}markitup/skins/markitup/style.css" />
+  <link rel="stylesheet" type="text/css" href="{{STATIC_URL }}markitup/sets/markdown/style.css" />
 {% endblock %}
 
 
@@ -136,7 +139,7 @@
               <span id="tweet_length" style="font: bold 10px 'Lucida Grande',Verdana; color: rgb(187, 187, 187); margin-left: 2px;"></span>
 
               <div id="custom_tweet_container" style="margin-top: 8px; display: none;">
-                <div><textarea class="text_field" style="width: 189px; height: 50px; font: 11px 'Lucida Grande',Verdana; resize: vertical;" onblur="if (! this.value) { $('custom_tweet_container').hide(); clearInterval(check_tweet_length); $('edit_tweet_link').show(); $('tweet_length').innerHTML = ''; }" name="custom_tweet" id="custom_tweet"></textarea><br><button type="button">Markdown</button></div>
+                <div><textarea class="text_field" style="width: 189px; height: 50px; font: 11px 'Lucida Grande',Verdana; resize: vertical;" onblur="if (! this.value) { $('custom_tweet_container').hide(); clearInterval(check_tweet_length); $('edit_tweet_link').show(); $('tweet_length').innerHTML = ''; }" name="custom_tweet" id="custom_tweet"></textarea><br></div>
               </div>
 
             </div>
@@ -196,10 +199,19 @@
 </div>
 <img id="content_bottom" src="{{ STATIC_URL }}dashboard/images/content_bottom_edit_form.png">
 
+{% endblock %}
 
-<!-- <form action="{{ action }}" method="POST"> -->
-  <!-- {% csrf_token %} -->
-  <!-- {{ form.as_p }} -->
-  <!-- <input type="submit" value="Post" /> -->
-<!-- </form> -->
+
+{% block js %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}markitup/jquery.markitup.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}markitup/sets/markdown/set.js"></script>
+
+  <script language="javascript">
+  $(document).ready(function(){
+      $("#id_content").markItUp(mySettings);
+  });
+  </script>
 {% endblock %}

@@ -28,7 +28,7 @@ def dashboard(request, posts_filter=None, template='dashboard/index.html',
     if posts_filter == 'mine':
         posts = Post.objects.filter(author=user)
     elif posts_filter == 'likes':
-        posts = Post.objects.filter(author=user).filter(like__author=user)
+        posts = Post.objects.filter(like__author=user)
     elif posts_filter == 'following':
         follows = Follow.objects.filter(follower=user)
         followings = (follow.following for follow in follows)

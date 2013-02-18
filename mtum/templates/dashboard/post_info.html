@@ -13,20 +13,27 @@
     <div class="corner_mask"></div>
 
     <div class="post_controls">
+      {% with post|get_notes_numbers as notes_numbers %}
       <a class="post_control reblog_count" href="#" id="show_notes_link_{{ id }}">
-        <span id="note_link_less_{{ id }}" style="display: none;" title="19,733 notes">19,733</span><span id="note_link_current_{{ id }}" title="19,734 notes">{{ post|get_notes_numbers }}</span><span id="note_link_more_{{ id }}" style="display: none;" title="19,733 notes">19,735</span>
+        <span id="note_link_less_{{ id }}" style="display: none;" title="19,733 notes">19,733</span><span id="note_link_current_{{ id }}" title="{{ notes_numbers }} notes">{{ notes_numbers }}</span><span id="note_link_more_{{ id }}" style="display: none;" title="19,733 notes">19,735</span>
       </a>
+      {% endwith %}
 
       {% if author != user %}
       <a class="post_control post_control_icon reblog_button" data-post-type="type" title="Reblog" data-reblog-key="5hRoi58g" data-reblog-id="{{ id }}" data-user-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" href="{% url 'reblog' id %}?next={% url 'dashboard' %}">Reblog</a>
 
+      {% if user|is_liked:post %}
+      <a class="post_control post_control_icon like_button  like_root_{{ id }} already_like" href="{% url 'unlike' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="submit_like('{{ id }}');return false;" title="Unlike">Unlike</a>
+      {% else %}
       <a class="post_control post_control_icon like_button  like_root_{{ id }}" href="{% url 'like' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="submit_like('{{ id }}');return false;" title="Like">Like</a>
+      {% endif %}
+
     </div>
 
-    <form action="http://www.tumblr.com/like/5hRoi58g" method="post" id="like_form_42456205716" class="hidden">
-      <input name="id" value="42456205716" type="hidden">
-      <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden">
-    </form>
+    <!-- <form action="http://www.tumblr.com/like/5hRoi58g" method="post" id="like_form_42456205716" class="hidden"> -->
+      <!-- <input name="id" value="42456205716" type="hidden"> -->
+      <!-- <input id="form_key" name="form_key" value="fdx8oYTujh4LqC7u3sz98ZmuoQw" type="hidden"> -->
+    <!-- </form> -->
 
     {% else %}
     <a class="post_control post_control_icon delete_button" onclick="if (confirm('Delete this post?')) document.getElementById('delete_post_{{ id }}').submit(); return false;" href="{% url 'delete_post' id %}" title="Delete">Delete</a>

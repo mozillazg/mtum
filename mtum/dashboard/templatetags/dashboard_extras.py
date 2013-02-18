@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import template
-from django.db.models import Q
+# from django.db.models import Q
 
 from post.models import Like
 from post.models import Post
@@ -26,3 +26,8 @@ def get_notes_numbers(post):
     number = Like.objects.filter(post=post).count()
     number += Post.objects.filter(reblog=post).count()
     return number
+
+
+@register.filter
+def is_liked(user, post):
+    return Like.objects.filter(author=user, post=post).exists()

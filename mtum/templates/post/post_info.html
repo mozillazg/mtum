@@ -26,7 +26,7 @@
   <a class="icon" href="{% url 'post_detail' post.author.get_profile.slug post.id %}"></a>
 
   <div class="posted">
-    Notes: <b>{{ notes|length }}</b> / {{ post.created_at|timesince|truncatewords:2|cut:","|cut:"." }} ago
+    Notes: <b>{{ post|get_notes_numbers }}</b> / {{ post.created_at|timesince|truncatewords:2|cut:","|cut:"." }} ago
     {% if post.reblog %}from {{ post.reblog.author.get_profile.slug }}{% endif %}
   </div>
 

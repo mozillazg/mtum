@@ -38,6 +38,20 @@ def like(request, post_id):
 
 
 @login_required(login_url=reverse_lazy('login'))
+def unlike(request, post_id):
+    referer = request.META.get('HTTP_REFERER')
+    post = Post.objects.get(id=post_id)
+    user = request.user
+
+    try:
+        Like.objects.get(author=user, post=post).delete()
+    except ObjectDoesNotExist:
+        pass
+
+    return HttpResponseRedirect(referer or '/')
+
+
+@login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)

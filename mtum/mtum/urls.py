@@ -50,6 +50,7 @@ urlpatterns += patterns(
     # url(r'^$', 'app.views.index', name='index'),
 
     url(r'^like/(?P<post_id>\d+)$', 'post.views.like', name='like'),
+    url(r'^unlike/(?P<post_id>\d+)$', 'post.views.unlike', name='unlike'),
     url(r'^reblog/(?P<post_id>\d+)$', 'post.views.reblog', name='reblog'),
     url(r'^follow/(?P<user_slug>[-\w+]+)$', 'post.views.follow',
         name='follow'),

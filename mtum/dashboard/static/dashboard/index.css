@@ -301,6 +301,7 @@ img#content_top, img#content_bottom { display: none; }
 #posts .post .post_controls .post_control:active, #posts .post .post_controls .post_control.active, #posts .post .post_controls .post_control.loading { opacity: 1; }
 #posts .post .post_controls .post_control_icon { cursor: pointer; background-image: url('images/dashboard_master_sprite.png'); background-repeat: no-repeat; display: inline-block; height: 19px; width: 19px; text-indent: -9999px; overflow: hidden; }
 #posts .post .post_controls .like_button { background-position: -500px -214px; }
+#posts .post .post_controls .like_button.already_like { background-position: -529px -214px !important; opacity: 1 !important; }
 #posts .post .post_controls .reblog_button { background-position: -498px -270px; width: 24px; height: 20px; }
 #posts .post .post_controls .delete_button { background-position: -918px -125px; }
 #posts .post .post_controls .edit_post { background-position: -918px -185px; width: 22px; height: 19px; }
@@ -521,3 +522,4 @@ img#content_top, img#content_bottom { display: none; }
   background-image: url("images/default_avatar_30.gif");
 }
 #return_to_top { position: fixed; bottom: 20px; right: 20px; z-index: 10; min-width: 0px; }
+

@@ -1,0 +1,118 @@
+{% load url from future %}
+<!DOCTYPE html>
+<html lang="" id="logged_out" class="no_js logged_out tab_switcher_safari">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=960" id="viewport">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    <title> Tumblr </title>
+    <link ilo-ph-fix="tofix" alt="[Image]" ilo-full-src="https://secure.assets.tumblr.com/favicon.ico?3" rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="https://secure.assets.tumblr.com/images/apple_touch_icon.png?2">
+    <meta name="application-name" content="Tumblr">
+    <meta name="msapplication-TileColor" content="#2c4762">
+    <meta name="msapplication-TileImage" content="https://secure.assets.tumblr.com/images/msfavicon.png ">
+    <meta name="apple-itunes-app" content="app-id=305343404,app-argument=tumblr://x-callback-url/dashboard?referrer=smart-app-banner">
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global_index.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/hello_tags.css" media="all">
+    {% endblock %}
+  </head>
+  <body id="account_login_and_register" class="account_login_and_register logged_out without_auto_paginate hello_dash layout_onboarding logged_out" data-form-key="!1231360140853|xV2u2cN1ftBd5JuJlkb173hFZo"><img title="http://www.tumblr.com/impixu?T=1360140853&amp;J=eyJ0eXBlIjoidXJsIiwidXJsIjoiaHR0cDpcL1wvd3d3LnR1bWJsci5jb21cL3JlZ2lzdGVyIn0=&amp;U=IBLDIEECGD&amp;K=a38bacb8c982a0021e3ec501fe314e27d6784212966b1c908734620a86079a97" ilo-ph-fix="tofix" alt="[Image]" ilo-full-src="http://www.tumblr.com/impixu?T=1360140853&amp;J=eyJ0eXBlIjoidXJsIiwidXJsIjoiaHR0cDpcL1wvd3d3LnR1bWJsci5jb21cL3JlZ2lzdGVyIn0=&amp;U=IBLDIEECGD&amp;K=a38bacb8c982a0021e3ec501fe314e27d6784212966b1c908734620a86079a97" style="position: absolute; z-index: -3334; top: 0px; left: 0px; visibility: hidden;" src="impixu">    
+
+
+    <div class="logged_out_container" id="logged_out_container">
+
+      <div class="logged_out_header" id="header">
+        <h1 id="logo" class="logo "><a href="/" class="logo_anchor">Tumblr</a></h1>
+
+        <h2 style="" id="signup_subhead" class="signup_subhead"><span id="signup_subhead_content">Follow the world’s creators.</span></h2>
+        <div class="logged_out_search tab" id="search_field">
+          <form method="get" action="https://www.tumblr.com/search" id="search_form" class="search_form " data-form-key="EdAkyWKngGPYbMJJQ26uXofYB0" data-tag-slug="">
+            <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
+            <input id="search_query_submit" value="Search tags" type="submit">    <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
+        </form>
+      </div>
+
+        <div class="signup_buttons">
+          <a href="{% url 'login' %}" id="signup_button_login" class="login_signup_button chrome shallow login">Log in</a>
+          <a href="/" id="signup_button_cancel" class="login_signup_button chrome shallow cancel">Cancel</a>
+          <a href="{% url 'register' %}" id="signup_button_signup" class="login_signup_button chrome other_blue signup">Sign up</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="outter_wrapper">
+
+      <div id="container">
+        <div id="content" class="clearfix"><img title="https://secure.assets.tumblr.com/images/content_top.png?alpha" ilo-ph-fix="tofix" ilo-full-src="https://secure.assets.tumblr.com/images/content_top.png?alpha" src="content_top.png" alt="" class="content_cap" id="content_top">
+
+
+        {% block main %}
+
+        {% endblock %}
+
+        <div class="clear"></div>
+        </div>
+      <img title="https://secure.assets.tumblr.com/images/content_bottom.png?alpha" ilo-ph-fix="tofix" ilo-full-src="https://secure.assets.tumblr.com/images/content_bottom.png?alpha" src="content_bottom.png" alt="" class="content_cap" id="content_bottom">
+      </div>
+
+      {% block js %}
+      {% endblock %}
+
+      <div id="footer">
+        <ul class="footer_links">
+
+          <li class="footer_link">
+            <strong>© Tumblr, Inc.</strong>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/help">Help</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/about">About</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/apps">Apps</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/developers">Developers</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/themes/" title="Tumblr Themes">Themes</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/meetups">Meetups</a>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/jobs" onclick="this.href = '/jobs?Tumblr+Footer';">Jobs</a>
+          </li>
+
+          <li class="footer_link" id="popover_legal">
+
+            <a class=" popover_legal_link" href="https://www.tumblr.com/policy/en/terms_of_service">Legal</a>
+            <div style="margin-left: -1px;" class="popover popover_menu popover_gradient nipple_on_bottom popover_legal">
+              <ul class="popover_inner">
+                <li class="popover_menu_item"><a href="https://www.tumblr.com/policy/en/terms_of_service">Terms</a></li>
+                <li class="popover_menu_item"><a href="https://www.tumblr.com/policy/en/terms_of_service#dmca">Copyright</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="footer_link">
+            <a href="https://www.tumblr.com/policy/en/privacy">Privacy</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </body>
+</html>

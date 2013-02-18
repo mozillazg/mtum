@@ -32,11 +32,14 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     'dashboard.views',
+    url(r'^$', 'index', name='index'),
+
     url(r'^dashboard$', 'dashboard', name='dashboard'),
     url(r'^mine$', 'dashboard', {'posts_filter': 'mine'}, name='mine'),
     url(r'^likes$', 'dashboard', {'posts_filter': 'likes'}, name='likes'),
     url(r'^following$', 'dashboard', {'posts_filter': 'following'},
         name='following'),
+
     url(r'^new/text$', 'new_text', name='new_text'),
     url(r'^new/photo$', 'new_photo', name='new_photo'),
     url(r'^new/video$', 'new_video', name='new_video'),
@@ -47,8 +50,6 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     '',
-    # url(r'^$', 'app.views.index', name='index'),
-
     url(r'^like/(?P<post_id>\d+)$', 'post.views.like', name='like'),
     url(r'^unlike/(?P<post_id>\d+)$', 'post.views.unlike', name='unlike'),
     url(r'^reblog/(?P<post_id>\d+)$', 'post.views.reblog', name='reblog'),

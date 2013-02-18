@@ -15,9 +15,21 @@ from .forms import TextForm
 from .forms import PhotoForm
 from .forms import VideoForm
 from .helper import create_tags
+from .helper import group_list
 from post.models import Post
 from post.models import Follow
 from post.models import Like
+
+
+def index(request):
+    posts = Post.objects.filter(kind='P')
+    posts_group = group_list(posts, 3)
+
+    context = {
+        'posts_group': posts_group,
+    }
+    return render_to_response('index/index.html', context,
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))

@@ -243,13 +243,13 @@
 
             <li class="post is_mine with_avatar new_post" id="new_post">
               <nav id="post_buttons" class="clearfix">
-                <a href="http://www.tumblr.com/new/text" class="new_post_label" id="new_post_label_text" data-post-type="regular" data-post-endpoint="text">Text<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/photo" class="new_post_label" id="new_post_label_photo" data-post-type="photo">Photo<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/quote" class="new_post_label" id="new_post_label_quote" data-post-type="quote">Quote<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/link" class="new_post_label" id="new_post_label_link" data-post-type="link">Link<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/chat" class="new_post_label" id="new_post_label_chat" data-post-type="conversation" data-post-endpoint="chat">Chat<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/audio" class="new_post_label" id="new_post_label_audio" data-post-type="audio">Audio<span class="new_post_label_icon"></span></a>
-                <a href="http://www.tumblr.com/new/video" class="new_post_label" id="new_post_label_video" data-post-type="video">Video<span class="new_post_label_icon"></span></a>
+                <a href="{% url 'new_text' %}" class="new_post_label" id="new_post_label_text" data-post-type="regular" data-post-endpoint="text">Text<span class="new_post_label_icon"></span></a>
+                <a href="{% url 'new_photo' %}" class="new_post_label" id="new_post_label_photo" data-post-type="photo">Photo<span class="new_post_label_icon"></span></a>
+                <a href="#new_quote" class="new_post_label" id="new_post_label_quote" data-post-type="quote">Quote<span class="new_post_label_icon"></span></a>
+                <a href="#new_link" class="new_post_label" id="new_post_label_link" data-post-type="link">Link<span class="new_post_label_icon"></span></a>
+                <a href="#new_chat" class="new_post_label" id="new_post_label_chat" data-post-type="conversation" data-post-endpoint="chat">Chat<span class="new_post_label_icon"></span></a>
+                <a href="#new_audio" class="new_post_label" id="new_post_label_audio" data-post-type="audio">Audio<span class="new_post_label_icon"></span></a>
+                <a href="{% url 'new_video' %}" class="new_post_label" id="new_post_label_video" data-post-type="video">Video<span class="new_post_label_icon"></span></a>
               </nav>
               <span class="arrow"></span>
 

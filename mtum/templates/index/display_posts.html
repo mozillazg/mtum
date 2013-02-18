@@ -1,0 +1,26 @@
+<div data-animated-gif="false" data-tumblelog="hyperform" data-id="{{ post.id }}" data-grow-height="403" data-grow-width="323" data-effect="grow" data-lightbox="true" data-type="photo" class="ht_post photo not_expanded
+  {% if post.tags.all %}has_tags {% endif %}" id="ht_post_{{ post.id }}">
+
+  <div style="background-image: url('{{ post.photo }}');" class="stage">
+    <div class="bg-image-fallback">
+      <img src="{{ post.photo }}">
+    </div>
+    <a target="_top" href="{{ third.link|default:'#' }}" class="go"></a>
+  </div>
+</div>
+
+{% if post.tags.all %}
+<div class="ht_controls">
+  <div class="tags">
+    <ul>
+      {% for tag in post.tags.all %}
+      {% if tag.kind == "F" %}
+      <li><a class="hello_tag featured" href="#tagged_{{ tag.slug }}"><span>#</span>{{ tag.name }}</a></li>
+      {% else %}
+      <li><a class="hello_tag" href="#tagged_{{ tag.slug }}"><span>#</span>{{ tag.name }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

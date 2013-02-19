@@ -51,29 +51,25 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
-    '',
-    url(r'^like/(?P<post_id>\d+)$', 'post.views.like', name='like'),
-    url(r'^unlike/(?P<post_id>\d+)$', 'post.views.unlike', name='unlike'),
-    url(r'^reblog/(?P<post_id>\d+)$', 'post.views.reblog', name='reblog'),
-    url(r'^follow/(?P<user_slug>[-\w+]+)$', 'post.views.follow',
-        name='follow'),
-    url(r'^unfollow/(?P<user_slug>[-\w+]+)$', 'post.views.unfollow',
-        name='unfollow'),
-    # url(r'^settings$', 'account.views.settings', name='settings'),
-    # url(r'^tagged/(?P<tag_name>[-\w]+)', '', name='tag'),
+    'post.views',
+    url(r'^like/(?P<post_id>\d+)$', 'like', name='like'),
+    url(r'^unlike/(?P<post_id>\d+)$', 'unlike', name='unlike'),
+    url(r'^reblog/(?P<post_id>\d+)$', 'reblog', name='reblog'),
+    url(r'^follow/(?P<user_slug>[-\w+]+)$', 'follow', name='follow'),
+    url(r'^unfollow/(?P<user_slug>[-\w+]+)$', 'unfollow', name='unfollow'),
 
-    url(r'^blog/(?P<user_slug>[-\w]+)$', 'post.views.user_index',
-        name='user_index'),
+    url(r'^blog/(?P<user_slug>[-\w]+)$', 'user_index', name='user_index'),
     url(r'^blog/(?P<user_slug>[-\w]+)/tagged/(?P<tag_slug>[-\w]+)$',
-        'post.views.user_index', name='user_tag'),
+        'user_index', name='user_tag'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/random$', 'random_post', name='random'),
 
-    url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'post.views.user_search',
+    url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'user_search',
         name='user_search'),
     url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[ -\+\w]+)$',
-        'post.views.user_search_result', name='user_search_result'),
+        'user_search_result', name='user_search_result'),
 
     url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)$',
-        'post.views.detail', name='post_detail'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/(?P<post_slug>[-\w]+)$',
-        'post.views.detail', name='post_detail_slug'),
+        'detail', name='post_detail'),
+    url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)/'
+        + r'(?P<post_slug>[-\w]+)$', 'detail', name='post_detail_slug'),
 )

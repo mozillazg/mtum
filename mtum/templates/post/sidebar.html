@@ -28,7 +28,7 @@
 <div id="buttons">
   <div class="row">
     <div id="button-rss" class="button"><a href="#rss">RSS Feed</a></div>
-    <div id="button-random" class="button"><a href="#random">Random</a></div>
+    <div id="button-random" class="button"><a href="{% url 'random' blog_author.get_profile.slug %}">Random</a></div>
   </div>
 
   <div class="clear"></div>

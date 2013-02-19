@@ -23,7 +23,6 @@ from .models import Tag
 from .models import Like
 from .models import Follow
 from account.models import UserProfile
-from .utils import random_queryset
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -182,9 +181,7 @@ def detail(request, user_slug, post_id, post_slug=None):
 
 def random_post(request, user_slug):
     author = UserProfile.objects.get(slug=user_slug).user
-    post_id = random_queryset(Post, number=1, author=author)
-    print post_id
-    post_id = post_id[0].id
+    post_id = Post.objects.filter(author=author).order_by('?')[0].id
 
     return HttpResponseRedirect(reverse_lazy('post_detail',
                                              kwargs={

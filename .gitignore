@@ -17,3 +17,7 @@ build
 
 # Logs:
 *.log
+
+migrations
+
+endless_pagination

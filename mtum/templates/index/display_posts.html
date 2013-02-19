@@ -1,8 +1,11 @@
 {% load url from future %}
+{% load markup %}
 
-<div data-animated-gif="false" data-tumblelog="hyperform" data-id="{{ post.id }}" data-grow-height="403" data-grow-width="323" data-effect="grow" data-lightbox="true" data-type="photo" class="ht_post photo not_expanded
-  {% if post.tags.all %}has_tags {% endif %}" id="ht_post_{{ post.id }}">
+<div data-animated-gif="false" data-tumblelog="hyperform" data-id="{{ post.id }}" data-grow-height="403" data-grow-width="323" data-effect="grow" data-lightbox="true" data-type="photo"
+  class="ht_post {{ post.get_kind_display }} {% if post.kind == 'P' %}not_expanded {% endif %}
+  {% if post.tags.all %}has_tags {% endif %} {% if post.kind == 'T' %}box {% endif %}" id="ht_post_{{ post.id }}">
 
+  {% if post.kind == 'P' %}
   <div style="background-image: url('{{ post.photo }}');" class="stage">
     <div class="bg-image-fallback">
       <img src="{{ post.photo }}">
@@ -10,6 +13,16 @@
     <!-- <a target="_top" href="{{ third.link|default:'#' }}" class="go"></a> -->
     <a target="_top" href="{% url 'post_detail' post.author.get_profile.slug post.id %}" class="go"></a>
   </div>
+  {% endif %}
+  {% if post.kind == 'T' %}
+  <div class="stage">
+    <div class="overfade"></div>
+    <div class="content">
+      {{ post.content|markdown:"safe" }}
+    </div>
+    <a target="_blank" href="{% url 'post_detail' post.author.get_profile.slug post.id %}" class="go"></a>
+    </div>
+  {% endif %}
 </div>
 
 {% if post.tags.all %}

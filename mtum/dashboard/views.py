@@ -22,7 +22,7 @@ from post.models import Like
 
 
 def index(request):
-    posts = Post.objects.filter(kind='P')
+    posts = Post.objects.filter(Q(kind='P') | Q(kind='T')).order_by('-created_at')
     posts_group = group_list(posts, 3)
 
     context = {

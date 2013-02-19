@@ -43,6 +43,7 @@ def media_wall(keyword=None):
     posts = posts.filter(reblog__isnull=True)
     if keyword:
         posts = posts.filter(Q(tags__name__icontains=keyword)
+                             | Q(tags__slug__icontains=keyword)
                              | Q(content__icontains=keyword)
                              | Q(title__icontains=keyword))
 

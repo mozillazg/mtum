@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import slugify
 
 from endless_pagination.decorators import page_template
 
@@ -125,6 +126,7 @@ def user_search(request, user_slug):
     if not keyword:
         return HttpResponseRedirect(referer)
     else:
+        keyword = slugify(keyword)
         return HttpResponseRedirect(reverse_lazy('user_search_result',
                                                  kwargs={
                                                      'user_slug': user_slug,

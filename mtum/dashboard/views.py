@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import slugify
 
 from endless_pagination.decorators import page_template
 
@@ -205,6 +206,7 @@ def search(request):
     if not keyword:
         return HttpResponseRedirect(referer)
     else:
+        keyword = slugify(keyword)
         return HttpResponseRedirect(reverse_lazy('tagged',
                                                  kwargs={
                                                      'keyword': keyword,

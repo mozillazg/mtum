@@ -28,9 +28,9 @@
 
         <h2 style="" id="signup_subhead" class="signup_subhead"><span id="signup_subhead_content">Follow the world’s creators.</span></h2>
         <div class="logged_out_search tab" id="search_field">
-          <form method="get" action="https://www.tumblr.com/search" id="search_form" class="search_form " data-form-key="EdAkyWKngGPYbMJJQ26uXofYB0" data-tag-slug="">
+          <form method="get" action="{% url 'search' %}" id="search_form" class="search_form " data-form-key="EdAkyWKngGPYbMJJQ26uXofYB0" data-tag-slug="">
             <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
-            <input id="search_query_submit" value="Search tags" type="submit">    <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
+            <input id="search_query_submit" value="Search tags" type="submit">    <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="{{ keyword }}" class="popover_button" autocomplete="off" type="text">
         </form>
       </div>
 

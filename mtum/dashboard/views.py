@@ -205,7 +205,7 @@ def search(request):
     if not keyword:
         return HttpResponseRedirect(referer)
     else:
-        return HttpResponseRedirect(reverse_lazy('search_result',
+        return HttpResponseRedirect(reverse_lazy('tagged',
                                                  kwargs={
                                                      'keyword': keyword,
                                                  }))

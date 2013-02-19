@@ -34,7 +34,7 @@ urlpatterns += patterns(
     'dashboard.views',
     url(r'^$', 'index', name='index'),
     url(r'^search$', 'search', name='search'),
-    url(r'^tagged$', 'search_result', name='tagged'),
+    url(r'^tagged/(?P<keyword>[-\w]+)$', 'search_result', name='tagged'),
 
     url(r'^dashboard$', 'dashboard', name='dashboard'),
     url(r'^mine$', 'dashboard', {'posts_filter': 'mine'}, name='mine'),

@@ -21,21 +21,20 @@ def create_tags(tags):
     return tuple(related_tags)
 
 
-# code.activestate.com/recipes/303060-group-a-list-into-sequential-n-tuples/
-def group(lst, n):
-    """group([0,3,4,10,2,3], 2) => [(0,3), (4,10), (2,3)]
-
-    Group a list into consecutive n-tuples. Incomplete tuples are
-    discarded e.g.
-
-    >>> group(range(10), 3)
-    [(0, 1, 2), (3, 4, 5), (6, 7, 8)]
-    """
-    return zip(*[lst[i::n] for i in range(n)])
-
-
-def group_list(lst, n):
-    return group(lst, n)
+# http://sandrotosi.blogspot.com/2011/04/python-group-list-in-sub-lists-of-n.html
+def group_iter(iterator, n=2):
+    """ Given an iterator, it returns sub-lists made of n items
+    (except the last that can have len < n)
+    inspired by http://countergram.com/python-group-iterator-list-function"""
+    accumulator = []
+    for item in iterator:
+        accumulator.append(item)
+        if len(accumulator) == n:  # tested as fast as separate counter
+            yield accumulator
+            accumulator = []  # tested faster than accumulator[:] = []
+            # and tested as fast as re-using one list object
+    if len(accumulator) != 0:
+        yield accumulator
 
 
 def media_wall(keyword=None):
@@ -48,5 +47,5 @@ def media_wall(keyword=None):
                              | Q(title__icontains=keyword))
 
     posts = posts.order_by('-created_at')
-    posts_group = group_list(posts, 3)
+    posts_group = group_iter(posts, 3)
     return posts_group

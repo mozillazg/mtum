@@ -31,9 +31,9 @@
     <ul>
       {% for tag in post.tags.all %}
       {% if tag.kind == "F" %}
-      <li><a class="hello_tag featured" href="#tagged_{{ tag.slug }}"><span>#</span>{{ tag.name }}</a></li>
+      <li><a class="hello_tag featured" href="{% url 'tagged' tag.slug %}"><span>#</span>{{ tag.name }}</a></li>
       {% else %}
-      <li><a class="hello_tag" href="#tagged_{{ tag.slug }}"><span>#</span>{{ tag.name }}</a></li>
+      <li><a class="hello_tag" href="{% url 'tagged' tag.slug %}"><span>#</span>{{ tag.name }}</a></li>
       {% endif %}
       {% endfor %}
     </ul>

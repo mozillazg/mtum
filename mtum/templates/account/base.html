@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Tumblr{% endblock %}</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
+  </head>
+<body>
+  <header>
+  {% block header %}
+  {% endblock %}
+  </header>
+
+  {% block main %}
+  {% endblock %}
+
+  <footer>
+  {% block footer %}
+  {% endblock %}
+  </footer>
+</body>
+</html>

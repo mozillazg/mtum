@@ -1,0 +1,5 @@
+django
+south
+markdown
+Unidecode
+git+https://github.com/frankban/django-endless-pagination.git

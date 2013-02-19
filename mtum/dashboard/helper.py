@@ -40,6 +40,7 @@ def group_list(lst, n):
 
 def media_wall(keyword=None):
     posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
+    posts = posts.filter(reblog__isnull=True)
     if keyword:
         posts = posts.filter(Q(tags__name__icontains=keyword)
                              | Q(content__icontains=keyword)

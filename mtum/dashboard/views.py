@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from urllib import unquote
+
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -15,21 +17,10 @@ from .forms import TextForm
 from .forms import PhotoForm
 from .forms import VideoForm
 from .helper import create_tags
-from .helper import group_list
+from .helper import media_wall
 from post.models import Post
 from post.models import Follow
-from post.models import Like
-
-
-def index(request):
-    posts = Post.objects.filter(Q(kind='P') | Q(kind='T')).order_by('-created_at')
-    posts_group = group_list(posts, 3)
-
-    context = {
-        'posts_group': posts_group,
-    }
-    return render_to_response('index/index.html', context,
-                              context_instance=RequestContext(request))
+# from post.models import Like
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -197,3 +188,39 @@ def delete_post(request, post_id):
         pass
     finally:
         return HttpResponseRedirect(referer or '/')
+
+
+def index(request):
+    posts_group = media_wall()
+    context = {
+        'posts_group': posts_group,
+    }
+    return render_to_response('index/index.html', context,
+                              context_instance=RequestContext(request))
+
+
+def search(request):
+    referer = request.META.get('HTTP_REFERER', '/')
+    keyword = request.GET.get('q')
+    if not keyword:
+        return HttpResponseRedirect(referer)
+    else:
+        return HttpResponseRedirect(reverse_lazy('search_result',
+                                                 kwargs={
+                                                     'keyword': keyword,
+                                                 }))
+
+
+def search_result(request, keyword=None):
+    keyword = unquote(keyword)
+    if not keyword:
+        return HttpResponseRedirect('/')
+
+    posts_group = media_wall(keyword=keyword)
+
+    context = {
+        'posts_group': posts_group,
+        'keyword': keyword,
+    }
+    return render_to_response('index/index.html', context,
+                              context_instance=RequestContext(request))

@@ -33,6 +33,8 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'dashboard.views',
     url(r'^$', 'index', name='index'),
+    url(r'^search$', 'search', name='search'),
+    url(r'^tagged$', 'search_result', name='tagged'),
 
     url(r'^dashboard$', 'dashboard', name='dashboard'),
     url(r'^mine$', 'dashboard', {'posts_filter': 'mine'}, name='mine'),
@@ -58,11 +60,11 @@ urlpatterns += patterns(
     url(r'^unfollow/(?P<user_slug>[-\w+]+)$', 'post.views.unfollow',
         name='unfollow'),
     # url(r'^settings$', 'account.views.settings', name='settings'),
-    # url(r'^taged/(?P<tag_name>[-\w]+)', '', name='tag'),
+    # url(r'^tagged/(?P<tag_name>[-\w]+)', '', name='tag'),
 
     url(r'^blog/(?P<user_slug>[-\w]+)$', 'post.views.user_index',
         name='user_index'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/taged/(?P<tag_slug>[-\w]+)$',
+    url(r'^blog/(?P<user_slug>[-\w]+)/tagged/(?P<tag_slug>[-\w]+)$',
         'post.views.user_index', name='user_tag'),
 
     url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'post.views.user_search',

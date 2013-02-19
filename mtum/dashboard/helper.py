@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from django.db.models import Q
+
 from post.models import Tag
+from post.models import Post
 
 
 def create_tags(tags):
@@ -33,3 +36,15 @@ def group(lst, n):
 
 def group_list(lst, n):
     return group(lst, n)
+
+
+def media_wall(keyword=None):
+    posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
+    if keyword:
+        posts = posts.filter(Q(tags__name__icontains=keyword)
+                             | Q(content__icontains=keyword)
+                             | Q(title__icontains=keyword))
+
+    posts = posts.order_by('-created_at')
+    posts_group = group_list(posts, 3)
+    return posts_group

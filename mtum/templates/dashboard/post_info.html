@@ -1,9 +1,11 @@
 {% load url from future %}
 {% load markup %}
+{% load endless %}
 {% load account_extras %}
 {% load dashboard_extras %}
 
 
+{% paginate 5 posts %}
 {% for post in posts %}
 {% with type=post.get_kind_display id=post.id author=post.author author_slug=post.author.get_profile.slug reblog=post.reblog reblog_author=post.reblog.author reblog_slug=post.reblog.author.get_profile.slug blog_title=post.author.get_profile.title reblog_title=post.reblog.author.get_profile.title %}
 <li id="post_{{ id }}" class="post photo post_tumblelog_{{ id }}
@@ -156,3 +158,4 @@
 </li>
 {% endwith %}
 {% endfor %}
+{% show_more %}

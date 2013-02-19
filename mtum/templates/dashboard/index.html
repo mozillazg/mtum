@@ -1,5 +1,6 @@
 {% extends "dashboard/base.html" %}
 {% load url from future %}
+{% load endless %}
 {% load account_extras %}
 {% load dashboard_extras %}
 
@@ -277,8 +278,9 @@
 
 
             <!-- START POSTS -->
-            {% include "dashboard/post_info.html" %}
-
+            <div class="endless_page_template">
+              {% include "dashboard/post_info.html" %}
+            </div>
             <!-- END POSTS -->
           </ol>
 
@@ -351,3 +353,18 @@
       </div>
     </div>
   {% endblock %}
+
+
+{% block js %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+  <script>
+      $.endlessPaginate({
+          paginateOnScroll: true,
+          paginateOnScrollMargin: 30
+          // paginateOnScrollChunkSize: 1
+      });
+  </script>
+{% endblock %}

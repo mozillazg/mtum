@@ -24,7 +24,7 @@ from post.models import Follow
 
 
 @login_required(login_url=reverse_lazy('login'))
-@page_template('dashboard/index_page.html')
+@page_template('dashboard/post_info.html')
 def dashboard(request, posts_filter=None, template='dashboard/index.html',
               extra_context=None):
     user = request.user

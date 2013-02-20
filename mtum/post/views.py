@@ -120,13 +120,11 @@ def user_index(request, user_slug, tag_slug=None,
 
 
 def user_search(request, user_slug):
-    referer = request.META.get('HTTP_REFERER',
-                               reverse_lazy('user_index', user_slug))
-    keyword = request.GET.get('q')
+    referer = reverse_lazy('user_index', kwargs={'user_slug': user_slug})
+    keyword = slugify(request.GET.get('q'))
     if not keyword:
         return HttpResponseRedirect(referer)
     else:
-        keyword = slugify(keyword)
         return HttpResponseRedirect(reverse_lazy('user_search_result',
                                                  kwargs={
                                                      'user_slug': user_slug,
@@ -137,7 +135,10 @@ def user_search(request, user_slug):
 def user_search_result(request, user_slug, keyword):
     keyword = unquote(keyword)
     if not keyword:
-        return HttpResponseRedirect(reverse_lazy('user_index', user_slug))
+        return HttpResponseRedirect(reverse_lazy('user_index',
+                                                 keywords={
+                                                     'user_slug': user_slug,
+                                                 }))
 
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user

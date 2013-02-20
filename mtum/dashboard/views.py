@@ -201,12 +201,10 @@ def index(request):
 
 
 def search(request):
-    referer = request.META.get('HTTP_REFERER', '/')
-    keyword = request.GET.get('q')
+    keyword = slugify(request.GET.get('q'))
     if not keyword:
-        return HttpResponseRedirect(referer)
+        return HttpResponseRedirect('/')
     else:
-        keyword = slugify(keyword)
         return HttpResponseRedirect(reverse_lazy('tagged',
                                                  kwargs={
                                                      'keyword': keyword,

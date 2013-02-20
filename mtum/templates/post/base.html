@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load account_extras %}
+{% load dashboard_extras %}
 
 <!DOCTYPE html>
 <html>
@@ -45,8 +46,12 @@
     {% if is_login %}
       {% block post_social %}
       {% endblock %}
+
+      {% if user|is_following:blog_author %}
+      <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow">Unfollow</a>
+      {% else %}
       <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow ">Follow</a>
-      <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow hidden">Unfollow</a>
+      {% endif %}
       <a target="_top" href="{% url 'dashboard' %}" title="Dashboard" class="btn icon dashboard">Dashboard</a>
 
       {% else %}

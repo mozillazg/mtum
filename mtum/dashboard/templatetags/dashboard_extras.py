@@ -35,6 +35,11 @@ def is_liked(user, post):
 
 
 @register.filter
+def is_following(user, author):
+    return Follow.objects.filter(follower=user, following=author).exists()
+
+
+@register.filter
 def posts_numbers(user):
     return Post.objects.filter(author=user).count()
 

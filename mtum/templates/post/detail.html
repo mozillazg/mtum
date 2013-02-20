@@ -1,6 +1,7 @@
 {% extends "post/base.html" %}
 {% load url from future %}
 {% load account_extras %}
+{% load dashboard_extras %}
 
 {% block middle %}
   <ol id="posts">
@@ -44,9 +45,11 @@
 {% endblock %}
 
 {% block post_social %}
+{% if user|is_liked:post %}
+<a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="{% url 'unlike' post.id %}" class="btn icon no_label unlike ">Unlike</a>
+{% else %}
 <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="{% url 'like' post.id %}" class="btn icon no_label like ">Like</a>
-
-<a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="#unlike" class="btn icon no_label unlike  hidden">Unlike</a>
+{% endif %}
 
 <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="{% url 'reblog' post.id %}" title="Reblog" class="btn icon reblog">Reblog</a>
 

@@ -14,6 +14,7 @@
     <meta name="apple-itunes-app" content="app-id=305343404,app-argument=tumblr://x-callback-url/dashboard?referrer=smart-app-banner">
     {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/index.css" media="all">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global_index.css" media="all">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/hello_tags.css" media="all">
     {% endblock %}
@@ -53,14 +54,18 @@
 
         {% endblock %}
 
+
         <div class="clear"></div>
         </div>
       <img title="https://secure.assets.tumblr.com/images/content_bottom.png?alpha" ilo-ph-fix="tofix" ilo-full-src="https://secure.assets.tumblr.com/images/content_bottom.png?alpha" src="content_bottom.png" alt="" class="content_cap" id="content_bottom">
       </div>
 
+
       {% block js %}
       {% endblock %}
 
+
+      {% block footer %}
       <div id="footer">
         <ul class="footer_links">
 
@@ -116,6 +121,7 @@
           </li>
         </ul>
       </div>
+    {% endblock %}
 
     </div>
   </body>

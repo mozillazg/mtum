@@ -13,3 +13,11 @@
 #hello_tags .unit .ht_post.text .stage:after {
   background: none repeat scroll 0 0 #BEBEBE;
 }
+
+
+.endless_more {
+  display: none;
+}
+.endless_loading {
+  display: none;
+}

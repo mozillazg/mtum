@@ -1,6 +1,5 @@
 {% extends "index/base.html" %}
 {% load url from future %}
-{% load endless %}
 {% load dashboard_extras %}
 
 
@@ -10,25 +9,43 @@
 
 
   <div class="endless_page_template">
-    <div class="hello_row">
-
-      {% for first, second, third in posts_group %}
-      <div class="unit sel first_in_row out_controls ready" id="sel_0"><!-- Photo -->
-        {% include "index/display_posts.html" with post=first %}
-      </div>
-
-      <div class="unit sel out_controls ready" id="sel_1"><!-- Photo -->
-        {% include "index/display_posts.html" with post=second %}
-      </div>
-
-      <div class="unit sel last_in_row out_controls ready" id="sel_2"><!-- Photo -->
-        {% include "index/display_posts.html" with post=third %}
-      </div>
-      {% endfor %}
-
-    </div>
+    {% include "index/index_page.html" %}
   </div>
 
   <div class="clear"></div>
 </div>
+{% endblock %}
+
+
+{% block js %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+  <script>
+      $.endlessPaginate({
+          paginateOnScroll: true,
+          paginateOnScrollMargin: 50
+          // paginateOnScrollChunkSize: 1
+      });
+  </script>
+{% endblock %}
+
+
+{% block footer %}
+  {% if keyword %}
+    <div id="auto_pagination_loader">
+      <span id="auto_pagination_loader_loading">
+          <div class="spinner"></div>
+          Loading more posts...    </span>
+
+      <span style="display: none;" id="auto_pagination_loader_failure">
+          Sorry, we couldn't load the next page!&nbsp; <a onclick="Tumblr.AutoPaginator.start(); return false;" href="#">Try again</a>.    </span>
+
+      <span style="display: none;" id="auto_pagination_loader_no_posts">
+          Sorry, we couldn't find any more posts!    </span>
+  </div>
+  {% else %}
+    {{ block.super }}
+  {% endif %}
 {% endblock %}

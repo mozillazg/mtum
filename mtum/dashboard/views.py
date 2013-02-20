@@ -187,10 +187,10 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
-@page_template('dashboard/post_info.html')
+@page_template('index/index_page.html')
 def index(request, keyword=None, template='index/index.html',
           extra_context=None):
-    posts_group = media_wall(keyword=keyword)
+    posts_group = list(media_wall(keyword=keyword))
 
     context = {
         'posts_group': posts_group,

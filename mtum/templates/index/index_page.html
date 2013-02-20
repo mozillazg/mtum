@@ -1,0 +1,23 @@
+{% load endless %}
+
+{% paginate 3 posts_group %}
+
+{% for first, second, third in posts_group %}
+<div class="hello_row">
+  <div class="unit sel first_in_row out_controls"><!-- Photo -->
+    {% include "index/display_posts.html" with post=first %}
+  </div>
+
+  <div class="unit sel out_controls"><!-- Photo -->
+    {% include "index/display_posts.html" with post=second %}
+  </div>
+
+  <div class="unit sel last_in_row out_controls"><!-- Photo -->
+    {% include "index/display_posts.html" with post=third %}
+  </div>
+</div>
+{% endfor %}
+
+{% if keyword %}
+{% show_more %}
+{% endif %}

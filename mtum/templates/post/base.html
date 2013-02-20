@@ -47,12 +47,15 @@
       {% block post_social %}
       {% endblock %}
 
-      {% if user|is_following:blog_author %}
-      <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow">Unfollow</a>
-      {% else %}
-      <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow ">Follow</a>
+      {% if user != blog_author %}
+
+        {% if user|is_following:blog_author %}
+        <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow">Unfollow</a>
+        {% else %}
+        <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow ">Follow</a>
+        {% endif %}
       {% endif %}
-      <a target="_top" href="{% url 'dashboard' %}" title="Dashboard" class="btn icon dashboard">Dashboard</a>
+        <a target="_top" href="{% url 'dashboard' %}" title="Dashboard" class="btn icon dashboard">Dashboard</a>
 
       {% else %}
       <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow ">Follow</a>

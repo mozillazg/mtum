@@ -275,7 +275,7 @@ input.text_field {
 .markItUp#markItUpId_content {
   width: 584px;
 }
-.markItUpEditor#id_content {
+.markItUpEditor{
   width: 528px;
   min-width: 528px;
   max-width: 528px;

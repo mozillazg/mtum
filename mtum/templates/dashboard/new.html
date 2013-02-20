@@ -22,24 +22,23 @@
                 <div class="selection_nipple white"></div>
               </div>
               <div class="tab iconic " id="inbox_button">
-                <a href="http://www.tumblr.com/inbox">Inbox</a>
+                <a href="#inbox">Inbox</a>
                 <div class="selection_nipple"></div>
               </div>
               <div class="tab iconic" id="help_button">
-                <a href="http://www.tumblr.com/help">Help</a>
+                <a href="#help">Help</a>
                 <div class="selection_nipple white"></div>
               </div>
               <div class="tab iconic" id="preferences_button">
-                <a href="http://www.tumblr.com/settings">Preferences</a>
+                <a href="{% url 'settings' %}">Preferences</a>
                 <div class="selection_nipple white"></div>
               </div>
               <div class="tab iconic" id="logout_button">
-                <a href="http://www.tumblr.com/logout" onclick="return confirm('Are you sure you want to log out?');">Log out</a>
+                <a href="{% url 'logout' %}" onclick="return confirm('Are you sure you want to log out?');">Log out</a>
               </div>
 
               <div class="tab iconic " id="search_field">
-                <form method="get" action="http://www.tumblr.com/search" id="search_form" class="search_form " data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-tag-slug="">
-                  <input name="t" value="mozillazg" type="hidden">
+                <form method="get" action="{% url 'search' %}" id="search_form" class="search_form " data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-tag-slug="">
                   <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
                   <input id="search_query_submit" value="Search tags" type="submit">
                   <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
@@ -55,7 +54,7 @@
                   </div>
                   <div class="related_tags"></div>
                   <div class="popover_menu_item ender">
-                    <a href="http://www.tumblr.com/explore" tabindex="1">Explore more tags</a>
+                    <a href="#explore" tabindex="1">Explore more tags</a>
                   </div>
                 </div>
               </div>
@@ -71,7 +70,7 @@
 <img id="content_top" src="{{ STATIC_URL}}dashboard/images/content_top_edit_form.png">
 <div id="content" class="clearfix">
   <div class="clearfix">
-    <form onsubmit="" class="regular_post" id="edit_post" method="post" action="{{ action_url }}"> {% csrf_token %}
+    <form onsubmit="" class="{% if kind == 'text' %}regular_post{% else %}photo_post{% endif %}" id="edit_post" method="post" action="{{ action_url }}"> {% csrf_token %}
       <div style="width: 200px; float: right; margin: 0px 20px 0px 0px;" id="right_column">
         <div id="edit_post_controls">
 

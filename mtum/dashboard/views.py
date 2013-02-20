@@ -187,12 +187,18 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
-def index(request):
-    posts_group = media_wall()
+@page_template('dashboard/post_info.html')
+def index(request, keyword=None, template='index/index.html',
+          extra_context=None):
+    posts_group = media_wall(keyword=keyword)
+
     context = {
         'posts_group': posts_group,
+        'keyword': keyword,
     }
-    return render_to_response('index/index.html', context,
+    if extra_context:
+        context.update(extra_context)
+    return render_to_response(template, context,
                               context_instance=RequestContext(request))
 
 
@@ -205,18 +211,3 @@ def search(request):
                                                  kwargs={
                                                      'keyword': keyword,
                                                  }))
-
-
-def search_result(request, keyword=None):
-    keyword = unquote(keyword)
-    if not keyword:
-        return HttpResponseRedirect('/')
-
-    posts_group = media_wall(keyword=keyword)
-
-    context = {
-        'posts_group': posts_group,
-        'keyword': keyword,
-    }
-    return render_to_response('index/index.html', context,
-                              context_instance=RequestContext(request))

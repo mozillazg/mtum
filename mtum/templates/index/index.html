@@ -1,5 +1,6 @@
 {% extends "index/base.html" %}
 {% load url from future %}
+{% load endless %}
 {% load dashboard_extras %}
 
 
@@ -8,24 +9,26 @@
 <div id="hello_tags" class="clearfix">
 
 
-  <div class="hello_row">
+  <div class="endless_page_template">
+    <div class="hello_row">
 
-    {% for first, second, third in posts_group %}
-    <div class="unit sel first_in_row out_controls ready" id="sel_0"><!-- Photo -->
-      {% include "index/display_posts.html" with post=first %}
+      {% for first, second, third in posts_group %}
+      <div class="unit sel first_in_row out_controls ready" id="sel_0"><!-- Photo -->
+        {% include "index/display_posts.html" with post=first %}
+      </div>
+
+      <div class="unit sel out_controls ready" id="sel_1"><!-- Photo -->
+        {% include "index/display_posts.html" with post=second %}
+      </div>
+
+      <div class="unit sel last_in_row out_controls ready" id="sel_2"><!-- Photo -->
+        {% include "index/display_posts.html" with post=third %}
+      </div>
+      {% endfor %}
+
     </div>
-
-    <div class="unit sel out_controls ready" id="sel_1"><!-- Photo -->
-      {% include "index/display_posts.html" with post=second %}
-    </div>
-
-    <div class="unit sel last_in_row out_controls ready" id="sel_2"><!-- Photo -->
-      {% include "index/display_posts.html" with post=third %}
-    </div>
-    {% endfor %}
-
-
   </div>
+
   <div class="clear"></div>
 </div>
 {% endblock %}

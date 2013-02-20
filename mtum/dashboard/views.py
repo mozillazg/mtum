@@ -179,12 +179,12 @@ def new_video(request):
 def delete_post(request, post_id):
     referer = request.META.get('HTTP_REFERER')
     try:
-        post = Post.objects.get(id=post_id)
+        post = Post.objects.get(id=post_id, author=request.user)
         post.delete()
     except ObjectDoesNotExist:
         pass
     finally:
-        return HttpResponseRedirect(referer or '/')
+        return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 def index(request):

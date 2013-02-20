@@ -35,7 +35,7 @@ def like(request, post_id):
     if user != post.author:
         Like.objects.get_or_create(author=user, post=post)
 
-    return HttpResponseRedirect(referer or '/')
+    return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -49,7 +49,7 @@ def unlike(request, post_id):
     except ObjectDoesNotExist:
         pass
 
-    return HttpResponseRedirect(referer or '/')
+    return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -71,7 +71,7 @@ def reblog(request, post_id):
             post.save()
             post.tags.add(*tags)
 
-    return HttpResponseRedirect(referer or '/')
+    return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -82,7 +82,7 @@ def follow(request, user_slug):
     if follower != following:
         Follow.objects.get_or_create(follower=follower, following=following)
 
-    return HttpResponseRedirect(referer or '/')
+    return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -93,7 +93,7 @@ def unfollow(request, user_slug):
     follow = Follow.objects.get(follower=follower, following=following)
     follow.delete()
 
-    return HttpResponseRedirect(referer or '/')
+    return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
 @page_template('post/index_page.html')

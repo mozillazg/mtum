@@ -10,7 +10,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import login as log_in
 from django.contrib.auth import logout as log_out
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm
 from .forms import LoginForm
@@ -23,8 +22,8 @@ def register(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = User.objects.create_user(username, email=email,
-                                            password=password)
+            User.objects.create_user(username, email=email,
+                                     password=password)
             return HttpResponseRedirect(reverse_lazy('login'))
 
     else:
@@ -59,11 +58,3 @@ def logout(request):
 def forgot_password(request):
     return render_to_response('account/forgot_password.html',
                               context_instance=RequestContext(request))
-
-
-# @login_required(login_url=reverse_lazy('login'))
-# def deshboard(request):
-    # pass
-@login_required(login_url=reverse_lazy('login'))
-def settings(request):
-    pass

@@ -46,7 +46,6 @@ def dashboard(request, posts_filter=None, template='dashboard/index.html',
         posts = posts.order_by('-created_at')
 
     context = {
-        'user': user,
         'posts': posts,
         'filter': posts_filter,
     }
@@ -88,7 +87,6 @@ def new_text(request):
     else:
         context = {
             'form': TextForm(),
-            # 'user': request.user,
             'kind': 'text',
             'action_url': reverse_lazy('new_text'),
         }
@@ -130,7 +128,6 @@ def new_photo(request):
     else:
         context = {
             'form': PhotoForm(),
-            # 'user': request.user,
             'kind': 'photo',
             'action_url': reverse_lazy('new_photo'),
         }
@@ -171,7 +168,6 @@ def new_video(request):
     else:
         context = {
             'form': VideoForm(),
-            # 'user': request.user,
             'kind': 'video',
             'action_url': reverse_lazy('new_video'),
         }

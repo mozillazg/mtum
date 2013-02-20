@@ -997,3 +997,7 @@ img.avatar:-moz-broken {
 .endless_more {
   display: none;
 }
+
+.post img {
+  max-width: 500px;
+}

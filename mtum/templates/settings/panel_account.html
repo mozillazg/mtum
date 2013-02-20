@@ -4,7 +4,7 @@
 
     <div id="panel_account" style="display: block;" class="settings_panel">
       <div style="float: right;" class="primary_action">
-        <button style="" disabled="" class="chrome flat" type="submit"> Save </button>
+        <button style="" class="chrome flat" type="submit"> Save </button>
       </div>
 
       <h1>Account</h1>
@@ -31,6 +31,7 @@
         <div class="right_column">
           <div style="width: 415px; float: left;">
             <div>
+              {{ errors.email }}
               {{ form.email }}
             </div>
           </div>
@@ -48,10 +49,12 @@
         <div class="right_column">
           <div style="width: 191px; margin-bottom: 10px;">
             <label for="{{ form.c_password.auto_id }}" class="block_label">Current password</label>
+            {{ errors.c_password }}
             {{ form.c_password }}
           </div>
           <div style="float: left; width: 191px; margin-right: 25px;">
             <label for="{{ form.n_password.auto_id }}" class="block_label">New password</label>
+            {{ errors.n_password }}
             {{ form.n_password }}
           </div>
           <div style="float: left; width: 191px;">
@@ -64,7 +67,7 @@
 
 
       <div style="float: right; margin-top: 30px;" class="primary_action">
-        <button style="" disabled="" class="chrome flat" type="submit"> Save </button>
+        <button style="" class="chrome flat" type="submit"> Save </button>
       </div>
 
       <div style="float: left; margin-top: 30px;" class="secondary_action">

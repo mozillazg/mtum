@@ -97,5 +97,7 @@ class AccountForm(forms.Form):
                                  widget=forms.PasswordInput(attrs=attrs_input))
     m_password = forms.CharField(required=False,
                                  widget=forms.PasswordInput(attrs=attrs_input))
-    title = forms.CharField(widget=forms.TextInput(attrs=attrs_input))
-    description = forms.CharField(widget=forms.Textarea(attrs=attrs_email))
+    title = forms.CharField(widget=forms.TextInput(attrs=attrs_input),
+                            required=False)
+    description = forms.CharField(widget=forms.Textarea(attrs=attrs_email),
+                                  required=False)

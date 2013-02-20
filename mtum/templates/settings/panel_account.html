@@ -1,0 +1,78 @@
+<form id="settings_form" method="post" action="{{ action_url }}">
+  {% csrf_token %}
+  <div style="">
+
+    <div id="panel_account" style="display: block;" class="settings_panel">
+      <div style="float: right;" class="primary_action">
+        <button style="" disabled="" class="chrome flat" type="submit"> Save </button>
+      </div>
+
+      <h1>Account</h1>
+      <!-- Blog -->
+      <div class="settings_container first">
+        <div class="left_column"> Blog </div>
+        <div class="right_column">
+          <div style="width: 191px; margin-bottom: 10px;">
+            <label for="{{ form.title.auto_id }}" class="block_label">Title</label>
+            {{ form.title }}
+          </div>
+          <div style="float: left; width: 191px;">
+            <label for="{{ form.description.auto_id }}" class="block_label">Description</label>
+            {{ form.description }}
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+
+      <!-- Email Address -->
+      <div class="settings_container">
+        <div class="left_column"> Email address </div>
+        <div class="right_column">
+          <div style="width: 415px; float: left;">
+            <div>
+              {{ form.email }}
+            </div>
+          </div>
+          <div style="display: none;" class="help_text email_help_text">
+            This is the email address you use to log in to Tumblr.  Please make sure this is a valid address where we can reach you.  We promise not to spam, sell, or abuse it.
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+      <!-- Password -->
+      <div class="settings_container">
+        <div class="left_column"> Password </div>
+        <div class="right_column">
+          <div style="width: 191px; margin-bottom: 10px;">
+            <label for="{{ form.c_password.auto_id }}" class="block_label">Current password</label>
+            {{ form.c_password }}
+          </div>
+          <div style="float: left; width: 191px; margin-right: 25px;">
+            <label for="{{ form.n_password.auto_id }}" class="block_label">New password</label>
+            {{ form.n_password }}
+          </div>
+          <div style="float: left; width: 191px;">
+            <label for="{{ form.m_password.auto_id }}" class="block_label">Confirm new password</label>
+            {{ form.m_password }}
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+
+      <div style="float: right; margin-top: 30px;" class="primary_action">
+        <button style="" disabled="" class="chrome flat" type="submit"> Save </button>
+      </div>
+
+      <div style="float: left; margin-top: 30px;" class="secondary_action">
+        <!--<a href="#ignore" class="chrome white">Ignored users</a> &nbsp;-->
+        <a href="#account_delete" class="chrome white">Delete account</a>
+      </div>
+
+    </div>
+
+  </div>
+</form>

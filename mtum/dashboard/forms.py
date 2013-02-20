@@ -79,3 +79,23 @@ class VideoForm(forms.Form):
                               widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False,
                            widget=forms.TextInput(attrs=attrs_tags))
+
+
+class AccountForm(forms.Form):
+    attrs_input = {
+        'class': 'text_field',
+    }
+    attrs_email = {
+        'class': 'text_field',
+        'style': 'width: 392px;',
+    }
+
+    email = forms.EmailField(widget=forms.TextInput(attrs=attrs_email))
+    c_password = forms.CharField(required=False,
+                                 widget=forms.PasswordInput(attrs=attrs_input))
+    n_password = forms.CharField(required=False,
+                                 widget=forms.PasswordInput(attrs=attrs_input))
+    m_password = forms.CharField(required=False,
+                                 widget=forms.PasswordInput(attrs=attrs_input))
+    title = forms.CharField(widget=forms.TextInput(attrs=attrs_input))
+    description = forms.CharField(widget=forms.Textarea(attrs=attrs_email))

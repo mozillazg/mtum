@@ -1,0 +1,33 @@
+{% extends "settings/base.html" %}
+{% load url from future %}
+
+
+{% block main %}
+
+
+<div class="clearfix" id="content">
+  <div class="clearfix">
+
+    <div id="page_nav">
+      <ul class="vertical_tab_set" id="fixed_navigation">
+        <li id="nav_about" class="vertical_tab selected"><a href="{% url 'settings' %}">Account</a></li>
+        <!-- <li id="nav_help" class="vertical_tab "><a href="https://www.tumblr.com/settings/dashboard">Dashboard</a></li> -->
+
+        <!-- <li class="vertical_tab "> -->
+          <!-- <a href="https://www.tumblr.com/blog/mozillazg/settings"><div style="background-image: url('default_avatar_40.gif');" class="avatar small_avatar"></div>Untitled</a> -->
+        <!-- </li> -->
+      </ul>
+    </div>
+
+
+    <div id="main_column">
+
+      {% if kind == 'account' %}
+        {% include "settings/panel_account.html" %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

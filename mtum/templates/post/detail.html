@@ -22,9 +22,11 @@
 {% if user != blog_author %}
 
   {% if user|is_liked:post %}
-  <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="{% url 'unlike' post.id %}" class="btn icon no_label unlike ">Unlike</a>
+  <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="{% url 'like' post.id %}" class="btn icon no_label like hidden" id="like">Like</a>
+  <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="{% url 'unlike' post.id %}" class="btn icon no_label unlike " id="unlike">Unlike</a>
   {% else %}
-  <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="{% url 'like' post.id %}" class="btn icon no_label like ">Like</a>
+  <a data-id="42415974534" data-key="Z7EBEgjm" title="Like" href="{% url 'like' post.id %}" class="btn icon no_label like " id="like">Like</a>
+  <a data-id="42415974534" data-key="Z7EBEgjm" title="Unlike" href="{% url 'unlike' post.id %}" class="btn icon no_label unlike hidden" id="unlike">Unlike</a>
   {% endif %}
 
   <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="{% url 'reblog' post.id %}" title="Reblog" class="btn icon reblog">Reblog</a>

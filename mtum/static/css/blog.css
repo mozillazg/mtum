@@ -1001,3 +1001,9 @@ img.avatar:-moz-broken {
 .post img {
   max-width: 500px;
 }
+
+.post .posted, .post .title, .post .caption{
+  word-wrap: break-word;
+  max-width: 500px;
+  overflow: hidden;
+}

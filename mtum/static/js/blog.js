@@ -26,43 +26,50 @@ function getHTTPObject() {
   return new XMLHttpRequest();
 }
 
-// display unlike icon
-function displayUnlike(request, like) {
+// control icon display
+function displayIcon(request, hidden, display) {
   if (!document.getElementById) return false;
   if ((request.readyState == 4) && request.status == 200) {
-    var like_icon = document.getElementById("like");
-    var unlike_icon = document.getElementById("unlike");
-    if (like == "like") {
-      like_icon.className = like_icon.className + " hidden";
-      unlike_icon.className = unlike_icon.className.replace("hidden", "");
-    } else {
-      like_icon.className = like_icon.className.replace("hidden", "");
-      unlike_icon.className = unlike_icon.className + " hidden";
-    }
+    var icon_hidden = document.getElementById(hidden);
+    var icon_display = document.getElementById(display);
+    icon_hidden.className = icon_hidden.className + " hidden";
+    icon_display.className = icon_display.className.replace("hidden", "");
   }
 }
 
 // ajax submit like
-function ajaxLike(id) {
+function ajaxLike(url_id, display) {
   var request = getHTTPObject();
   if (request) {
-    var url = document.getElementById(id).href;
+    var url = document.getElementById(url_id).href;
     request.open("get", url, true);
-    request.onreadystatechange = function() {displayUnlike(request, id);};
+    request.onreadystatechange = function() {displayIcon(request, url_id, display);};
     request.send();
   }
 }
 
-// add click event on like link
+// add click event on ink
 function clickEvent() {
   if (!document.getElementById) return false;
-  document.getElementById("like").onclick = function() {
-    ajaxLike("like");
-    return false;
-  }
-  document.getElementById("unlike").onclick = function() {
-    ajaxLike("unlike");
-    return false;
+    if (document.getElementById("like")) {
+      document.getElementById("like").onclick = function() {
+        ajaxLike("like", "unlike");
+        return false;
+      }
+      document.getElementById("unlike").onclick = function() {
+        ajaxLike("unlike", "like");
+        return false;
+      }
+    }
+   if (document.getElementById("follow")) {
+      document.getElementById("follow").onclick = function() {
+        ajaxLike("follow", "unfollow");
+        return false;
+      }
+      document.getElementById("unfollow").onclick = function() {
+        ajaxLike("unfollow", "follow");
+        return false;
+      }
   }
 }
 

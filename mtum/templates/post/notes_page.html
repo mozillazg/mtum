@@ -1,0 +1,31 @@
+{% load url from future %}
+{% load endless %}
+{% load account_extras %}
+
+{% paginate 1 notes %}
+
+{% for note in notes %}
+{% if note.reblog %}
+<li class="note reblog tumblelog_{{ note.author.get_profile.slug }} without_commentary">
+  <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"></a>
+  <span data-post-url="{% url 'post_detail' note.author.get_profile.slug post.id %}" class="action">
+    <a title="{{ note.author.get_profile.title }}" class="tumblelog" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a>
+    reblogged this from
+    <a title="{{ note.reblog.author.get_profile.title }}" class="source_tumblelog" href="{% url 'user_index' note.reblog.author.get_profile.slug %}" rel="nofollow">{{ note.reblog.author.get_profile.slug }}</a>
+  </span>
+  <div class="clear"></div>
+</li>
+{% endif %}
+{% if note.post %}
+<li class="note like tumblelog_{{ note.author.get_profile.slug }} without_commentary">
+  <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow">
+    <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}"  onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"/>
+  </a>
+  <span class="action">
+    <a title="simprelax" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
+  </span>
+  <div class="clear"></div>
+</li>
+{% endif %}
+{% endfor %}
+{% show_more "Show more notes" "Loading" %}

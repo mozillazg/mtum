@@ -154,32 +154,29 @@ def user_search_result(request, user_slug, keyword):
                               context_instance=RequestContext(request))
 
 
-def detail(request, user_slug, post_id, post_slug=None):
+@page_template('post/notes_page.html')
+def detail(request, user_slug, post_id, post_slug=None,
+           template='post/detail.html', extra_context=None):
     userprofile = UserProfile.objects.get(slug=user_slug)
     blog_author = userprofile.user
     post = Post.objects.get(id=post_id)
     likes = Like.objects.filter(post=post)
     reblogs = Post.objects.filter(reblog=post)
-    # if likes and (not reblogs):
-        # notes = likes
-    # elif reblogs and (not likes):
-        # notes = reblogs
-    # elif likes and reblogs:
     notes = sorted(chain(likes, reblogs), key=attrgetter('created_at'),
                    reverse=True)
-    # else:
-        # notes = None
 
     if post_slug and post_slug != post.slug:
         return HttpResponseNotFound()
-    else:
-        context = {
-            'blog_author': blog_author,
-            'post': post,
-            'notes': notes,
-        }
-        return render_to_response('post/detail.html', context,
-                                  context_instance=RequestContext(request))
+
+    context = {
+        'blog_author': blog_author,
+        'post': post,
+        'notes': notes,
+    }
+    if extra_context:
+        context.update(extra_context)
+    return render_to_response(template, context,
+                              context_instance=RequestContext(request))
 
 
 def random_post(request, user_slug):

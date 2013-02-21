@@ -10,34 +10,8 @@
     <li class="post notes">
       <h3 class="title">Notes</h3>
       <ol class="notes">
-      {% for note in notes %}
-      {% if note.reblog %}
-        <li class="note reblog tumblelog_{{ note.author.get_profile.slug }} without_commentary">
-          <a title="{{ note.author.get_profile.title }}" href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow"><img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}" onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"></a>
-          <span data-post-url="{% url 'post_detail' note.author.get_profile.slug post.id %}" class="action">
-            <a title="{{ note.author.get_profile.title }}" class="tumblelog" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a>
-            reblogged this from
-            <a title="{{ note.reblog.author.get_profile.title }}" class="source_tumblelog" href="{% url 'user_index' note.reblog.author.get_profile.slug %}" rel="nofollow">{{ note.reblog.author.get_profile.slug }}</a>
-          </span>
-          <div class="clear"></div>
-        </li>
-      {% endif %}
-      {% if note.post %}
-      <li class="note like tumblelog_{{ note.author.get_profile.slug }} without_commentary">
-          <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" target="_top" class="avatar_frame" rel="nofollow">
-            <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}"  onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"/>
-          </a>
-          <span class="action">
-            <a title="simprelax" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
-          </span>
-          <div class="clear"></div>
-        </li>
-      {% endif %}
-      {% endfor %}
-        <li id="more_notes_42415974534" style="text-align: center;" class="note more_notes_link_container">
-          <a onclick="" href="#" rel="nofollow" class="more_notes_link">Show more notes</a>
-          <span style="display: none;" id="notes_loading_42415974534" class="notes_loading">Loading...</span>
-        </li>
+
+        {% include "post/notes_page.html" %}
 
       </ol>
     </li>
@@ -56,4 +30,13 @@
   <a target="_top" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-reblog-id="42415974534" data-reblog-key="Z7EBEgjm" href="{% url 'reblog' post.id %}" title="Reblog" class="btn icon reblog">Reblog</a>
 {% endif %}
 
+{% endblock %}
+
+
+{% block js %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+  <script>$.endlessPaginate();</script>
 {% endblock %}

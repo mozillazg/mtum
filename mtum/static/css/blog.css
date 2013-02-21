@@ -1007,3 +1007,12 @@ img.avatar:-moz-broken {
   max-width: 500px;
   overflow: hidden;
 }
+.notes .endless_more, .notes .endless_loading {
+  display: block;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px 5px 5px 5px;
+  display: block;
+  margin-bottom: 5px;
+  padding: 3px 10px;
+}

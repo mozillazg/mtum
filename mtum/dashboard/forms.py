@@ -20,6 +20,7 @@ class TextForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False,
                            widget=forms.TextInput(attrs=attrs_tags))
+    post_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
 class PhotoForm(forms.Form):
@@ -41,6 +42,7 @@ class PhotoForm(forms.Form):
                               widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False,
                            widget=forms.TextInput(attrs=attrs_tags))
+    post_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
 class QuoteForm(forms.Form):
@@ -79,6 +81,7 @@ class VideoForm(forms.Form):
                               widget=forms.Textarea(attrs=attrs_content))
     tags = forms.CharField(required=False,
                            widget=forms.TextInput(attrs=attrs_tags))
+    post_id = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
 class AccountForm(forms.Form):

@@ -78,94 +78,95 @@
           <!-- Tumblelog -->
 
           <!-- Privacy -->
-          <div style="border: medium none; padding: 0px 0px 15px;" class="advanced_option" id="set_privacy">
-            <select onchange="" style="width: 200px;" name="post[state]" id="post_state">
-              <option selected="selected" value="0">publish now</option>
-              <option value="2">add to queue</option>
-              <option value="on.2">publish on...</option>
-              <option value="1">save as draft</option>
-              <option value="private">private</option>
-            </select>
-          </div>
-          <div style="border-bottom: medium none;" class="advanced_option_divider"></div>
+          <!-- <div style="border: medium none; padding: 0px 0px 15px;" class="advanced_option" id="set_privacy"> -->
+            <!-- <select onchange="" style="width: 200px;" name="post[state]" id="post_state"> -->
+              <!-- <option selected="selected" value="0">publish now</option> -->
+              <!-- <option value="2">add to queue</option> -->
+              <!-- <option value="on.2">publish on...</option> -->
+              <!-- <option value="1">save as draft</option> -->
+              <!-- <option value="private">private</option> -->
+            <!-- </select> -->
+          <!-- </div> -->
+          <!-- <div style="border-bottom: medium none;" class="advanced_option_divider"></div> -->
 
-          <div style="padding-top: 12px; display: none;" class="advanced_option" id="set_publish_on_time">
-            <label style="position: relative; top: -3px;" for="post_publish_on">Publish time:</label>
-            <input type="text" style="width: 189px;" name="post[publish_on]" id="post_publish_on" class="text_field" value="">
-          </div>
+          <!-- <div style="padding-top: 12px; display: none;" class="advanced_option" id="set_publish_on_time"> -->
+            <!-- <label style="position: relative; top: -3px;" for="post_publish_on">Publish time:</label> -->
+            <!-- <input type="text" style="width: 189px;" name="post[publish_on]" id="post_publish_on" class="text_field" value=""> -->
+          <!-- </div> -->
 
-          <div style="display: none;" class="advanced_option" id="set_status_message">
-            <label onclick="" id="post_draft_status_label" class="inline_input_label" for="post_draft_status">status message</label>
-            <input type="text" onfocus="" style="width: 189px;" id="post_draft_status" name="post[draft_status]" class="text_field" value="">
-          </div>
+          <!-- <div style="display: none;" class="advanced_option" id="set_status_message"> -->
+            <!-- <label onclick="" id="post_draft_status_label" class="inline_input_label" for="post_draft_status">status message</label> -->
+            <!-- <input type="text" onfocus="" style="width: 189px;" id="post_draft_status" name="post[draft_status]" class="text_field" value=""> -->
+          <!-- </div> -->
 
           <!-- Date -->
-          <div class="advanced_option" id="set_date">
-            <label onclick="" id="post_date_label" class="inline_input_label" for="post_date">post date</label>
-            <input type="text" onfocus="" style="width: 188px;" class="text_field" name="post[date]" value="now" id="post_date">
-          </div>
+          <!-- <div class="advanced_option" id="set_date"> -->
+            <!-- <label onclick="" id="post_date_label" class="inline_input_label" for="post_date">post date</label> -->
+            <!-- <input type="text" onfocus="" style="width: 188px;" class="text_field" name="post[date]" value="now" id="post_date"> -->
+          <!-- </div> -->
 
           <!-- Content source -->
-          <div class="advanced_option" id="set_source_url">
-            <div class="source_url_questionmark_gradient"></div>
-            <a title="What's this?" class="source_url_questionmark" onclick="" href="#"></a>
-            <div style="display: none;" id="source_url_tooltip">The page where the content quoted in this post was originally published (if relevant)<div id="source_url_tooltip_nipple"></div></div>
-            <label style="right: 22px;" onclick="" id="post_source_url_label" class="inline_input_label" for="post_source_url">content source</label>
-            <input type="text" onblur="" onfocus="" style="width: 188px;" class="text_field" name="post[source_url]" value="http://" id="post_source_url">
-          </div>
+          <!-- <div class="advanced_option" id="set_source_url"> -->
+            <!-- <div class="source_url_questionmark_gradient"></div> -->
+            <!-- <a title="What's this?" class="source_url_questionmark" onclick="" href="#"></a> -->
+            <!-- <div style="display: none;" id="source_url_tooltip">The page where the content quoted in this post was originally published (if relevant)<div id="source_url_tooltip_nipple"></div></div> -->
+            <!-- <label style="right: 22px;" onclick="" id="post_source_url_label" class="inline_input_label" for="post_source_url">content source</label> -->
+            <!-- <input type="text" onblur="" onfocus="" style="width: 188px;" class="text_field" name="post[source_url]" value="http://" id="post_source_url"> -->
+          <!-- </div> -->
 
           <!-- Tags -->
           <div class="advanced_option" id="set_tags">
-            <label style="left: 8px; right: auto; text-align: left;" onclick="" id="post_tags_label" class="inline_input_label" for="post_tags">tags</label>
+            <h2>tags</h2>
+            <!-- <label style="left: 8px; right: auto; text-align: left;" onclick="" id="post_tags_label" class="inline_input_label" for="post_tags">tags</label> -->
             {{ form.tags }}
           </div>
 
           <!-- Slug -->
-          <div style="padding-top: 12px;" class="advanced_option" id="set_slug">
-            <label for="post_slug">Set a custom post URL</label>
-            <div id="slug_url">
-              /post/123456/<input type="text" onchange="" class="inline_text_field" name="post[slug]" id="post_slug" value="">
-            </div>
-          </div>
+          <!-- <div style="padding-top: 12px;" class="advanced_option" id="set_slug"> -->
+            <!-- <label for="post_slug">Set a custom post URL</label> -->
+            <!-- <div id="slug_url"> -->
+              <!-- /post/123456/<input type="text" onchange="" class="inline_text_field" name="post[slug]" id="post_slug" value=""> -->
+            <!-- </div> -->
+          <!-- </div> -->
 
           <!-- Share Options -->
-          <div style="display: none;" id="autopost_options" class="advanced_option">
+          <!-- <div style="display: none;" id="autopost_options" class="advanced_option"> -->
             <!-- Twitter -->
-            <div style="display: none;" id="set_twitter">
-              <input type="checkbox" checked="checked" name="send_to_twitter" id="send_to_twitter" style="margin-left: 0px; vertical-align: 1px; width: auto;">
-              <label style="display: inline;" for="send_to_twitter">Send to Twitter</label>
-              <a onclick="" style=" font:10px 'Lucida Grande',Verdana; color:#bbb;
-                margin-left:2px; " id="edit_tweet_link" href="#">edit</a>
-              <span id="tweet_length" style="font: bold 10px 'Lucida Grande',Verdana; color: rgb(187, 187, 187); margin-left: 2px;"></span>
+            <!-- <div style="display: none;" id="set_twitter"> -->
+              <!-- <input type="checkbox" checked="checked" name="send_to_twitter" id="send_to_twitter" style="margin-left: 0px; vertical-align: 1px; width: auto;"> -->
+              <!-- <label style="display: inline;" for="send_to_twitter">Send to Twitter</label> -->
+              <!-- <a onclick="" style=" font:10px 'Lucida Grande',Verdana; color:#bbb; -->
+                <!-- margin-left:2px; " id="edit_tweet_link" href="#">edit</a> -->
+              <!-- <span id="tweet_length" style="font: bold 10px 'Lucida Grande',Verdana; color: rgb(187, 187, 187); margin-left: 2px;"></span> -->
 
-              <div id="custom_tweet_container" style="margin-top: 8px; display: none;">
-                <div><textarea class="text_field" style="width: 189px; height: 50px; font: 11px 'Lucida Grande',Verdana; resize: vertical;" onblur="if (! this.value) { $('custom_tweet_container').hide(); clearInterval(check_tweet_length); $('edit_tweet_link').show(); $('tweet_length').innerHTML = ''; }" name="custom_tweet" id="custom_tweet"></textarea><br></div>
-              </div>
+              <!-- <div id="custom_tweet_container" style="margin-top: 8px; display: none;"> -->
+                <!-- <div><textarea class="text_field" style="width: 189px; height: 50px; font: 11px 'Lucida Grande',Verdana; resize: vertical;" onblur="if (! this.value) { $('custom_tweet_container').hide(); clearInterval(check_tweet_length); $('edit_tweet_link').show(); $('tweet_length').innerHTML = ''; }" name="custom_tweet" id="custom_tweet"></textarea><br></div> -->
+              <!-- </div> -->
 
-            </div>
+            <!-- </div> -->
 
             <!-- Facebook -->
 
             <!-- Short URL -->
-          </div>
+          <!-- </div> -->
 
           <!-- Advanced Options -->
 
           <!-- Photo Reply -->
-          <div class="advanced_option">
-            <input type="checkbox" name="allow_photo_replies" id="allow_photo_replies" style="margin-left: 0px; vertical-align: 1px; width: auto;">
-            <label style="display: inline;" for="allow_photo_replies">Let people photo reply<img style="vertical-align: -2px; width: 15px; height: 12px; margin-left: 6px; opacity: 0.8;" src="small_camera.png" ilo-full-src="http://assets.tumblr.com/images/small_camera.png" title="http://assets.tumblr.com/images/small_camera.png  file:///D:/Files/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/temp/Tumblr02_files/small_camera.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130213165240/small_camera.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130213165240/small_camera.png"></label>
-          </div>
+          <!-- <div class="advanced_option"> -->
+            <!-- <input type="checkbox" name="allow_photo_replies" id="allow_photo_replies" style="margin-left: 0px; vertical-align: 1px; width: auto;"> -->
+            <!-- <label style="display: inline;" for="allow_photo_replies">Let people photo reply<img style="vertical-align: -2px; width: 15px; height: 12px; margin-left: 6px; opacity: 0.8;" src="small_camera.png" ilo-full-src="http://assets.tumblr.com/images/small_camera.png" title="http://assets.tumblr.com/images/small_camera.png  file:///D:/Files/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/temp/Tumblr02_files/small_camera.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130213165240/small_camera.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130213165240/small_camera.png"></label> -->
+          <!-- </div> -->
 
           <!-- Answers -->
-          <div style="display: none;" class="advanced_option" id="enable_answers_container">
-            <label for="allow_answers">
-              <input type="checkbox" name="allow_answers" id="allow_answers" style="margin-left: 0px; vertical-align: -2px; width: auto;">
-              Let people answer this
-            </label>
-          </div>
+          <!-- <div style="display: none;" class="advanced_option" id="enable_answers_container"> -->
+            <!-- <label for="allow_answers"> -->
+              <!-- <input type="checkbox" name="allow_answers" id="allow_answers" style="margin-left: 0px; vertical-align: -2px; width: auto;"> -->
+              <!-- Let people answer this -->
+            <!-- </label> -->
+          <!-- </div> -->
 
-          <div class="advanced_option last"></div>
+          <!-- <div class="advanced_option last"></div> -->
         </div>
       </div>
 

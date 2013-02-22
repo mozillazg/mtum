@@ -43,7 +43,7 @@
     {% else %}
     <a class="post_control post_control_icon delete_button" onclick="if (confirm('Delete this post?')) document.getElementById('delete_post_{{ id }}').submit(); return false;" href="{% url 'delete_post' id %}" title="Delete">Delete</a>
 
-    <a class="post_control post_control_icon edit_post" data-post-type="regular" data-post-id="42267046695" data-channel-id="{{ user.get_profile.slug }}" href="#edit_42267046695" title="Edit">Edit</a>
+    <a class="post_control post_control_icon edit_post" data-post-type="regular" data-post-id="42267046695" data-channel-id="{{ user.get_profile.slug }}" href="{% url 'edit_post' id %}" title="Edit">Edit</a>
     </div>
 
     <!-- <form class="hidden" action="{% url 'delete_post' id %}" method="get" id="delete_post_{{ id }}" onsubmit="return confirm('Are you sure you want to delete this post?');"> -->

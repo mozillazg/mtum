@@ -21,7 +21,6 @@ from .helper import create_tags
 from .helper import media_wall
 from post.models import Post
 from post.models import Follow
-# from post.models import Like
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -56,7 +55,7 @@ def dashboard(request, posts_filter=None, template='dashboard/index.html',
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_text(request):
+def new_text(request, post_id=None):
     if request.method == 'POST':
         user = request.user
         form = TextForm(request.POST)
@@ -64,10 +63,22 @@ def new_text(request):
             title = form.cleaned_data['title']
             content = form.cleaned_data['content']
             tags = form.cleaned_data['tags']
+            post_id = form.cleaned_data['post_id']
+
             tags = create_tags(tags)
-            post = Post.objects.create(author=user, title=title,
-                                       content=content, kind='T')
-            post.tags.add(*tags)
+            if post_id:
+                try:
+                    post = Post.objects.filter(id=post_id)
+                    post.update(title=title, content=content)
+                    post = post[0]
+                    post.tags.remove(*post.tags.all())
+                    post.tags.add(*tags)
+                except ObjectDoesNotExist:
+                    return HttpResponseRedirect(reverse_lazy('dashboard'))
+            else:
+                post = Post.objects.create(author=user, title=title,
+                                           content=content, kind='T')
+                post.tags.add(*tags)
 
             user_slug = user.get_profile().slug
             if post.slug:
@@ -85,18 +96,31 @@ def new_text(request):
                                              })
             return HttpResponseRedirect(redirect_link)
     else:
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+                initial = {
+                    'title': post.title,
+                    'content': post.content,
+                    'tags': ', '.join([tag.name for tag in post.tags.all()]),
+                    'post_id': post_id,
+                }
+                form = TextForm(initial=initial)
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect(reverse_lazy('dashboard'))
+        else:
+            form = TextForm()
         context = {
-            'form': TextForm(),
+            'form': form,
             'kind': 'text',
             'action_url': reverse_lazy('new_text'),
         }
-        # return HttpResponseRedirect(reverse_lazy('deshboard'))
         return render_to_response('dashboard/new.html', context,
                                   context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_photo(request):
+def new_photo(request, post_id=None):
     if request.method == 'POST':
         user = request.user
         form = PhotoForm(request.POST)
@@ -105,10 +129,22 @@ def new_photo(request):
             content = form.cleaned_data['content']
             url = form.cleaned_data['url']
             tags = form.cleaned_data['tags']
+            post_id = form.cleaned_data['post_id']
+
             tags = create_tags(tags)
-            post = Post.objects.create(author=user, photo=photo, link=url,
-                                       content=content, kind='P')
-            post.tags.add(*tags)
+            if post_id:
+                try:
+                    post = Post.objects.filter(id=post_id)
+                    post.update(photo=photo, content=content, link=url)
+                    post = post[0]
+                    post.tags.remove(*post.tags.all())
+                    post.tags.add(*tags)
+                except ObjectDoesNotExist:
+                    return HttpResponseRedirect(reverse_lazy('dashboard'))
+            else:
+                post = Post.objects.create(author=user, photo=photo, link=url,
+                                           content=content, kind='P')
+                post.tags.add(*tags)
 
             user_slug = user.get_profile().slug
             if post.slug:
@@ -126,8 +162,23 @@ def new_photo(request):
                                              })
             return HttpResponseRedirect(redirect_link)
     else:
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+                initial = {
+                    'photo': post.photo,
+                    'content': post.content,
+                    'url': post.link,
+                    'tags': ', '.join([tag.name for tag in post.tags.all()]),
+                    'post_id': post_id,
+                }
+                form = PhotoForm(initial=initial)
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect(reverse_lazy('dashboard'))
+        else:
+            form = PhotoForm()
         context = {
-            'form': PhotoForm(),
+            'form': form,
             'kind': 'photo',
             'action_url': reverse_lazy('new_photo'),
         }
@@ -137,7 +188,7 @@ def new_photo(request):
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_video(request):
+def new_video(request, post_id=None):
     if request.method == 'POST':
         user = request.user
         form = VideoForm(request.POST)
@@ -145,10 +196,22 @@ def new_video(request):
             video = form.cleaned_data['video']
             content = form.cleaned_data['content']
             tags = form.cleaned_data['tags']
+            post_id = form.cleaned_data['post_id']
+
             tags = create_tags(tags)
-            post = Post.objects.create(author=user, video=video,
-                                       content=content, kind='V')
-            post.tags.add(*tags)
+            if post_id:
+                try:
+                    post = Post.objects.filter(id=post_id)
+                    post.update(video=video, content=content)
+                    post = post[0]
+                    post.tags.remove(*post.tags.all())
+                    post.tags.add(*tags)
+                except ObjectDoesNotExist:
+                    return HttpResponseRedirect(reverse_lazy('dashboard'))
+            else:
+                post = Post.objects.create(author=user, video=video,
+                                           content=content, kind='V')
+                post.tags.add(*tags)
 
             user_slug = user.get_profile().slug
             if post.slug:
@@ -166,8 +229,22 @@ def new_video(request):
                                              })
             return HttpResponseRedirect(redirect_link)
     else:
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+                initial = {
+                    'video': post.video,
+                    'content': post.content,
+                    'tags': ', '.join([tag.name for tag in post.tags.all()]),
+                    'post_id': post_id,
+                }
+                form = VideoForm(initial=initial)
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect(reverse_lazy('dashboard'))
+        else:
+            form = videoForm()
         context = {
-            'form': VideoForm(),
+            'form': form,
             'kind': 'video',
             'action_url': reverse_lazy('new_video'),
         }
@@ -176,15 +253,29 @@ def new_video(request):
 
 
 @login_required(login_url=reverse_lazy('login'))
+def edit_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        if post.kind == 'T':
+            return new_text(request, post_id)
+        elif post.kind == 'P':
+            return new_photo(request, post_id)
+        elif post.kind == 'V':
+            return new_video(request, post_id)
+
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse_lazy('dashboard'))
+
+
+@login_required(login_url=reverse_lazy('login'))
 def delete_post(request, post_id):
-    referer = request.META.get('HTTP_REFERER')
     try:
         post = Post.objects.get(id=post_id, author=request.user)
         post.delete()
     except ObjectDoesNotExist:
         pass
     finally:
-        return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
+        return HttpResponseRedirect(reverse_lazy('dashboard'))
 
 
 @page_template('index/index_page.html')

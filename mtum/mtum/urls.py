@@ -45,6 +45,7 @@ urlpatterns += patterns(
     url(r'^new/text$', 'new_text', name='new_text'),
     url(r'^new/photo$', 'new_photo', name='new_photo'),
     url(r'^new/video$', 'new_video', name='new_video'),
+    url(r'^edit/(?P<post_id>\d+)$', 'edit_post', name='edit_post'),
     url(r'^delete/(?P<post_id>\d+)$', 'delete_post', name='delete_post'),
 )
 

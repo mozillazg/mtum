@@ -242,7 +242,7 @@ def new_video(request, post_id=None):
             except ObjectDoesNotExist:
                 return HttpResponseRedirect(reverse_lazy('dashboard'))
         else:
-            form = videoForm()
+            form = VideoForm()
         context = {
             'form': form,
             'kind': 'video',

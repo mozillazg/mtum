@@ -26,9 +26,11 @@
       <a class="post_control post_control_icon reblog_button" data-post-type="type" title="Reblog" data-reblog-key="5hRoi58g" data-reblog-id="{{ id }}" data-user-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" href="{% url 'reblog' id %}?next={% url 'dashboard' %}">Reblog</a>
 
       {% if user|is_liked:post %}
-      <a class="post_control post_control_icon like_button  like_root_{{ id }} already_like" href="{% url 'unlike' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="submit_like('{{ id }}');return false;" title="Unlike">Unlike</a>
+      <a class="post_control post_control_icon like_button  like_root_{{ id }} already_like" href="{% url 'unlike' id %}?next={% url 'dashboard' %}" id="unlike_button_{{ id }}" data-root-post-id="{{ id }}" onclick="ajaxLink('unlike_button_{{ id }}', 'like_button_{{ id }}');return false;" title="Unlike">Unlike</a>
+      <a class="post_control post_control_icon like_button  like_root_{{ id }} hidden" href="{% url 'like' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="ajaxLink('like_button_{{ id }}', 'unlike_button_{{ id }}');return false;" title="Like">Like</a>
       {% else %}
-      <a class="post_control post_control_icon like_button  like_root_{{ id }}" href="{% url 'like' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="submit_like('{{ id }}');return false;" title="Like">Like</a>
+      <a class="post_control post_control_icon like_button  like_root_{{ id }} " href="{% url 'like' id %}?next={% url 'dashboard' %}" id="like_button_{{ id }}" data-root-post-id="{{ id }}" onclick="ajaxLink('like_button_{{ id }}', 'unlike_button_{{ id }}');return false;" title="Like">Like</a>
+      <a class="hidden post_control post_control_icon like_button  like_root_{{ id }} already_like" href="{% url 'unlike' id %}?next={% url 'dashboard' %}" id="unlike_button_{{ id }}" data-root-post-id="{{ id }}" onclick="ajaxLink('unlike_button_{{ id }}', 'like_button_{{ id }}');return false;" title="Unlike">Unlike</a>
       {% endif %}
 
     </div>
@@ -138,21 +140,36 @@
     <a href="{% url 'user_index' author_slug %}" title="{{ blog_title }}" class="post_avatar" id="post_avatar_{{ id }}" style="background-image: url('{{ author|get_avatar:64 }}');" data-user-avatar-url="{{ author|get_avatar:64 }}" data-avatar-url="{{ author|get_avatar:64 }}" data-blog-url="http://staff.tumblr.com/" data-use-channel-avatar="1" data-use-sub-avatar="1"></a>
   <!-- {#% endif %#} -->
 
+  {% if author != user %}
     <div class="user_menu_info_button">
-      <div class="user_menu_info"></div>
-      <div class="user_menu popover" id="user_menu_42456205716" style="display: none;">
+      <div class="user_menu_info" onclick="toggleUserMenu('user_menu_{{ id }}');"></div>
+      <div class="user_menu popover" id="user_menu_{{ id }}" style="display: none;">
         <div class="user_menu_nipple"></div>
         <div class="user_menu_list">
-          <a href="http://www.tumblr.com/send/staff" onclick="if (typeof show_fan_mail_lightbox == 'function') { show_fan_mail_lightbox(this); return false; }"><div class="user_menu_list_item"><span class="user_menu_icon fan_mail"></span> Fan Mail</div></a>
-          <a href="http://www.tumblr.com/follow/staff" following="true" class="user_menu_item_toggle_following_9f9e53ef22111cfb550aadd9db09fd76" onclick="user_menu_toggle_following('9f9e53ef22111cfb550aadd9db09fd76', 'fdx8oYTujh4LqC7u3sz98ZmuoQw', 'staff'); return false;">
-            <div class="user_menu_list_item user_menu_list_item_follow_9f9e53ef22111cfb550aadd9db09fd76" style="display: none;"><span class="user_menu_icon follow"></span> Follow</div>
+          <!--<a href="http://www.tumblr.com/send/staff" onclick="if (typeof show_fan_mail_lightbox == 'function') { show_fan_mail_lightbox(this); return false; }"><div class="user_menu_list_item"><span class="user_menu_icon fan_mail"></span> Fan Mail</div></a>-->
+        <a>
+        {% if user|is_following:author %}
+        <a href="{% url 'unfollow' author.username %}" id="unfollow_{{ id }}" onclick="ajaxLink('unfollow_{{ id }}', 'follow_{{ id }}'); return false;">
             <div class="user_menu_list_item user_menu_list_item_unfollow_9f9e53ef22111cfb550aadd9db09fd76" style="display: block;"><span class="user_menu_icon unfollow"></span> Unfollow</div>
           </a>
+          <a href="{% url 'follow' author.username %}" class="hidden" id="follow_{{ id }}"  onclick="ajaxLink('follow_{{ id }}', 'unfollow_{{ id }}'); return false;">
+            <div class="user_menu_list_item user_menu_list_item_follow_9f9e53ef22111cfb550aadd9db09fd76" ><span class="user_menu_icon follow"></span> Follow</div>
+          </a>
+        {% else %}
+        <a href="{% url 'follow' author.username %}" id="follow_{{ id }}" onclick="ajaxLink('follow_{{ id }}', 'unfollow_{{ id }}'); return false;">
+            <div class="user_menu_list_item" ><span class="user_menu_icon follow"></span> Follow</div>
+          </a>
+          <a class="hidden" href="{% url 'unfollow' author.username %}" id="unfollow_{{ id }}" onclick="ajaxLink('unfollow_{{ id }}', 'follow_{{ id }}'); return false;">
+            <div class="user_menu_list_item user_menu_list_item_unfollow_9f9e53ef22111cfb550aadd9db09fd76"><span class="user_menu_icon unfollow"></span> Unfollow</div>
+          </a>
+        {% endif %}
+        </a>
 
 
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
   <span class="arrow"></span>
 </li>

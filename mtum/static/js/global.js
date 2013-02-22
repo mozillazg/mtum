@@ -37,8 +37,8 @@ function displayIcon(request, hidden, display) {
   }
 }
 
-// ajax submit like
-function ajaxLike(url_id, display) {
+// ajax submit link
+function ajaxLink(url_id, display) {
   var request = getHTTPObject();
   if (request) {
     var url = document.getElementById(url_id).href;
@@ -47,30 +47,3 @@ function ajaxLike(url_id, display) {
     request.send();
   }
 }
-
-// add click event on ink
-function clickEvent() {
-  if (!document.getElementById) return false;
-    if (document.getElementById("like")) {
-      document.getElementById("like").onclick = function() {
-        ajaxLike("like", "unlike");
-        return false;
-      }
-      document.getElementById("unlike").onclick = function() {
-        ajaxLike("unlike", "like");
-        return false;
-      }
-    }
-   if (document.getElementById("follow")) {
-      document.getElementById("follow").onclick = function() {
-        ajaxLike("follow", "unfollow");
-        return false;
-      }
-      document.getElementById("unfollow").onclick = function() {
-        ajaxLike("unfollow", "follow");
-        return false;
-      }
-  }
-}
-
-addLoadEvent(clickEvent);

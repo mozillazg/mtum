@@ -50,11 +50,11 @@
       {% if user != blog_author %}
 
         {% if user|is_following:blog_author %}
-        <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow hidden" id="follow">Follow</a>
-        <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow" id="unfollow">Unfollow</a>
+        <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow hidden" id="follow" onclick="ajaxLink('follow', 'unfollow'); return false;">Follow</a>
+        <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow" id="unfollow" onclick="ajaxLink('unfollow', 'follow'); return false;">Unfollow</a>
         {% else %}
-        <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow" id="follow">Follow</a>
-        <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow hidden" id="unfollow">Unfollow</a>
+        <a href="{% url 'follow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Follow" class="btn icon follow" id="follow" onclick="ajaxLink('follow', 'unfollow'); return false;">Follow</a>
+        <a href="{% url 'unfollow' blog_author.get_profile.slug %}" data-tumblelog-name="{{ blog_author.username }}" title="Unfollow" class="btn icon unfollow hidden" id="unfollow" onclick="ajaxLink('unfollow', 'follow'); return false;">Unfollow</a>
         {% endif %}
       {% endif %}
         <a target="_top" href="{% url 'dashboard' %}" title="Dashboard" class="btn icon dashboard">Dashboard</a>
@@ -75,7 +75,7 @@
   </footer>
 
   {% block js %}
-    <script src="{{ STATIC_URL }}js/blog.js"></script>
+    <script src="{{ STATIC_URL }}js/global.js"></script>
   {% endblock %}
 </body>
 </html>

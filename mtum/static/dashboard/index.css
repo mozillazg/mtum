@@ -522,3 +522,9 @@ img#content_top, img#content_bottom { display: none; }
   background-image: url("images/default_avatar_30.gif");
 }
 #return_to_top { position: fixed; bottom: 20px; right: 20px; z-index: 10; min-width: 0px; }
+
+#error h1 {
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+}

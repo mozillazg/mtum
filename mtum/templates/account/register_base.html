@@ -4,6 +4,9 @@
     <title>{% block title %}Tumblr{% endblock %}</title>
     <meta charset="utf-8" />
     {% block css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/global.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/onboarding.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/onboarding_login_and_register.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/site.css" type="text/css" media="screen" />
     {% endblock %}
   </head>

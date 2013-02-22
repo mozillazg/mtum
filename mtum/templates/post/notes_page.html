@@ -22,7 +22,7 @@
     <img alt="" class="avatar " src="{{ note.author|get_avatar:16 }}"  onerror="this.src='{{ STATIC_URL }}img/default_avatar_16.gif';"/>
   </a>
   <span class="action">
-    <a title="simprelax" href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
+    <a title="{{ note.author.get_profile.title }} " href="{% url 'user_index' note.author.get_profile.slug %}" rel="nofollow">{{ note.author.get_profile.slug }}</a> likes this
   </span>
   <div class="clear"></div>
 </li>

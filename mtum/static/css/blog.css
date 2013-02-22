@@ -1016,3 +1016,8 @@ img.avatar:-moz-broken {
   margin-bottom: 5px;
   padding: 3px 10px;
 }
+#goto_top {
+  bottom: 5px;
+  right: 10px;
+  position: fixed;
+}

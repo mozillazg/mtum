@@ -2,11 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect
 from django.http import Http404
-from django.core.urlresolvers import reverse_lazy
-
-from .models import Post
 
 
 # decorator

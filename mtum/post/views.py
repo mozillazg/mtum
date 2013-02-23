@@ -7,27 +7,28 @@ from itertools import chain
 from urllib import unquote
 
 from django.http import HttpResponseRedirect
-from django.http import HttpResponseNotFound
+from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 
 from endless_pagination.decorators import page_template
 
+from account.models import UserProfile
 from .models import Post
 from .models import Tag
 from .models import Like
 from .models import Follow
-from account.models import UserProfile
+from .utils import object_does_not_exist
 
 
+@object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
-def like(request, post_id):
+def like(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     user = request.user
@@ -38,8 +39,9 @@ def like(request, post_id):
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
+@object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
-def unlike(request, post_id):
+def unlike(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     user = request.user
@@ -52,8 +54,9 @@ def unlike(request, post_id):
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
+@object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
-def reblog(request, post_id):
+def reblog(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
     post = Post.objects.get(id=post_id)
     user = request.user
@@ -74,8 +77,9 @@ def reblog(request, post_id):
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
+@object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
-def follow(request, user_slug):
+def follow(request, user_slug=None):
     referer = request.META.get('HTTP_REFERER')
     follower = request.user
     following = UserProfile.objects.get(slug=user_slug).user
@@ -85,6 +89,7 @@ def follow(request, user_slug):
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
+@object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
 def unfollow(request, user_slug):
     referer = request.META.get('HTTP_REFERER')
@@ -96,6 +101,7 @@ def unfollow(request, user_slug):
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
 
+@object_does_not_exist
 @page_template('post/index_page.html')
 def user_index(request, user_slug, tag_slug=None,
                template='post/index.html', extra_context=None):
@@ -136,7 +142,7 @@ def user_search_result(request, user_slug, keyword):
     keyword = unquote(keyword)
     if not keyword:
         return HttpResponseRedirect(reverse_lazy('user_index',
-                                                 keywords={
+                                                 kwargs={
                                                      'user_slug': user_slug,
                                                  }))
 
@@ -157,16 +163,21 @@ def user_search_result(request, user_slug, keyword):
 @page_template('post/notes_page.html')
 def detail(request, user_slug, post_id, post_slug=None,
            template='post/detail.html', extra_context=None):
-    userprofile = UserProfile.objects.get(slug=user_slug)
-    blog_author = userprofile.user
-    post = Post.objects.get(id=post_id)
+    try:
+        userprofile = UserProfile.objects.get(slug=user_slug)
+        post = Post.objects.get(id=post_id, author=userprofile.user)
+        if post_slug and post_slug != post.slug:
+            raise ObjectDoesNotExist()
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse_lazy('user_index',
+                                                 kwargs={
+                                                     'user_slug': user_slug
+                                                 }))
     likes = Like.objects.filter(post=post)
     reblogs = Post.objects.filter(reblog=post)
+    blog_author = userprofile.user
     notes = sorted(chain(likes, reblogs), key=attrgetter('created_at'),
                    reverse=True)
-
-    if post_slug and post_slug != post.slug:
-        return HttpResponseNotFound()
 
     context = {
         'blog_author': blog_author,
@@ -179,6 +190,7 @@ def detail(request, user_slug, post_id, post_slug=None,
                               context_instance=RequestContext(request))
 
 
+@object_does_not_exist
 def random_post(request, user_slug):
     author = UserProfile.objects.get(slug=user_slug).user
     post_id = Post.objects.filter(author=author).order_by('?')[0].id

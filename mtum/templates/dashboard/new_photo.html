@@ -21,6 +21,7 @@
 
 <div style="" id="photo_url">
   <h2>Photo URL</h2>
+  {{ form.errors.photo }}
   <div class="text_field_container">{{ form.photo }}</div>
 </div>
 
@@ -32,7 +33,7 @@
 
 
 <div style="" id="photo_link">
-  <h2>Clicking this photo links to the URL:</h2>
+  <h2>Clicking this photo links to the URL: <span class="optional">(optional)</span></h2>
   <div class="text_field_container">{{ form.url }}</div>
 </div>
 

@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from urllib import unquote
-
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -55,7 +53,7 @@ def dashboard(request, posts_filter=None, template='dashboard/index.html',
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_text(request, post_id=None):
+def new_text(request, post_id=None, template_name='dashboard/new.html'):
     if request.method == 'POST':
         user = request.user
         form = TextForm(request.POST)
@@ -110,17 +108,17 @@ def new_text(request, post_id=None):
                 return HttpResponseRedirect(reverse_lazy('dashboard'))
         else:
             form = TextForm()
-        context = {
-            'form': form,
-            'kind': 'text',
-            'action_url': reverse_lazy('new_text'),
-        }
-        return render_to_response('dashboard/new.html', context,
-                                  context_instance=RequestContext(request))
+    context = {
+        'form': form,
+        'kind': 'text',
+        'action_url': reverse_lazy('new_text'),
+    }
+    return render_to_response(template_name, context,
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_photo(request, post_id=None):
+def new_photo(request, post_id=None, template_name='dashboard/new.html'):
     if request.method == 'POST':
         user = request.user
         form = PhotoForm(request.POST)
@@ -177,18 +175,18 @@ def new_photo(request, post_id=None):
                 return HttpResponseRedirect(reverse_lazy('dashboard'))
         else:
             form = PhotoForm()
-        context = {
-            'form': form,
-            'kind': 'photo',
-            'action_url': reverse_lazy('new_photo'),
-        }
-        # return HttpResponseRedirect(reverse_lazy('deshboard'))
-        return render_to_response('dashboard/new.html', context,
-                                  context_instance=RequestContext(request))
+
+    context = {
+        'form': form,
+        'kind': 'photo',
+        'action_url': reverse_lazy('new_photo'),
+    }
+    return render_to_response(template_name, context,
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))
-def new_video(request, post_id=None):
+def new_video(request, post_id=None, template_name='dashboard/new.html'):
     if request.method == 'POST':
         user = request.user
         form = VideoForm(request.POST)
@@ -243,13 +241,14 @@ def new_video(request, post_id=None):
                 return HttpResponseRedirect(reverse_lazy('dashboard'))
         else:
             form = VideoForm()
-        context = {
-            'form': form,
-            'kind': 'video',
-            'action_url': reverse_lazy('new_video'),
-        }
-        return render_to_response('dashboard/new.html', context,
-                                  context_instance=RequestContext(request))
+
+    context = {
+        'form': form,
+        'kind': 'video',
+        'action_url': reverse_lazy('new_video'),
+    }
+    return render_to_response(template_name, context,
+                              context_instance=RequestContext(request))
 
 
 @login_required(login_url=reverse_lazy('login'))

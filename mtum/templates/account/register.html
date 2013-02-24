@@ -11,7 +11,7 @@
 
 {% block main %}
 
-<div id="signup_forms" class="signup_forms clearfix">
+<div id="signup_forms" class="signup_forms clearfix {% if msg %}has_errors{% endif %}">
   <form action="" method="post" id="signup_form" class="signup_form_form">
     {% csrf_token %}
     <div id="signup_forms_container" class="signup_forms_container clearfix">
@@ -32,7 +32,9 @@
         </div>
       </div>
     </div>
-    <ul id="signup_form_errors" class="signup_forms_errors"></ul>
+    <ul id="signup_form_errors" class="signup_forms_errors">
+      <li class="error">{{ msg }}</li>
+    </ul>
     <button type="submit" id="signup_forms_submit" class="chrome big on_dark signup_forms_submit touchy blue">
       <span class="account_btn">Start</span>
     </button>

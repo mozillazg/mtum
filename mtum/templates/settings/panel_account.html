@@ -1,3 +1,5 @@
+{% load url from future %}
+
 <form id="settings_form" method="post" action="{{ action_url }}">
   {% csrf_token %}
   <div style="">
@@ -72,7 +74,7 @@
 
       <div style="float: left; margin-top: 30px;" class="secondary_action">
         <!--<a href="#ignore" class="chrome white">Ignored users</a> &nbsp;-->
-        <a href="#account_delete" class="chrome white">Delete account</a>
+        <a href="{% url 'delete_account' %}" class="chrome white" onclick="return confirm('Are you sure you want to delete account?');">Delete account</a>
       </div>
 
     </div>

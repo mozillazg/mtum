@@ -22,12 +22,12 @@ urlpatterns = patterns(
 
 
 urlpatterns += patterns(
-    '',
-    url(r'^register$', 'account.views.register', name='register'),
-    url(r'^login$', 'account.views.login', name='login'),
-    url(r'^logout$', 'account.views.logout', name='logout'),
-    url(r'^forgot_password$', 'account.views.forgot_password',
-        name='forgot_password')
+    'account.views',
+    url(r'^register$', 'register', name='register'),
+    url(r'^login$', 'login', name='login'),
+    url(r'^logout$', 'logout', name='logout'),
+    url(r'^forgot_password$', 'forgot_password', name='forgot_password'),
+    url(r'^account/delete$', 'delete_account', name='delete_account'),
 )
 
 urlpatterns += patterns(

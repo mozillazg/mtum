@@ -10,6 +10,7 @@ from django.contrib.auth import login as log_in
 from django.contrib.auth import logout as log_out
 from django.contrib.auth import authenticate
 from django.template.defaultfilters import slugify
+from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm
 from .forms import LoginForm
@@ -93,3 +94,11 @@ def logout(request):
 def forgot_password(request):
     return render_to_response('account/forgot_password.html',
                               context_instance=RequestContext(request))
+
+
+@login_required(login_url=reverse_lazy('login'))
+def delete_account(request):
+    user = request.user
+    user.delete()
+    log_out(request)
+    return HttpResponseRedirect(reverse_lazy('index'))

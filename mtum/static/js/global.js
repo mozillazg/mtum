@@ -47,3 +47,16 @@ function ajaxLink(url_id, display) {
     request.send();
   }
 }
+
+function toggleDisplay(block, none) {
+  if (!document.getElementById) return false;
+  var block = document.getElementById(block);
+  var none = document.getElementById(none);
+  if (block.style.display != "none") {
+    block.style.display = "none";
+    none.style.display = "block";
+  } else {
+    none.style.display = "none";
+    block.style.display = "block";
+  }
+}

@@ -33,7 +33,7 @@
         <div class="right_column">
           <div style="width: 415px; float: left;">
             <div>
-              {{ errors.email }}
+              {{ errors.email|safe }}
               {{ form.email }}
             </div>
           </div>

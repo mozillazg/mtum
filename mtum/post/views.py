@@ -29,7 +29,7 @@ from .utils import object_does_not_exist
 @login_required(login_url=reverse_lazy('login'))
 def like(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
-    post = Post.objects.get(id=post_id)
+    post = Post.objects.get(pk=post_id)
     user = request.user
 
     if user != post.author:
@@ -42,7 +42,7 @@ def like(request, post_id=None):
 @login_required(login_url=reverse_lazy('login'))
 def unlike(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
-    post = Post.objects.get(id=post_id)
+    post = Post.objects.get(pk=post_id)
     user = request.user
 
     Like.objects.get(author=user, post=post).delete()
@@ -54,9 +54,9 @@ def unlike(request, post_id=None):
 @login_required(login_url=reverse_lazy('login'))
 def reblog(request, post_id=None):
     referer = request.META.get('HTTP_REFERER')
-    post = Post.objects.get(id=post_id)
+    post = Post.objects.get(pk=post_id)
     user = request.user
-    src_post = deepcopy(Post.objects.get(id=post_id))
+    src_post = deepcopy(post)
     tags = src_post.tags.all()
 
     if user != src_post.author:
@@ -64,11 +64,11 @@ def reblog(request, post_id=None):
             Post.objects.get(author=user, reblog=src_post)
         except ObjectDoesNotExist:
             post.reblog = src_post
-            post.id = None
+            post.pk = None
             post.author = user
             post.created_at = None
             post.save()
-            post.tags.add(*tags)
+            post.tags = tags
 
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 
@@ -161,7 +161,7 @@ def detail(request, user_slug, post_id, post_slug=None,
            template='post/detail.html', extra_context=None):
     try:
         userprofile = UserProfile.objects.get(slug=user_slug)
-        post = Post.objects.get(id=post_id, author=userprofile.user)
+        post = Post.objects.get(pk=post_id, author=userprofile.user)
         if post_slug and post_slug != post.slug:
             raise ObjectDoesNotExist()
     except ObjectDoesNotExist:
@@ -189,7 +189,7 @@ def detail(request, user_slug, post_id, post_slug=None,
 @object_does_not_exist
 def random_post(request, user_slug):
     author = UserProfile.objects.get(slug=user_slug).user
-    post_id = Post.objects.filter(author=author).order_by('?')[0].id
+    post_id = Post.objects.filter(author=author).order_by('?')[0].pk
 
     return HttpResponseRedirect(reverse_lazy('post_detail',
                                              kwargs={

@@ -66,7 +66,7 @@ def new_text(request, post_id=None, template_name='dashboard/new.html'):
             tags = create_tags(tags)
             if post_id:
                 try:
-                    post = Post.objects.filter(id=post_id)
+                    post = Post.objects.filter(pk=post_id)
                     post.update(title=title, content=content)
                     post = post[0]
                     post.tags.remove(*post.tags.all())
@@ -96,7 +96,7 @@ def new_text(request, post_id=None, template_name='dashboard/new.html'):
     else:
         if post_id:
             try:
-                post = Post.objects.get(id=post_id)
+                post = Post.objects.get(pk=post_id)
                 initial = {
                     'title': post.title,
                     'content': post.content,
@@ -132,7 +132,7 @@ def new_photo(request, post_id=None, template_name='dashboard/new.html'):
             tags = create_tags(tags)
             if post_id:
                 try:
-                    post = Post.objects.filter(id=post_id)
+                    post = Post.objects.filter(pk=post_id)
                     post.update(photo=photo, content=content, link=url)
                     post = post[0]
                     post.tags.remove(*post.tags.all())
@@ -162,7 +162,7 @@ def new_photo(request, post_id=None, template_name='dashboard/new.html'):
     else:
         if post_id:
             try:
-                post = Post.objects.get(id=post_id)
+                post = Post.objects.get(pk=post_id)
                 initial = {
                     'photo': post.photo,
                     'content': post.content,
@@ -199,7 +199,7 @@ def new_video(request, post_id=None, template_name='dashboard/new.html'):
             tags = create_tags(tags)
             if post_id:
                 try:
-                    post = Post.objects.filter(id=post_id)
+                    post = Post.objects.filter(pk=post_id)
                     post.update(video=video, content=content)
                     post = post[0]
                     post.tags.remove(*post.tags.all())
@@ -229,7 +229,7 @@ def new_video(request, post_id=None, template_name='dashboard/new.html'):
     else:
         if post_id:
             try:
-                post = Post.objects.get(id=post_id)
+                post = Post.objects.get(pk=post_id)
                 initial = {
                     'video': post.video,
                     'content': post.content,
@@ -254,7 +254,7 @@ def new_video(request, post_id=None, template_name='dashboard/new.html'):
 @login_required(login_url=reverse_lazy('login'))
 def edit_post(request, post_id):
     try:
-        post = Post.objects.get(id=post_id)
+        post = Post.objects.get(pk=post_id)
         if post.kind == 'T':
             return new_text(request, post_id)
         elif post.kind == 'P':
@@ -269,7 +269,7 @@ def edit_post(request, post_id):
 @login_required(login_url=reverse_lazy('login'))
 def delete_post(request, post_id):
     try:
-        post = Post.objects.get(id=post_id, author=request.user)
+        post = Post.objects.get(pk=post_id, author=request.user)
         post.delete()
     except ObjectDoesNotExist:
         pass

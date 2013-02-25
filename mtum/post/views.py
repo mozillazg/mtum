@@ -45,10 +45,7 @@ def unlike(request, post_id=None):
     post = Post.objects.get(id=post_id)
     user = request.user
 
-    try:
-        Like.objects.get(author=user, post=post).delete()
-    except ObjectDoesNotExist:
-        pass
+    Like.objects.get(author=user, post=post).delete()
 
     return HttpResponseRedirect(referer or reverse_lazy('dashboard'))
 

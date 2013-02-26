@@ -1,0 +1,30 @@
+{% load url from future %}
+
+<a class="send_fan_mail" href="/send" onclick="Tumblr.FanMail.show(this); return false;">
+  <div class="hide_overflow">Send Fan Mail</div>
+</a>
+
+<ul class="controls_section">
+  <li class="selected"><a href="/inbox" class="messages">All messages</a></li>
+
+</ul>
+<!-- Inbox mass-delete -->
+<form id="delete_messages_action" action="/blog/mzg101/messages/purge" method="post">
+  <input type="hidden" name="form_key" value="NUpusTgaUNQEBolrZj4M3mUWDqs">
+</form>
+<ul class="controls_section">
+  <li>
+    <a href="#" onclick="if (confirm('Are you sure you want to delete all 2 messages?')) { $('delete_messages_action').submit(); } return false;"
+      class="delete_all_messages">Delete all messages</a>
+  </li>
+</ul>
+
+
+<ul class="controls_section" id="fan_mail_controls">
+  <li class="flat no_hover no_push">
+    <div style="text-align:center; padding:15px 20px; font:bold 12px Helvetica, sans-serif; line-height:16px; color:rgba(255,255,255, 0.8);">
+      Your Inbox is an aggregate view of Messages (Questions, Fan Mail, Submissions) that any of your blogs receive.                    </div>
+  </li>
+</ul>
+
+<!--</ul>-->

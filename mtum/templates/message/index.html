@@ -1,0 +1,72 @@
+{% extends "message/base.html" %}
+{% load url from future %}
+{% load account_extras %}
+{% load dashboard_extras %}
+
+
+{% block main %}
+
+<ol id="posts">
+  <!-- START POSTS -->
+
+  {% for message in all_messages %}
+  {% with sender=message.sender recipient=message.recipient %}
+
+  <li id="post_{{ message.id }}" class="post fan_mail from_{{ sender.get_profile.slug }}" style="-webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;">
+    <span class="arrow" style="background-image:url('{{ sender|get_avatar:64 }}')" ></span>
+
+    <div style="height:17px; width:100%;
+      background:bottom left repeat-x url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_top.png?1086') transparent;"></div>    
+    <div class="avatar_and_i">
+      <a href="{{ sender|get_blog_url }}" class="post_avatar" style="background-image:url('{{ sender|get_avatar:64 }}');"></a>
+    </div>
+
+    <div id="44035416216_message" class="message" style="padding-top:-2px;
+      -webkit-border-bottom-right-radius: 6px;
+      -webkit-border-bottom-left-radius: 6px;
+      -moz-border-radius-bottomright: 6px;
+      -moz-border-radius-bottomleft: 6px;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+      background:top left repeat-y url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_repeat.png?1086') #FDFDFD; font:normal 24px/40px Courier, monospace;">
+
+
+      <span id="{{ message.id }}_message_body" >{{ message.message|linebreaks }}</span>
+
+      <br />
+      <div style="text-align:right">&mdash; <a href="{{ recipient|get_blog_url }}" style="text-decoration:none;">{{ recipient.username }}</a></div>
+    </div>
+
+    <div class="controls">
+
+      <span class="controls_link to_name"
+        >Sent to mzg101</span>
+
+      <a href="/send/mzg101/from/mzg101/reply/44035416216" class="controls_link reply_link"
+        onclick="Tumblr.FanMail.show(this); return false;"
+        >answer</a>
+
+      <a href="#" onclick="if (confirm('Are you sure you want to delete this message from mzg101?')) deny_post(44035416216); return false;" class="controls_link delete_link"
+        >&times;</a>
+
+      <span id="post_control_loader_44035416216"></span>
+    </div>
+
+  </li>            
+
+  {% endwith %}
+  {% endfor %}
+
+
+
+
+  <li>
+    <img style="position:absolute;z-index:-3334;top:0px;left:0px;visibility:hidden;" src="http://www.tumblr.com/impixu?T=1361851153&J=eyJ0eXBlIjoicG9zdCIsInVybCI6Imh0dHA6XC9cL3d3dy50dW1ibHIuY29tXC9pbmJveCIsInBvc3RzIjpbeyJwb3N0aWQiOjQ0MDM1NDE2MjE2LCJibG9naWQiOiI5NTU2NzYxNCIsInNvdXJjZSI6MzMzfSx7InBvc3RpZCI6NDQwMzUyODE5MTQsImJsb2dpZCI6Ijk1NTY3NjE0Iiwic291cmNlIjozMzN9XX0=&U=LGLBNJEIEK&K=a93b2ad858133610bc04b3853af06792e584536e3809a3b4e896bdfa6c3b468d"/>    </li>
+
+  <!-- END POSTS -->
+</ol>
+
+
+{% endblock %}

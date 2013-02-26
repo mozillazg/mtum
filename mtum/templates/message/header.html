@@ -1,0 +1,55 @@
+{% load url from future %}
+
+<div id="container">
+  <div id="header_container">
+    <div id="header">
+      <!-- <h1 id="logo" class="logo "><a href="{% url 'dashboard' %}" class="logo_anchor">Tumblr</a></h1> -->
+      <h1 id="logo" class="logo "><a href="/" class="logo_anchor">Tumblr</a></h1>
+      <div id="tabs_outter_container">
+        <div class="tab_bar" id="user_tools">
+          <div class="tab iconic" id="home_button">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <span class="tab_notice new_post_notice_container" id="new_post_notice_container" style="display: none;"><span class="tab_notice_value"></span><span class="tab_notice_nipple"></span></span>
+            <div class="selection_nipple"></div>
+          </div>
+          <div class="tab iconic selected " id="inbox_button">
+            <a href="#inbox">Inbox</a>
+            <div class="selection_nipple"></div>
+          </div>
+          <div class="tab iconic" id="help_button">
+            <a href="#help">Help</a>
+            <div class="selection_nipple white"></div>
+          </div>
+          <div class="tab iconic" id="preferences_button">
+            <a href="{% url 'settings' %}">Preferences</a>
+            <div class="selection_nipple white"></div>
+          </div>
+          <div class="tab iconic" id="logout_button">
+            <a href="{% url 'logout' %}" onclick="return confirm('Are you sure you want to log out?');">Log out</a>
+          </div>
+
+          <div class="tab iconic " id="search_field">
+            <form method="get" action="{% url 'search' %}" id="search_form" class="search_form " data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-tag-slug="">
+              <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
+              <input id="search_query_submit" value="Search tags" type="submit">
+              <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
+            </form>
+            <div class="selection_nipple"></div>
+          </div>
+
+
+          <div id="popover_tracked_tags" class="popover popover_menu popover_gradient tracked_tags_popover" style="display: none;">
+            <div class="popover_inner">
+              <div class="autocomplete_results"></div>
+              <div class="tracked_tags">
+              </div>
+              <div class="related_tags"></div>
+              <div class="popover_menu_item ender">
+                <a href="#explore" tabindex="1">Explore more tags</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

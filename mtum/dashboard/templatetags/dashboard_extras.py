@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.core.urlresolvers import reverse_lazy
 # from django.db.models import Q
 
 from post.models import Like
@@ -52,3 +53,9 @@ def liked_numbers(user):
 @register.filter
 def following_numbers(user):
     return Follow.objects.filter(follower=user).count()
+
+
+@register.filter
+def get_blog_url(user):
+    return reverse_lazy('user_index',
+                        kwargs={'user_slug': user.get_profile().slug})

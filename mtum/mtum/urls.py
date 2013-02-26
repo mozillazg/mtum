@@ -55,6 +55,14 @@ urlpatterns += patterns(
 )
 
 urlpatterns += patterns(
+    'message.views',
+    url(r'^inbox$', 'inbox', name='inbox'),
+    url(r'^send$', 'send', name='send'),
+    # url(r'^send/(?P<user_slug>[-\w+]+)/from/(?P<user_slug>[-\w+]+)/reply/(?P<message_id>\d+)$',
+        # 'reply', name='reply'),
+)
+
+urlpatterns += patterns(
     'post.views',
     url(r'^like/(?P<post_id>\d+)$', 'like', name='like'),
     url(r'^unlike/(?P<post_id>\d+)$', 'unlike', name='unlike'),
@@ -69,7 +77,7 @@ urlpatterns += patterns(
 
     url(r'^blog/(?P<user_slug>[-\w]+)/search$', 'user_search',
         name='user_search'),
-    url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[ -\+\w]+)$',
+    url(r'^blog/(?P<user_slug>[-\w]+)/search/(?P<keyword>[-\+\w]+)$',
         'user_search_result', name='user_search_result'),
 
     url(r'^blog/(?P<user_slug>[-\w]+)/post/(?P<post_id>\d+)$',

@@ -1,0 +1,61 @@
+{% extends "message/base.html" %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/send.css?001"/>
+{% endblock %}
+
+
+
+{% block main %}
+
+
+<div id="send_form">
+  <form action="{{ action_url }}" method="post"> {% csrf_token %}
+  <div id="to_container">
+    Send to 
+    <!--<input type="text" onblur="confirm_can_send_fan_mail();" spellcheck="false" value="" name="to" id="to">-->
+    {{ form.recipient }}
+    <img style="display:none" id="checkmark" src="http://assets.tumblr.com/images/white_checkmark.png?1086" ilo-full-src="http://assets.tumblr.com/images/white_checkmark.png?1086" title="http://assets.tumblr.com/images/white_checkmark.png?1086"><img style="display:none" id="times" src="http://assets.tumblr.com/images/white_x.png?1086" ilo-full-src="http://assets.tumblr.com/images/white_x.png?1086" title="http://assets.tumblr.com/images/white_x.png?1086">                        </div>
+
+  <div id="fan_mail">
+    <!--<textarea class="font_mono-1" name="message" id="message"></textarea>-->
+    {{ form.message }}
+
+    <select onchange="" name="from" class="font_mono-1" id="select_tumblelog_from">
+      <option value="{{ user.username }}">{{ user.username }}</option>
+    </select>
+
+  <ul class="controls_section">
+    <div id="submit_controls">
+      <button type="submit" id="send">Send</button>
+      <button onclick="" type="button" id="cancel">Cancel</button>
+    </div>
+  </ul>
+
+  </div>
+
+  <!--<div id="controls">-->
+    <!--<div style="margin-bottom:5px;">Paper</div>-->
+
+    <!--<img onclick="set_paper('white-lined-1')" src="http://assets.tumblr.com/images/fan_mail/paper_icon_white-lined-1.png?1086" id="paper_white-lined-1" class="paper active" ilo-full-src="http://assets.tumblr.com/images/fan_mail/paper_icon_white-lined-1.png?1086" title="http://assets.tumblr.com/images/fan_mail/paper_icon_white-lined-1.png?1086"><img onclick="set_paper('recycled-1')" src="http://assets.tumblr.com/images/fan_mail/paper_icon_recycled-1.png?1086" class="paper" id="paper_recycled-1" ilo-full-src="http://assets.tumblr.com/images/fan_mail/paper_icon_recycled-1.png?1086" title="http://assets.tumblr.com/images/fan_mail/paper_icon_recycled-1.png?1086">-->
+
+    <!--<div style="margin-top:40px; margin-bottom:5px;">Writing</div>-->
+    <!--<div class="font active"><img id="font_mono-1" onclick="set_font('mono-1')" src="http://assets.tumblr.com/images/fan_mail/font_mono-1.png?1086" ilo-full-src="http://assets.tumblr.com/images/fan_mail/font_mono-1.png?1086" title="http://assets.tumblr.com/images/fan_mail/font_mono-1.png?1086"></div><div class="font"><img id="font_cursive-1" onclick="set_font('cursive-1')" src="http://assets.tumblr.com/images/fan_mail/font_cursive-1.png?1086" ilo-full-src="http://assets.tumblr.com/images/fan_mail/font_cursive-1.png?1086" title="http://assets.tumblr.com/images/fan_mail/font_cursive-1.png?1086"></div><div class="font"><img id="font_sans-1" onclick="set_font('sans-1')" src="http://assets.tumblr.com/images/fan_mail/font_sans-1.png?1086" ilo-full-src="http://assets.tumblr.com/images/fan_mail/font_sans-1.png?1086" title="http://assets.tumblr.com/images/fan_mail/font_sans-1.png?1086"></div>-->
+  <!--</div>-->
+
+  <!--<div id="submit_controls">-->
+    <!--<button type="submit" id="send">Send</button>-->
+    <!--<button onclick="window.parent.Tumblr.FanMail.hide(); return false;" type="button" id="cancel">Cancel</button>-->
+  <!--</div>-->
+  <!--<ul class="controls_section">-->
+    <!--<div id="submit_controls">-->
+      <!--<button type="submit" id="send">Send</button>-->
+      <!--<button onclick="" type="button" id="cancel">Cancel</button>-->
+    <!--</div>-->
+  <!--</ul>-->
+<!--</div>-->
+
+  </form>
+</div>
+{% endblock %}

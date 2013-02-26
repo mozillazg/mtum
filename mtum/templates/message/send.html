@@ -12,6 +12,7 @@
 
 <div id="send_form">
   <form action="{{ action_url }}" method="post"> {% csrf_token %}
+    {{ form.reply_id }}
   <div id="to_container">
     Send to 
     <!--<input type="text" onblur="confirm_can_send_fan_mail();" spellcheck="false" value="" name="to" id="to">-->
@@ -23,7 +24,7 @@
     {{ form.message }}
 
     <select onchange="" name="from" class="font_mono-1" id="select_tumblelog_from">
-      <option value="{{ user.username }}">{{ user.username }}</option>
+      <option value="{{ user.username }}">{{ form.sender.value|default:user.username }}</option>
     </select>
 
   <ul class="controls_section">

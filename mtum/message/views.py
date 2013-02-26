@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 from .models import Message
 from .form import SendForm
+from account.models import UserProfile
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -22,9 +23,16 @@ def send(request, template_name='message/send.html', extra_context=None):
             sender = request.user
             recipient = form.cleaned_data['recipient']
             message = form.cleaned_data['message']
+            reply_id = form.cleaned_data['reply_id']
+
             recipient = User.objects.get(username=recipient)
-            Message.objects.create(sender=sender, recipient=recipient,
-                                   message=message)
+            if reply_id:
+                reply = Message.objects.get(pk=reply_id, recipient=sender)
+                Message.objects.create(sender=sender, recipient=recipient,
+                                       message=message, reply=reply)
+            else:
+                Message.objects.create(sender=sender, recipient=recipient,
+                                       message=message)
             return HttpResponseRedirect(reverse_lazy('inbox'))
     else:
         form = SendForm()
@@ -48,3 +56,18 @@ def inbox(request, template_name='message/index.html'):
     }
     return render_to_response(template_name, context,
                               context_instance=RequestContext(request))
+
+
+@login_required(login_url=reverse_lazy('login'))
+def reply(request, sender_slug, recipient_slug, message_id):
+    sender = UserProfile.objects.get(slug=sender_slug).user
+    recipient = UserProfile.objects.get(slug=recipient_slug).user
+
+    initial = {
+        'reply_id': message_id,
+        'sender': sender.username,
+        'recipient': recipient.username,
+    }
+    form = SendForm(initial=initial)
+    extra_context = {'form': form}
+    return send(request, extra_context=extra_context)

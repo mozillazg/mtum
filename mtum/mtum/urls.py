@@ -58,8 +58,8 @@ urlpatterns += patterns(
     'message.views',
     url(r'^inbox$', 'inbox', name='inbox'),
     url(r'^send$', 'send', name='send'),
-    # url(r'^send/(?P<user_slug>[-\w+]+)/from/(?P<user_slug>[-\w+]+)/reply/(?P<message_id>\d+)$',
-        # 'reply', name='reply'),
+    url(r'^send/(?P<sender_slug>[-\w+]+)/from/(?P<recipient_slug>[-\w+]+)/reply/(?P<message_id>\d+)$',
+        'reply', name='reply'),
 )
 
 urlpatterns += patterns(

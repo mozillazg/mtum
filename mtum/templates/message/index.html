@@ -36,15 +36,15 @@
       <span id="{{ message.id }}_message_body" >{{ message.message|linebreaks }}</span>
 
       <br />
-      <div style="text-align:right">&mdash; <a href="{{ recipient|get_blog_url }}" style="text-decoration:none;">{{ recipient.username }}</a></div>
+      <div style="text-align:right">&mdash; <a href="{{ sender|get_blog_url }}" style="text-decoration:none;">{{ sender.username }}</a></div>
     </div>
 
     <div class="controls">
 
       <span class="controls_link to_name"
-        >Sent to mzg101</span>
+        >Sent to {{ sender.username }}</span>
 
-      <a href="/send/mzg101/from/mzg101/reply/44035416216" class="controls_link reply_link"
+      <a href="{% url 'reply' recipient.get_profile.slug sender.get_profile.slug message.id %}" class="controls_link reply_link"
         onclick="Tumblr.FanMail.show(this); return false;"
         >answer</a>
 

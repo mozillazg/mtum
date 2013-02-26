@@ -13,6 +13,7 @@ class SendForm(forms.Form):
         'id': 'message',
     }
 
-    # sender = forms.CharField()
+    sender = forms.CharField(required=False)
     recipient = forms.CharField(widget=forms.TextInput(attrs=attrs_recipient))
     message = forms.CharField(widget=forms.Textarea(attrs=attrs_message))
+    reply_id = forms.IntegerField(widget=forms.HiddenInput, required=False)

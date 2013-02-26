@@ -1,11 +1,11 @@
 {% load url from future %}
 
-<a class="send_fan_mail" href="/send" onclick="Tumblr.FanMail.show(this); return false;">
+<a class="send_fan_mail" href="{% url 'send' %}" onclick="Tumblr.FanMail.show(this); return false;">
   <div class="hide_overflow">Send Fan Mail</div>
 </a>
 
 <ul class="controls_section">
-  <li class="selected"><a href="/inbox" class="messages">All messages</a></li>
+  <li class="selected"><a href="{% url 'inbox' %}" class="messages">All messages</a></li>
 
 </ul>
 <!-- Inbox mass-delete -->

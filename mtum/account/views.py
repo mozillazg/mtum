@@ -27,7 +27,8 @@ def register(request, template_name='account/register.html',
             password = form.cleaned_data['password']
 
             try:
-                if UserProfile.objects.filter(slug=slugify(username)):
+                if (UserProfile.objects.filter(slug=slugify(username)).exists()
+                        or User.objects.filter(username=username).exists()):
                     msg = 'This username already exists!'
                     raise Exception()
                 elif User.objects.filter(email=email).exists():
@@ -37,7 +38,8 @@ def register(request, template_name='account/register.html',
                     User.objects.create_user(username, email=email,
                                              password=password)
                     return HttpResponseRedirect(reverse_lazy('login'))
-            except:
+            except Exception as e:
+                print e
                 form = RegisterForm(initial={'username': username,
                                              'email': email})
                 extra_context = {

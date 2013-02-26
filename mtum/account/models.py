@@ -8,7 +8,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
-# from unidecode import unidecode
+from unidecode import unidecode
 
 
 class UserProfile(models.Model):
@@ -20,8 +20,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            # self.slug = slugify(unidecode(self.user.username))
-            self.slug = slugify(self.user.username)
+            self.slug = slugify(unidecode(self.user.username))
         super(UserProfile, self).save(*args, **kwargs)
 
     def get_avatar(self, size=64, default=None):

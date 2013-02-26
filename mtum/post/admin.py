@@ -11,18 +11,16 @@ from .models import Follow
 
 class LikeAdmin(admin.ModelAdmin):
     list_display = ('author', 'post')
-    list_filter = ('author',)
 
 
 class FollowAdmin(admin.ModelAdmin):
     list_display = ('follower', 'following')
-    list_filter = ('follower', 'following')
 
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('author', 'title', 'kind', 'reblog', 'created_at')
     search_fields = ('title', 'content')
-    list_filter = ('created_at', 'author')
+    list_filter = ('created_at', 'kind')
 
 admin.site.register(Tag)
 admin.site.register(Post, PostAdmin)

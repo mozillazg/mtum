@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load message_extras %}
 
 <a class="send_fan_mail" href="{% url 'send' %}" onclick="Tumblr.FanMail.show(this); return false;">
   <div class="hide_overflow">Send Fan Mail</div>
@@ -9,12 +10,9 @@
 
 </ul>
 <!-- Inbox mass-delete -->
-<form id="delete_messages_action" action="/blog/mzg101/messages/purge" method="post">
-  <input type="hidden" name="form_key" value="NUpusTgaUNQEBolrZj4M3mUWDqs">
-</form>
 <ul class="controls_section">
   <li>
-    <a href="#" onclick="if (confirm('Are you sure you want to delete all 2 messages?')) { $('delete_messages_action').submit(); } return false;"
+    <a href="{% url 'purge' %}" onclick="if (confirm('Are you sure you want to delete all {{ user|get_messags_count }} messages?')) {return true;} return false;"
       class="delete_all_messages">Delete all messages</a>
   </li>
 </ul>

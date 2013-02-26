@@ -19,9 +19,10 @@
         <meta name="tumblr-form-key" content="NUpusTgaUNQEBolrZj4M3mUWDqs" id="tumblr_form_key" />
 
         {% block css %}
-<link rel="stylesheet" type="text/css" href="http://assets.tumblr.com/stylesheets/compressed/global.css?62cc162df960fe0c308841328af4f81f"><link rel="stylesheet" type="text/css" href="http://assets.tumblr.com/stylesheets/compressed/dashboard.css?9783e15e5117f30708cda8d4f375a3ff">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/global.css?1ssd2ad">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dashboard.css?58cd4f">
 
-<link rel="stylesheet" type="text/css" href="http://assets.tumblr.com/stylesheets/editor.css?1086"/>
+<!--<link rel="stylesheet" type="text/css" href="http://assets.tumblr.com/stylesheets/editor.css?1086"/>-->
   {% endblock %}
 
 <img style="position:absolute;z-index:-3334;top:0px;left:0px;visibility:hidden;" src="http://www.tumblr.com/impixu?T=1361851153&J=eyJ0eXBlIjoidXJsIiwidXJsIjoiaHR0cDpcL1wvd3d3LnR1bWJsci5jb21cL2luYm94In0=&U=JDIHFOOFIE&K=e5d9e603d060cb6c3e07817e1605f7e85e9d40db740084447f531e4cb60e702d"/>    </head>
@@ -112,6 +113,24 @@
                 <button class="chrome dismiss"><div class="chrome_button"><div class="chrome_button_left"></div>No thanks<div class="chrome_button_right"></div></div></button>
             </div>
 
+
+<style>
+#return_to_top {
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 10;
+min-width: 0;
+}
+#return_to_top:hover .return_to_top_icon {
+  /*opacity: 0.45;*/
+}
+#return_to_top .return_to_top_icon {
+  background: url('{{ STATIC_URL }}img/dashboard_master_sprite.png') no-repeat scroll -600px -190px transparent;
+}
+</style>
+<a id="return_to_top" style="display: block; opacity: 1;" href="#" class=""><div class="return_to_top_icon"></div></a>
+
                                             
 <div id="tab_switching" class="tab_switching inactive">
     <div class="tab_blogs count_2">
@@ -136,6 +155,6 @@
         </div>
 </div>                    
 
-        
-            </body>
+
+  </body>
 </html>

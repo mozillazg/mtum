@@ -60,6 +60,8 @@ urlpatterns += patterns(
     url(r'^send$', 'send', name='send'),
     url(r'^send/(?P<sender_slug>[-\w+]+)/from/(?P<recipient_slug>[-\w+]+)/reply/(?P<message_id>\d+)$',
         'reply', name='reply'),
+    url(r'^deny_submission/(?P<message_id>\d+)$', 'deny', name='deny'),
+    url(r'^messages/purge$', 'deny', {'purge': True}, name='purge'),
 )
 
 urlpatterns += patterns(

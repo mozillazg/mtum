@@ -11,7 +11,8 @@ class Message(models.Model):
     message = models.TextField()
     sent_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    is_denied = models.BooleanField(default=False)
     reply = models.ForeignKey('self', null=True, blank=True, related_name='replyto')
 
     def __unicode__(self):
-        return self.sender
+        return self.sender.username

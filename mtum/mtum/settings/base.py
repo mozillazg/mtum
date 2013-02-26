@@ -196,6 +196,7 @@ LOCAL_APPS = (
     'account',
     'post',
     'dashboard',
+    'message',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

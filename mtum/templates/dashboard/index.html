@@ -298,13 +298,21 @@
 
         <!-- New posts notice -->
 
-      </div><img title="http://assets.tumblr.com/images/content_bottom.png?alpha  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/content_bottom.png" ilo-ph-fix="tofix" ilo-full-src="http://assets.tumblr.com/images/content_bottom.png?alpha" src="content_bottom.png" alt="" class="content_cap" id="content_bottom">
+      </div><img title="" ilo-ph-fix="tofix" ilo-full-src="http://assets.tumblr.com/images/content_bottom.png?alpha" src="content_bottom.png" alt="" class="content_cap" id="content_bottom">
 {% endblock %}
 
 
 
   {% block others %}
-    <div id="auto_pagination_loader">
+  <style>
+    .endless_loading {
+      color: #2C4762;
+    }
+  </style>
+
+  {% paginate 5 posts %}
+  {% get_pages %}
+    <div id="auto_pagination_loader"{% if not pages.next %}style="display:none;"{% endif %}>
       <span id="auto_pagination_loader_loading">
         <div class="spinner"></div>
         Loading more posts...    </span>

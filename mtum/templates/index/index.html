@@ -1,5 +1,6 @@
 {% extends "index/base.html" %}
 {% load url from future %}
+{% load endless %}
 {% load dashboard_extras %}
 
 
@@ -33,8 +34,15 @@
 
 
 {% block footer %}
+  {% paginate 3 posts_group %}
+  {% get_pages %}
   {% if keyword %}
-    <div id="auto_pagination_loader">
+  <style>
+    .endless_loading {
+      color: #2C4762;
+    }
+  </style>
+  <div id="auto_pagination_loader" {% if not pages.next %}style="display:none;"{% endif %}>
       <span id="auto_pagination_loader_loading">
           <div class="spinner"></div>
           Loading more posts...    </span>

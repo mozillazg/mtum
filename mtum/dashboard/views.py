@@ -299,8 +299,4 @@ def search(request):
     if not tag:
         return HttpResponseRedirect('/')
     else:
-        # return HttpResponseRedirect(reverse_lazy('tagged',
-                                                 # kwargs={
-                                                     # 'keyword': tag,
-                                                 # }))
         return index(request, keyword=keyword)

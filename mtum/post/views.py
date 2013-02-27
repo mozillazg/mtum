@@ -129,11 +129,6 @@ def user_search(request, user_slug):
     if not tag:
         return HttpResponseRedirect(referer)
     else:
-        # return HttpResponseRedirect(reverse_lazy('user_search_result',
-                                                 # kwargs={
-                                                     # 'user_slug': user_slug,
-                                                     # 'keyword': keyword,
-                                                 # }))
         return user_search_result(request, user_slug, keyword)
 
 

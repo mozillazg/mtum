@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from django.db.models import Q
+from django.template.defaultfilters import slugify
+
+from unidecode import unidecode
 
 from post.models import Tag
 from post.models import Post
@@ -38,13 +41,14 @@ def group_iter(iterator, n=2):
 
 
 def media_wall(keyword=None):
+    tag = slugify(unidecode(keyword))
     posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
     posts = posts.filter(reblog__isnull=True)
     if keyword:
-        posts = posts.filter(Q(tags__name__icontains=keyword)
-                             | Q(tags__slug__icontains=keyword)
-                             | Q(content__icontains=keyword)
-                             | Q(title__icontains=keyword))
+        posts = posts.filter(Q(tags__name__iexact=keyword)
+                             | Q(tags__slug__iexact=tag)
+                             | Q(content__iexact=keyword)
+                             | Q(title__iexact=keyword))
 
     posts = posts.order_by('-created_at')
     posts_group = group_iter(posts, 3)

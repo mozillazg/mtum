@@ -16,6 +16,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 
 from endless_pagination.decorators import page_template
+from unidecode import unidecode
 
 from account.models import UserProfile
 from .models import Post
@@ -123,20 +124,23 @@ def user_index(request, user_slug, tag_slug=None,
 
 def user_search(request, user_slug):
     referer = reverse_lazy('user_index', kwargs={'user_slug': user_slug})
-    keyword = slugify(request.GET.get('q'))
-    if not keyword:
+    keyword = request.GET.get('q')
+    tag = slugify(unidecode(keyword))
+    if not tag:
         return HttpResponseRedirect(referer)
     else:
-        return HttpResponseRedirect(reverse_lazy('user_search_result',
-                                                 kwargs={
-                                                     'user_slug': user_slug,
-                                                     'keyword': keyword,
-                                                 }))
+        # return HttpResponseRedirect(reverse_lazy('user_search_result',
+                                                 # kwargs={
+                                                     # 'user_slug': user_slug,
+                                                     # 'keyword': keyword,
+                                                 # }))
+        return user_search_result(request, user_slug, keyword)
 
 
 def user_search_result(request, user_slug, keyword):
     keyword = unquote(keyword)
-    if not keyword:
+    tag = slugify(unidecode(keyword))
+    if not tag:
         return HttpResponseRedirect(reverse_lazy('user_index',
                                                  kwargs={
                                                      'user_slug': user_slug,
@@ -144,7 +148,11 @@ def user_search_result(request, user_slug, keyword):
 
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
-    posts = Post.objects.filter(Q(author=user) & Q(tags__name__iexact=keyword))
+    posts = Post.objects.filter(author=user)
+    posts = posts.filter(Q(tags__name__iexact=keyword)
+                         | Q(tags__slug__iexact=tag)
+                         | Q(content__iexact=keyword)
+                         | Q(title__iexact=keyword))
     posts = posts.order_by('-created_at')
 
     context = {

@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 
 from endless_pagination.decorators import page_template
+from unidecode import unidecode
 
 from .forms import TextForm
 from .forms import PhotoForm
@@ -293,11 +294,13 @@ def index(request, keyword=None, template='index/index.html',
 
 
 def search(request):
-    keyword = slugify(request.GET.get('q'))
-    if not keyword:
+    keyword = request.GET.get('q')
+    tag = slugify(unidecode(keyword))
+    if not tag:
         return HttpResponseRedirect('/')
     else:
-        return HttpResponseRedirect(reverse_lazy('tagged',
-                                                 kwargs={
-                                                     'keyword': keyword,
-                                                 }))
+        # return HttpResponseRedirect(reverse_lazy('tagged',
+                                                 # kwargs={
+                                                     # 'keyword': tag,
+                                                 # }))
+        return index(request, keyword=keyword)

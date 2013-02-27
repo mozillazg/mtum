@@ -36,7 +36,7 @@
                 <form method="get" action="{% url 'search' %}" id="search_form" class="search_form " data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" data-tag-slug="">
                   <input name="scope" id="search_scope" value="all_of_tumblr" type="hidden">
                   <input id="search_query_submit" value="Search tags" type="submit">
-                  <input tabindex="1" name="q" id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
+                  <input tabindex="1" name="q" value="{{ keyword }}"id="search_query" placeholder="Search tags" value="" class="popover_button" autocomplete="off" type="text">
                 </form>
                 <div class="selection_nipple"></div>
               </div>

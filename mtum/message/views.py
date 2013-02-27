@@ -40,14 +40,7 @@ def send(request, template_name='message/send.html', extra_context=None):
             message = form.cleaned_data['message']
             reply_id = form.cleaned_data['reply_id']
 
-            try:
-                recipient = User.objects.get(username=recipient)
-            except ObjectDoesNotExist:
-                request.method = 'GET'
-                error_msg = ["This user doesn't exist!"]
-                form.errors['recipient'] = ErrorList(error_msg)
-                extra_context = {'form': form}
-                return send(request, template_name, extra_context)
+            recipient = User.objects.get(username=recipient)
             if reply_id:
                 reply = Message.objects.get(pk=reply_id, recipient=sender)
                 Message.objects.create(sender=sender, recipient=recipient,

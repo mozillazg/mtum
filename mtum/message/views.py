@@ -7,8 +7,8 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-from django.forms.util import ErrorList
+
+from endless_pagination.decorators import page_template
 
 from .models import Message
 from .form import SendForm
@@ -17,7 +17,8 @@ from .utils import bad_request
 
 
 @login_required(login_url=reverse_lazy('login'))
-def inbox(request, template_name='message/index.html'):
+@page_template('message/index_page.html')
+def inbox(request, template='message/index.html', extra_context=None):
     all_messages = Message.objects.filter(recipient=request.user)
     all_messages = all_messages.filter(is_denied=False)
     all_messages = all_messages.order_by('-sent_at').order_by('is_read')
@@ -25,7 +26,9 @@ def inbox(request, template_name='message/index.html'):
     context = {
         'all_messages': all_messages,
     }
-    return render_to_response(template_name, context,
+    if extra_context:
+        context.update(extra_context)
+    return render_to_response(template, context,
                               context_instance=RequestContext(request))
 
 

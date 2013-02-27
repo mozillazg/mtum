@@ -10,56 +10,9 @@
 <ol id="posts">
   <!-- START POSTS -->
 
-  {% for message in all_messages %}
-  {% with sender=message.sender recipient=message.recipient message=message|make_as_read %}
-
-  <li id="post_{{ message.id }}" class="post fan_mail from_{{ sender.get_profile.slug }}" style="-webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;">
-    <span class="arrow" style="background-image:url('{{ sender|get_avatar:64 }}')" ></span>
-
-    <div style="height:17px; width:100%;
-      background:bottom left repeat-x url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_top.png?1086') transparent;"></div>    
-    <div class="avatar_and_i">
-      <a href="{{ sender|get_blog_url }}" class="post_avatar" style="background-image:url('{{ sender|get_avatar:64 }}');"></a>
-    </div>
-
-    <div id="44035416216_message" class="message" style="padding-top:-2px;
-      -webkit-border-bottom-right-radius: 6px;
-      -webkit-border-bottom-left-radius: 6px;
-      -moz-border-radius-bottomright: 6px;
-      -moz-border-radius-bottomleft: 6px;
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius: 6px;
-      background:top left repeat-y url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_repeat.png?1086') #FDFDFD; font:normal 24px/40px Courier, monospace;">
-
-
-      <span id="{{ message.id }}_message_body" >{{ message.message|linebreaks }}</span>
-
-      <br />
-      <div style="text-align:right">&mdash; <a href="{{ sender|get_blog_url }}" style="text-decoration:none;">{{ sender.username }}</a></div>
-    </div>
-
-    <div class="controls">
-
-      <span class="controls_link to_name"
-        >Sent to {{ sender.username }}</span>
-
-      <a href="{% url 'reply' recipient.get_profile.slug sender.get_profile.slug message.id %}" class="controls_link reply_link"
-        onclick="Tumblr.FanMail.show(this); return false;"
-        >answer</a>
-
-      <a href="{% url 'deny' message.id %}" onclick="if (confirm('Are you sure you want to delete this message from {{ sender.username }}?')) {return true;} return false;" class="controls_link delete_link"
-        >&times;</a>
-
-      <span id="post_control_loader_44035416216"></span>
-    </div>
-
-  </li>            
-
-  {% endwith %}
-  {% endfor %}
-
+  <div class="endless_page_template">
+    {% include "message/index_page.html" %}
+  </div>
 
 
 
@@ -69,5 +22,32 @@
   <!-- END POSTS -->
 </ol>
 
+<style>
+  .endless_container {
+    clear: both;
+    position: relative;
+    margin: 20px 0 0 0;
+    padding: 15px 20px 15px 20px;
+    background-color: white;
+    border-bottom: solid 2px #BBB;
+    word-wrap: break-word;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    text-align: right;
+  }
+  .endless_more {
+  }
+</style>
 
+{% endblock %}
+
+
+{% block js %}
+  {{ block.super }}
+
+  <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+  <script>$.endlessPaginate(); </script>
 {% endblock %}

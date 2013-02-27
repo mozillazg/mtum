@@ -7,6 +7,8 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.forms.util import ErrorList
 
 from .models import Message
 from .form import SendForm
@@ -38,7 +40,14 @@ def send(request, template_name='message/send.html', extra_context=None):
             message = form.cleaned_data['message']
             reply_id = form.cleaned_data['reply_id']
 
-            recipient = User.objects.get(username=recipient)
+            try:
+                recipient = User.objects.get(username=recipient)
+            except ObjectDoesNotExist:
+                request.method = 'GET'
+                error_msg = ["This user doesn't exist!"]
+                form.errors['recipient'] = ErrorList(error_msg)
+                extra_context = {'form': form}
+                return send(request, template_name, extra_context)
             if reply_id:
                 reply = Message.objects.get(pk=reply_id, recipient=sender)
                 Message.objects.create(sender=sender, recipient=recipient,

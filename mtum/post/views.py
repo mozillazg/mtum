@@ -144,10 +144,10 @@ def user_search_result(request, user_slug, keyword):
     userprofile = UserProfile.objects.get(slug=user_slug)
     user = blog_author = userprofile.user
     posts = Post.objects.filter(author=user)
-    posts = posts.filter(Q(tags__name__iexact=keyword)
-                         | Q(tags__slug__iexact=tag)
-                         | Q(content__iexact=keyword)
-                         | Q(title__iexact=keyword))
+    posts = posts.filter(Q(tags__name__icontains=keyword)
+                         | Q(tags__slug__icontains=tag)
+                         | Q(content__icontains=keyword)
+                         | Q(title__icontains=keyword))
     posts = posts.order_by('-created_at')
 
     context = {

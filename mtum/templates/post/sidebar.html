@@ -7,7 +7,7 @@
 <div class="clear"></div>
 <div id="searchfield">
   <form method="get" action="{% url 'user_search' blog_author.get_profile.slug %}" form="" id="searchbox">
-    <input type="text" value="{{ keyword }}" name="q" id="keywords" class="text">
+    <input type="text" value="{% if tag_name %}{{ tag_name }} {% else %}{{ keyword|default:'' }}{% endif %}" name="q" id="keywords" class="text">
     <!-- placeholder="Search tags"> -->
     <input type="submit" class="search" value="">
   </form>
@@ -15,7 +15,7 @@
 <div class="clear"></div>
 
 <!--((YOUR HTML))-->
-{{ blog_author.get_profile.description|linebreaks }}
+{{ blog_author.get_profile.description|linebreaks|default:'' }}
 
 </p><div class="clear"></div>
 

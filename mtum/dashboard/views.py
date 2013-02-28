@@ -20,6 +20,7 @@ from .helper import create_tags
 from .helper import media_wall
 from post.models import Post
 from post.models import Follow
+from post.models import Tag
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -282,6 +283,12 @@ def delete_post(request, post_id):
 def index(request, keyword=None, template='index/index.html',
           extra_context=None):
     posts_group = list(media_wall(keyword=keyword))
+    q = request.GET.get('q')
+    if not q:
+        try:
+            keyword = Tag.objects.get(slug=keyword).name
+        except ObjectDoesNotExist:
+            pass
 
     context = {
         'posts_group': posts_group,

@@ -45,10 +45,10 @@ def media_wall(keyword=None):
     posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
     posts = posts.filter(reblog__isnull=True)
     if keyword:
-        posts = posts.filter(Q(tags__name__iexact=keyword)
-                             | Q(tags__slug__iexact=tag)
-                             | Q(content__iexact=keyword)
-                             | Q(title__iexact=keyword))
+        posts = posts.filter(Q(tags__name__icontains=keyword)
+                             | Q(tags__slug__icontains=tag)
+                             | Q(content__icontains=keyword)
+                             | Q(title__icontains=keyword))
 
     posts = posts.order_by('-created_at')
     posts_group = group_iter(posts, 3)

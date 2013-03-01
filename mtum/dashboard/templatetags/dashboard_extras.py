@@ -13,14 +13,15 @@ register = template.Library()
 
 
 @register.filter
-def display_video(url):
-    content = '''<embed
-    src="%s"
-    allowFullScreen="true" quality="high" width="500" height="365"
-    align="middle" allowScriptAccess="always"
-    type="application/x-shockwave-flash"></embed>''' % url
+def display_video(url, size='500x365'):
+    width, height = size.lower().split('x')
 
-    return content
+    html = '''<embed src="%s"
+    allowFullScreen="true" quality="high" width="%s" height="%s"
+    align="middle" allowScriptAccess="always"
+    type="application/x-shockwave-flash"></embed>''' % (url, width, height)
+
+    return html
 
 
 @register.filter

@@ -1,0 +1,6 @@
+django>=1.4
+south
+django-debug-toolbar
+markdown
+Unidecode
+git+https://github.com/frankban/django-endless-pagination.git

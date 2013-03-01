@@ -1,5 +1,5 @@
 django>=1.4
-south
-markdown
+South
+Markdown
 Unidecode
 git+https://github.com/frankban/django-endless-pagination.git

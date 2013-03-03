@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm
 from .forms import LoginForm
-from .models import UserProfile
 
 
 def register(request, template_name='account/register.html',
@@ -26,39 +25,14 @@ def register(request, template_name='account/register.html',
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            try:
-                if (UserProfile.objects.filter(slug=slugify(username)).exists()
-                        or User.objects.filter(username=username).exists()):
-                    msg = 'This username already exists!'
-                    raise Exception()
-                elif User.objects.filter(email=email).exists():
-                    msg = 'This email address already exists!'
-                    raise Exception()
-                else:
-                    User.objects.create_user(username, email=email,
-                                             password=password)
-                    return HttpResponseRedirect(reverse_lazy('login'))
-            except Exception as e:
-                print e
-                form = RegisterForm(initial={'username': username,
-                                             'email': email})
-                extra_context = {
-                    'form': form,
-                    'msg': msg,
-                }
-                request.method = 'GET'
-                return register(request, msg=msg, extra_context=extra_context)
-        else:
-            msg = form.errors.get('email')
-            if msg:
-                msg = 'Please enter a valid e-mail address!'
-
+            User.objects.create_user(username, email=email,
+                                     password=password)
+            return HttpResponseRedirect(reverse_lazy('login'))
     else:
         form = RegisterForm()
 
     context = {
         'form': form,
-        'msg': msg,
     }
     if extra_context:
         context.update(extra_context)

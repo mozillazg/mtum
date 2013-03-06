@@ -205,6 +205,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'
 
+AUTHENTICATION_BACKENDS = (
+    'account.utils.EmailBackend',  # support login with email
+)
+
 ########## LOGGING CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging

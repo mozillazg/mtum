@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-@author: chris http://djangosnippets.org/snippets/1845/
-updated to 1.3 by Łukasz Kidziński
-"""
 from django.contrib.auth.models import User
 
 
-class EmailBackend:
+class EmailBackend(object):
     """
+    @author: chris http://djangosnippets.org/snippets/1845/
+    updated to 1.3 by Łukasz Kidziński
+
     Authenticate with e-mail.
 
     Use the  e-mail, and password
@@ -28,8 +27,7 @@ class EmailBackend:
                 user = User.objects.get(email=username)
             except User.DoesNotExist:
                 pass
-
-        if not user:
+        else:
             #We have a non-email address username we should try username
             try:
                 user = User.objects.get(username=username)

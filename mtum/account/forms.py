@@ -46,12 +46,10 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    # email = forms.EmailField(widget=forms.TextInput(attrs={
-                                # 'placeholder': 'Email',}))
+    username = forms.CharField(widget=forms.TextInput(attrs={
+                               'placeholder': 'Username or Email'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
                                'placeholder': 'Password'}))
-    username = forms.CharField(widget=forms.TextInput(attrs={
-                               'placeholder': 'Username'}))
 
 
 class ForgotPasswordForm(forms.Form):

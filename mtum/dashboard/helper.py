@@ -24,11 +24,12 @@ def create_tags(tags):
     return tuple(related_tags)
 
 
-# http://sandrotosi.blogspot.com/2011/04/python-group-list-in-sub-lists-of-n.html
+#sandrotosi.blogspot.com/2011/04/python-group-list-in-sub-lists-of-n.html
 def group_iter(iterator, n=2):
     """ Given an iterator, it returns sub-lists made of n items
     (except the last that can have len < n)
-    inspired by http://countergram.com/python-group-iterator-list-function"""
+    inspired by http://countergram.com/python-group-iterator-list-function
+    """
     accumulator = []
     for item in iterator:
         accumulator.append(item)
@@ -40,7 +41,10 @@ def group_iter(iterator, n=2):
         yield accumulator
 
 
-def media_wall(keyword=None):
+def media_wall(keyword=None, split_number=3):
+    """Group posts
+    e.g. media_wall([1, 2, 3, 4, 5, 6, 7]) -- > [[1, 2, 3], [4, 5, 6], [7]]
+    """
     tag = slugify(unidecode(keyword))
     posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
     posts = posts.filter(reblog__isnull=True)
@@ -51,5 +55,5 @@ def media_wall(keyword=None):
                              | Q(title__icontains=keyword))
 
     posts = posts.order_by('-created_at')
-    posts_group = group_iter(posts, 3)
+    posts_group = group_iter(posts, split_number)
     return posts_group

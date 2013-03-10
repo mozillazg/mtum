@@ -1,0 +1,49 @@
+{% extends "dashboard/base.html" %}
+{% load url from future %}
+{% load endless %}
+{% load account_extras %}
+{% load dashboard_extras %}
+
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/following.css" media="all">
+{% endblock %}
+
+
+{% block main %}<div id="content" class="clearfix">
+<div class="followers" id="left_column">
+    <div class="white_pane">
+
+    <div class="title_and_controls">
+        <h1>{{ user|follower_numbers }} person is following you</h1>
+        <div class="white_pane_controls">
+        </div>
+    </div>
+
+    <div class="followers">
+
+      {% for follower in followers %}
+      {% with username=follower.username %}
+      <div class="follower alt clearfix">
+        <a style="background-image: url('{{ follower|get_avatar:40 }}');" class="avatar" href="{{ follower|get_blog_url }}"><img width="40" height="40" src="{{ follower|get_avatar:40 }}" alt="" class="avatar_img"></a>
+        <div class="info">
+          <div class="name"><a href="{{ follower|get_blog_url }}">{{ username }}</a></div>
+          <div class="description"><a data-user-name="{{ username }}" class="ignore" href="#">ignore</a></div>
+        </div>
+        <div class="controls">
+          <span style="display: none;" class="loading_animation" id="loading_{{ username }}"></span>
+          <a href="{% url 'follow' follower.get_profile.slug %}"><button id="follow_button_" class="chrome blue big follow_button" data-user-name="{{ username }}" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw">Follow</button></a>
+        </div>
+      </div>
+      {% endwith %}
+      {% endfor %}
+
+    </div>
+
+    <div class="clear"></div>
+  </div>
+</div>
+
+</div>
+{% endblock %}

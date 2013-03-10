@@ -89,7 +89,7 @@
             {% if user|follower_numbers %}
             <!-- Follower -->
             <li class="">
-              <a class="followers" href="#followers">
+              <a class="followers" href="{% url 'followers' %}">
                 <div class="hide_overflow">Followers</div>
                 <span class="count">{{ user|follower_numbers }}</span>
               </a>

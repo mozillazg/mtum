@@ -41,6 +41,7 @@ urlpatterns += patterns(
     url(r'^likes$', 'dashboard', {'posts_filter': 'likes'}, name='likes'),
     url(r'^following$', 'dashboard', {'posts_filter': 'following'},
         name='following'),
+    url(r'^followers$', 'followers', name='followers'),
 
     url(r'^new/text$', 'new_text', name='new_text'),
     url(r'^new/photo$', 'new_photo', name='new_photo'),

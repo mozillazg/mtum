@@ -307,3 +307,16 @@ def search(request):
         return HttpResponseRedirect('/')
     else:
         return index(request, keyword=keyword)
+
+
+@login_required(login_url=reverse_lazy('login'))
+def followers(request, template_name='dashboard/followers.html'):
+    user = request.user
+    follows = Follow.objects.filter(following=user)
+    followers = (follow.follower for follow in follows)
+
+    context = {
+        'followers': followers,
+    }
+    return render_to_response(template_name, context,
+                              context_instance=RequestContext(request))

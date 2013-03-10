@@ -86,6 +86,16 @@
               </a>
             </li>
 
+            {% if user|follower_numbers %}
+            <!-- Follower -->
+            <li class="">
+              <a class="followers" href="#followers">
+                <div class="hide_overflow">Followers</div>
+                <span class="count">{{ user|follower_numbers }}</span>
+              </a>
+            </li>
+            {% endif %}
+
 
             <!-- Drafts -->
             <li class="dashboard_drafts count_0">

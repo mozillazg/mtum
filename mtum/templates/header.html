@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load dashboard_extras %}
 
 <div id="container">
   <div id="header_container">
@@ -7,24 +8,25 @@
       <h1 id="logo" class="logo "><a href="/" class="logo_anchor">Tumblr</a></h1>
       <div id="tabs_outter_container">
         <div class="tab_bar" id="user_tools">
-          {% url 'dashboard' as url_dashboard %}
-          <div class="tab iconic {% if request.path == url_dashboard %}selected{% endif %}" id="home_button">
-            <a href="{{ url_dashboard }}">Dashboard</a>
+
+          <div class="tab iconic {% if 'dashboard'|is_include:request.path %}selected{% endif %}" id="home_button">
+            <a href="{% url 'dashboard' %}">Dashboard</a>
             <span class="tab_notice new_post_notice_container" id="new_post_notice_container" style="display: none;"><span class="tab_notice_value"></span><span class="tab_notice_nipple"></span></span>
             <div class="selection_nipple"></div>
           </div>
-          {% url 'inbox' as url_inbox %}
-          <div class="tab iconic {% if request.path == url_inbox %}selected{% endif %}" id="inbox_button">
-            <a href="{{ url_inbox }}">Inbox</a>
+
+          <div class="tab iconic {% if 'inbox'|is_include:request.path %}selected{% endif %}" id="inbox_button">
+            <a href="{% url 'inbox' %}">Inbox</a>
             <div class="selection_nipple"></div>
           </div>
+
           <div class="tab iconic" id="help_button">
             <a href="#help">Help</a>
             <div class="selection_nipple white"></div>
           </div>
-          {% url 'settings' as url_settings %}
-          <div class="tab iconic {% if request.path == url_settings %}selected{% endif %}" id="preferences_button">
-            <a href="{{ url_settings }}">Preferences</a>
+
+          <div class="tab iconic {% if 'settings'|is_include:request.path %}selected{% endif %}" id="preferences_button">
+            <a href="{% url 'settings' %}">Preferences</a>
             <div class="selection_nipple white"></div>
           </div>
           <div class="tab iconic" id="logout_button">

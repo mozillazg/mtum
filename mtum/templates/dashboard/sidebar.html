@@ -31,7 +31,7 @@
             </div>
           </small>
         </div>
-        <div class="popover_menu_item ender" id="button_new_blog"><a href="http://www.tumblr.com/new/blog">Create a new blog<div class="recession_shadow"></div></a></div>
+        <div class="popover_menu_item ender" id="button_new_blog"><a href="">Create a new blog<div class="recession_shadow"></div></a></div>
       </div>
       <div class="menu_nipple"></div>
     </div>
@@ -39,7 +39,7 @@
 
     <!-- Subnav -->
     <!-- Posts -->
-    <li id="posts_control" class="">
+    <li id="posts_control" class="{% if 'mine'|is_include:request.path %}selected{% endif %}">
       <a href="{% url 'mine' %}" class="posts">
         <div class="hide_overflow">Posts</div>
         <span class="count">{{ user|posts_numbers }}</span>
@@ -48,7 +48,7 @@
 
     {% if user|follower_numbers %}
     <!-- Follower -->
-    <li class="">
+    <li class="{% if 'followers'|is_include:request.path %}selected{% endif %}">
       <a class="followers" href="{% url 'followers' %}">
         <div class="hide_overflow">Followers</div>
         <span class="count">{{ user|follower_numbers }}</span>
@@ -59,7 +59,7 @@
 
     <!-- Drafts -->
     <li class="dashboard_drafts count_0">
-      <a href="http://www.tumblr.com/blog/mozillazg/drafts" class="drafts">
+      <a href="" class="drafts">
         <div class="hide_overflow">Drafts</div>
         <span class="count">0</span>
       </a>    
@@ -67,7 +67,7 @@
 
     <!-- Processing video -->
     <li class="dashboard_transcoding count_0">
-      <a href="http://www.tumblr.com/blog/mozillazg/processing" class="processing">
+      <a href="" class="processing">
         <div class="hide_overflow">Processing</div>
         <span class="count">0</span>
       </a>
@@ -75,7 +75,7 @@
 
     <!-- Queue -->
     <li class="dashboard_queued_post count_0">
-      <a href="http://www.tumblr.com/blog/mozillazg/queue" class="queue">
+      <a href="" class="queue">
         <div class="hide_overflow">Queue</div>
         <span class="count">0</span>
       </a>
@@ -88,14 +88,14 @@
 
     <!-- Liked posts -->
 
-    <li class="">
+    <li class="{% if 'likes'|is_include:request.path %}selected{% endif %}">
       <a href="{% url 'likes' %}" class="likes">
         <div class="hide_overflow">Liked {{ user|liked_numbers }} post</div>
       </a>
     </li>
 
     <!-- Following -->
-    <li class="no_push ">
+    <li class="no_push {% if 'following'|is_include:request.path %}selected{% endif %}">
       <a href="{% url 'following' %}" class="following">
         <div class="hide_overflow">Following {{ user|following_numbers }} blog<span class="sub_control link_arrow">►</span>
         </div>

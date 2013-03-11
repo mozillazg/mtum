@@ -3,6 +3,7 @@
 
 from django import template
 from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import resolve
 
 from post.models import Like
 from post.models import Post
@@ -82,3 +83,24 @@ def get_blog_url(user):
     """
     return reverse_lazy('user_index',
                         kwargs={'user_slug': user.get_profile().slug})
+
+
+@register.filter
+def is_include(nav_name, path):
+    """
+    """
+    nav = reverse_lazy(nav_name)
+    path_name = resolve(path).url_name
+    dashboard_sub = ['dashboard', 'mine', 'likes', 'following', 'followers',
+                     'new_text', 'new_photo', 'new_video', 'edit_post']
+    inbox_sub = ['inbox', 'send', 'reply']
+    settings_sub = ['settings']
+
+    if path == nav:
+        return True
+    elif nav_name == 'dashboard' and path_name in dashboard_sub:
+        return True
+    elif nav_name == 'inbox' and path_name in inbox_sub:
+        return True
+    elif nav_name == 'settings' and path_name in settings_sub:
+        return True

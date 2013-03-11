@@ -11,8 +11,10 @@
 {% endblock %}
 
 
-{% block main %}<div id="content" class="clearfix">
-<div class="followers" id="left_column">
+{% block main %}
+<div id="content" class="clearfix">
+
+  <div class="followers" id="left_column">
     <div class="white_pane">
 
     <div class="title_and_controls">
@@ -44,6 +46,8 @@
     <div class="clear"></div>
   </div>
 </div>
+
+{% include "dashboard/sidebar.html" %}
 
 </div>
 {% endblock %}

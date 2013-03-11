@@ -1,0 +1,149 @@
+{% load url from future %}
+{% load account_extras %}
+{% load dashboard_extras %}
+
+
+
+<div id="right_column" class="">
+  <ul class="controls_section" id="dashboard_controls_open_blog">
+    <!-- Open blog -->
+    <li class="no_push popover_button" id="popover_button_blogs">
+      <div class="open_blog with_subtitle">
+        <a class="currently_selected_blog hide_overflow">{{ user.get_profile.title }}</a><span class="sub_control link_arrow"></span>
+        <small>
+          <div class="hide_overflow">
+            <a id="open_blog_link" href="{% url 'user_index' user.get_profile.slug %}" target="_top">{% url 'user_index' user.get_profile.slug %}</a>&nbsp;<small id="blog_url_arrow"></small>
+          </div>
+        </small>
+      </div>
+    </li>
+
+    <div id="popover_blogs" class="popover popover_menu popover_gradient" style="display: none;">
+      <div class="popover_inner">
+        <div draggable="true" class=" popover_menu_item item" id="menuitem-mozillazg">
+          <div class="blog_icon" style="background-image: url('{{ user|get_avatar:40 }}');"></div>
+          <a draggable="false" href="{% url 'user_index' user.get_profile.slug %}">
+            {{ user.get_profile.title }}
+          </a>
+          <small>
+            <div class="hide_overflow">
+              {% url 'user_index' user.get_profile.slug %}
+            </div>
+          </small>
+        </div>
+        <div class="popover_menu_item ender" id="button_new_blog"><a href="http://www.tumblr.com/new/blog">Create a new blog<div class="recession_shadow"></div></a></div>
+      </div>
+      <div class="menu_nipple"></div>
+    </div>
+
+
+    <!-- Subnav -->
+    <!-- Posts -->
+    <li id="posts_control" class="">
+      <a href="{% url 'mine' %}" class="posts">
+        <div class="hide_overflow">Posts</div>
+        <span class="count">{{ user|posts_numbers }}</span>
+      </a>
+    </li>
+
+    {% if user|follower_numbers %}
+    <!-- Follower -->
+    <li class="">
+      <a class="followers" href="{% url 'followers' %}">
+        <div class="hide_overflow">Followers</div>
+        <span class="count">{{ user|follower_numbers }}</span>
+      </a>
+    </li>
+    {% endif %}
+
+
+    <!-- Drafts -->
+    <li class="dashboard_drafts count_0">
+      <a href="http://www.tumblr.com/blog/mozillazg/drafts" class="drafts">
+        <div class="hide_overflow">Drafts</div>
+        <span class="count">0</span>
+      </a>    
+    </li>
+
+    <!-- Processing video -->
+    <li class="dashboard_transcoding count_0">
+      <a href="http://www.tumblr.com/blog/mozillazg/processing" class="processing">
+        <div class="hide_overflow">Processing</div>
+        <span class="count">0</span>
+      </a>
+    </li>
+
+    <!-- Queue -->
+    <li class="dashboard_queued_post count_0">
+      <a href="http://www.tumblr.com/blog/mozillazg/queue" class="queue">
+        <div class="hide_overflow">Queue</div>
+        <span class="count">0</span>
+      </a>
+    </li>
+  </ul>
+
+
+  <ul class="controls_section">
+
+
+    <!-- Liked posts -->
+
+    <li class="">
+      <a href="{% url 'likes' %}" class="likes">
+        <div class="hide_overflow">Liked {{ user|liked_numbers }} post</div>
+      </a>
+    </li>
+
+    <!-- Following -->
+    <li class="no_push ">
+      <a href="{% url 'following' %}" class="following">
+        <div class="hide_overflow">Following {{ user|following_numbers }} blog<span class="sub_control link_arrow">►</span>
+        </div>
+      </a>
+    </li>
+
+    <!-- Find Blogs -->
+    <li class="no_push">
+      <a href="#spotlight" class="spotlight">
+        <div class="hide_overflow">Find blogs<span class="sub_control link_arrow">►</span></div>
+      </a>
+    </li>
+
+  </ul>
+
+
+  <!-- Radar -->
+
+  <!-- <div id="tumblr_radar" class="radar radar_type_photo is_media" data-post-id="27340924906" data-tumblelog="uffyflup" data-direct-follow-url="/directfollow/3f8l1GWxOU7Ep2A/4/0/1/uffyflup"> -->
+    <!-- <div class="radar_post"> -->
+      <!-- <div class="radar_content"> -->
+
+        <!-- <div class="post photo_post"> -->
+          <!-- <a href="http://uffyflup.tumblr.com/post/27340924906/shiba-inu-pool-party-photographs-c-takyua-baby" onclick="this.href = '/goto/3f8l1GWxOU7Ep2A/4/0/1/uffyflup?path=%2Fpost%2F27340924906%2Fshiba-inu-pool-party-photographs-c-takyua-baby'" style="background-image: url('tumblr_m79kqzvumr1qjhd8wo1_250.jpg');" class="thumbnail_anchor"> -->
+            <!-- <img title="http://25.media.tumblr.com/tumblr_m79kqzVUMr1qjhd8wo1_250.jpg  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/tumblr_m79kqzvumr1qjhd8wo1_250.jpg" ilo-ph-fix="fixed" ilo-full-src="http://25.media.tumblr.com/tumblr_m79kqzVUMr1qjhd8wo1_250.jpg" class="photo_thumbnail" alt="Radar Photo" src="tumblr_m79kqzvumr1qjhd8wo1_250.jpg" height="144" width="215"> -->
+
+            <!-- </a>         -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- <div class="radar_controls"> -->
+        <!-- <div class="radar_controls_buttons"> -->
+          <!-- <a href="http://www.tumblr.com/follow/uffyflup" class="radar_button first follow" title="Follow"><i>Follow</i></a> -->
+          <!-- <a href="http://www.tumblr.com/reblog/27340924906/nInt3qOf?redirect_to=%2Fdashboard" class="radar_button middle reblog reblog_button " data-post-type="photo" data-reblog-key="nInt3qOf" data-reblog-id="27340924906" data-user-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw" title="Reblog"><i>Reblog</i></a> -->
+          <!-- <a href="#like" class="radar_button last like" title="Like" data-reblog-key="nInt3qOf"><i>Like</i></a> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- <div class="radar_footer"> -->
+      <!-- <a href="http://uffyflup.tumblr.com/post/27340924906/shiba-inu-pool-party-photographs-c-takyua-baby" class="radar_avatar" onclick="this.href = '/goto/3f8l1GWxOU7Ep2A/4/0/1/uffyflup?path=%2Fpost%2F27340924906%2Fshiba-inu-pool-party-photographs-c-takyua-baby';"> -->
+        <!-- <span class="radar_tumblelog_avatar" style="background-image: url('avatar_e4aa0fc1a01d_30.png');"><img title="http://25.media.tumblr.com/avatar_e4aa0fc1a01d_30.png  file:///D:/Settings/Mozilla/ScrapBook/data/20130207143219/avatar_e4aa0fc1a01d_30.png" ilo-ph-fix="fixed" alt="[Image]" ilo-full-src="http://25.media.tumblr.com/avatar_e4aa0fc1a01d_30.png" src="avatar_e4aa0fc1a01d_30.png" height="30" width="30"></span> -->
+        <!-- <span class="radar_tumblelog_label"> -->
+          <!-- <span class="name">uffyflup</span> -->
+          <!-- <span class="subheading">Tumblr Radar</span> -->
+          <!-- </span> -->
+        <!-- </a> -->
+      <!-- </div> -->
+    <!-- </div> -->
+
+  <!-- Language beta prompt -->
+  <div class="clear"></div>
+</div>

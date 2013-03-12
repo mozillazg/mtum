@@ -7,7 +7,7 @@
 
 {% block css %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/following.css" media="all">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/following.css?002" media="all">
 {% endblock %}
 
 
@@ -33,10 +33,13 @@
           <div class="name"><a href="{{ follower|get_blog_url }}">{{ username }}</a></div>
           <div class="description"><a data-user-name="{{ username }}" class="ignore" href="#">ignore</a></div>
         </div>
-        <div class="controls">
+        {% if not user|is_following:follower %}
+        <div class="controls" id="controls_{{ username }}">
           <span style="display: none;" class="loading_animation" id="loading_{{ username }}"></span>
-          <a href="{% url 'follow' follower.get_profile.slug %}"><button id="follow_button_" class="chrome blue big follow_button" data-user-name="{{ username }}" data-form-key="fdx8oYTujh4LqC7u3sz98ZmuoQw">Follow</button></a>
+          {% url 'follow' follower.get_profile.slug as follow_url %}
+          <a href="{{ follow_url }}" onclick="follow('{{ follow_url }}', '#controls_{{ username }}', '#loading_{{ username }}'); return false;"><button id="follow_button_{{ follower.id }}" class="chrome blue big follow_button" data-user-name="{{ username }}" data-form-key="">Follow</button></a>
         </div>
+        {% endif %}
       </div>
       {% endwith %}
       {% endfor %}
@@ -50,4 +53,21 @@
 {% include "dashboard/sidebar.html" %}
 
 </div>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+<script>
+  function follow(url, hiden, show) {
+    $(hiden).hide();
+    $(show).show();
+    $.ajax({
+      url: url,
+      success: function(data) {
+        $(show).hide();
+      }
+    });
+  }
+</script>
 {% endblock %}

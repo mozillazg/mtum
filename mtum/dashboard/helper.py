@@ -45,10 +45,10 @@ def media_wall(keyword=None, split_number=3):
     """Group posts
     e.g. media_wall([1, 2, 3, 4, 5, 6, 7]) -- > [[1, 2, 3], [4, 5, 6], [7]]
     """
-    tag = slugify(unidecode(keyword))
     posts = Post.objects.filter(Q(kind='P') | Q(kind='T'))
     posts = posts.filter(reblog__isnull=True)
     if keyword:
+        tag = slugify(unidecode(keyword))
         posts = posts.filter(Q(tags__name__icontains=keyword)
                              | Q(tags__slug__icontains=tag)
                              | Q(content__icontains=keyword)

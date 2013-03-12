@@ -95,7 +95,8 @@
     </li>
 
     <!-- Following -->
-    <li class="no_push {% if 'following'|is_include:request.path %}selected{% endif %}">
+    <!--<li class="no_push >-->
+    <li class="{% if 'following'|is_include:request.path %}selected{% endif %}">
       <a href="{% url 'following' %}" class="following">
         <div class="hide_overflow">Following {{ user|following_numbers }} blog<span class="sub_control link_arrow">►</span>
         </div>

@@ -9,6 +9,16 @@ from .models import Like
 from .models import Follow
 
 
+def mark_as_featured(modeladmin, request, queryset):
+    queryset.update(kind='F')
+    mark_as_featured.short_description = 'Mark selected tag as featured'
+
+
+def mark_as_normal(modeladmin, request, queryset):
+    queryset.update(kind='N')
+    mark_as_normal.short_description = 'Mark selected tag as normal'
+
+
 class LikeAdmin(admin.ModelAdmin):
     list_display = ('author', 'post')
 
@@ -22,7 +32,13 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     list_filter = ('created_at', 'kind')
 
-admin.site.register(Tag)
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'kind')
+    list_filter = ('kind',)
+    actions = (mark_as_featured, mark_as_normal)
+
+admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Like, LikeAdmin)
 admin.site.register(Follow, FollowAdmin)

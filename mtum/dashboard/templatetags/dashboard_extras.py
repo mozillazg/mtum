@@ -112,7 +112,7 @@ def is_include(nav_name, path):
 def blog_index(name):
     name = name.group()
     url = reverse_lazy('user_index', kwargs={'user_slug': slugify(name)})
-    return '[%s](%s)' % (name, url)
+    return '**[%s](%s)**' % (name, url)
 
 
 @register.filter

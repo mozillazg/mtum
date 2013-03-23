@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
+
 from django import template
 from django.core.urlresolvers import reverse_lazy
 from django.core.urlresolvers import resolve
+from django.template.defaultfilters import slugify
 
 from post.models import Like
 from post.models import Post
@@ -104,3 +107,16 @@ def is_include(nav_name, path):
         return True
     elif nav_name == 'settings' and path_name in settings_sub:
         return True
+
+
+def blog_index(name):
+    name = name.group()
+    url = reverse_lazy('user_index', kwargs={'user_slug': slugify(name)})
+    return '[%s]<%s>' % (name, url)
+
+
+@register.filter
+def at_link(text):
+    name_re = re.compile(r'(?m)(?<=@)\w[-\w]*(?=\s|$)')
+    text = re.sub(name_re, blog_index, text)
+    return text

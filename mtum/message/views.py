@@ -21,7 +21,7 @@ from .utils import bad_request
 def inbox(request, template='message/index.html', extra_context=None):
     all_messages = Message.objects.filter(recipient=request.user)
     all_messages = all_messages.filter(is_denied=False)
-    all_messages = all_messages.order_by('-sent_at').order_by('is_read')
+    all_messages = all_messages.order_by('is_read').order_by('-sent_at')
 
     context = {
         'all_messages': all_messages,

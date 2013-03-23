@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load dashboard_extras %}
 {% load markup %}
 
 <div data-animated-gif="false" data-tumblelog="hyperform" data-id="{{ post.id }}" data-grow-height="403" data-grow-width="323" data-effect="grow" data-lightbox="true" data-type="photo"
@@ -18,7 +19,7 @@
   <div class="stage">
     <div class="overfade"></div>
     <div class="content">
-      {{ post.content|markdown:"safe" }}
+      {{ post.content|at_link|markdown:"safe" }}
     </div>
     <a target="_blank" href="{% url 'post_detail' post.author.get_profile.slug post.id %}" class="go"></a>
     </div>

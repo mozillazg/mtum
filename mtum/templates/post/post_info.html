@@ -57,7 +57,7 @@
     {% endifequal %}
 
     <div class="caption">
-      {{ post.content|markdown:"safe" }}
+      {{ post.content|at_link|markdown:"safe" }}
     </div>
 
     {% with post.tags.all as tags %}

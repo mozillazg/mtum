@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load markup %}
 {% load endless %}
 {% load account_extras %}
 {% load dashboard_extras %}
@@ -15,7 +16,7 @@
   <span class="arrow" style="background-image:url('{{ sender|get_avatar:64 }}')" ></span>
 
   <div style="height:17px; width:100%;
-    background:bottom left repeat-x url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_top.png?1086') transparent;"></div>    
+    background:bottom left repeat-x url('{{ STATIC_URL }}img/paper_white-lined-1_top.png?1086') transparent;"></div>    
   <div class="avatar_and_i">
     <a href="{{ sender|get_blog_url }}" class="post_avatar" style="background-image:url('{{ sender|get_avatar:64 }}');"></a>
   </div>
@@ -27,10 +28,10 @@
     -moz-border-radius-bottomleft: 6px;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    background:top left repeat-y url('http://assets.tumblr.com/images/fan_mail/paper_white-lined-1_repeat.png?1086') #FDFDFD; font:normal 24px/40px Courier, monospace;">
+    background:top left repeat-y url('{{ STATIC_URL }}img/paper_white-lined-1_repeat.png?1086') #FDFDFD; font:normal 24px/40px Courier, monospace;">
 
 
-    <span id="{{ message.id }}_message_body" >{{ message.message|linebreaks }}</span>
+    <span id="{{ message.id }}_message_body" >{{ message.message|at_link|markdown:"safe" }}</span>
 
     <br />
     <div style="text-align:right">&mdash; <a href="{{ sender|get_blog_url }}" style="text-decoration:none;">{{ sender.username }}</a></div>
